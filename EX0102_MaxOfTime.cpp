@@ -1,15 +1,23 @@
 #include <iostream>
-#include <string>
+#include <string.h>
 using namespace std;
-string KiemTra(string time){
+void Cat(char timetmp[], char time[]){
+    int k=0;
+    for(int i=7;i<strlen(timetmp);i++){
+        time[k]=timetmp[i];
+        k++;
+    }
+    time[k]='\0';
+}
+void KiemTra(char time[]){
     char d='?';
-    for(int i=1;i<time.length()-1;i++){
+    for(int i=0;i<strlen(time);i++){
         if(time[i]==d && i==1){
             if(time[i+1]==d){
                 time[i]='2';
                 time[i+1]='3';
             }
-            else if((int)(time[i+1]-'0')<=2) 
+            else if((int)(time[i+1]-'0')<=3) 
                 time[i]='2';
             else 
                 time[i]='1';
@@ -25,17 +33,19 @@ string KiemTra(string time){
         if(time[i]==d && i==5){
             time[i]='9';
         }
+        cout<<time[i];
 
     }
-    return time;
 }
 int main(){
     int t;
     cin>>t;
+    cin.ignore();
     while(t--){
-        string time;
-        cout<<"time = ";
-        cin>>time;
-        cout<<KiemTra(time)<<endl;
+        char timetmp[20];
+        fgets(timetmp, sizeof(timetmp)+1, stdin);
+        char time[10];
+        Cat(timetmp, time);
+        KiemTra(time);
     }
 }
