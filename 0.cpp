@@ -1,31 +1,38 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int kiemtraNT(int so)
-{
-int dem=0;
-for(int i=1;i<=so;i++)
-{
-if(so%i==0)
-{
-dem++;
+typedef long double ld;
+ld Tu(int &n, ld x){
+  ld tu = pow(x, n);
+  return tu;
 }
-if(dem==2)
-{
-return 1;
-}
-else
-{
- return 0;
- }
-}
-}
-     int main()
-     {
-      for(int i=1;i<=100;i++)
-      {
-
-   if(kiemtraNT(i)==1);  
-   cout<<i<<" "; 
- }
-  return 0;
+ld Mau(int &n){
+  ld mau = 0;
+  for(int i=n;i>0;i--){
+    mau+=i;
   }
+  return mau;
+}
+ld PS(int &n, ld x){
+  return Tu(n, x)/Mau(n);
+}
+ld Tong(int n, ld x){
+  int tmp=1;
+  ld Sum=0;
+  while(tmp<=n){
+    Sum += PS(tmp,x);
+    tmp++;
+  }
+  Sum = trunc(1000*Sum)/1000;
+  return Sum;
+}
+
+int main(){
+  int test, n;
+  ld x;
+  cin>>test;
+  while(test--){
+    cin>>n>>x;
+    cout<<fixed<<setprecision(3)<<Tong(n,x)<<endl;
+
+  }
+}
