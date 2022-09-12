@@ -2,8 +2,8 @@
 #include <cmath>
 #include <iomanip>
 using namespace std;
-long double Tong(double x, int n){
-    long double result = 0;
+float Tong(double x, int n){
+    float result = 0; // KQ phải ra float bài mới đúng :))
     long double tu = 1;
     int mau = 0;
     for(int i=1;i<=n;i++){

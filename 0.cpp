@@ -15,9 +15,9 @@ ld Mau(int &n){
 ld PS(int &n, ld x){
   return Tu(n, x)/Mau(n);
 }
-ld Tong(int n, ld x){
+float Tong(int n, ld x){
   int tmp=1;
-  ld Sum=0;
+  float Sum=0;
   while(tmp<=n){
     Sum += PS(tmp,x);
     tmp++;
