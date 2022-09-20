@@ -5,6 +5,7 @@
         "vector": "cpp",
         "valarray": "cpp",
         "functional": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "regex": "cpp"
     }
 }
