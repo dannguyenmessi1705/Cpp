@@ -36,17 +36,6 @@ void SUM(string &n1, string &n2){
     
     for(int i=k-1;i>=0;i--) cout<<tmp[i];
 }
-void MUL(string n1, string n2){
-    if(n1.length()<n2.length()){
-        swap(n1, n2);
-    }
-    int l = n2.length();
-    string mul[l];
-    for(int i=1;i<l;i++){
-        
-    }
-    
-}
 int main(){
     string n1;
     string n2;
