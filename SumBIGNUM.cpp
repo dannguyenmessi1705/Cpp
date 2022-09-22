@@ -39,9 +39,13 @@ void SUM(string &n1, string &n2){
 int main(){
     string n1;
     string n2;
-    cin>>n1;
-    cin.ignore();
-    cin>>n2;
-    cin.ignore();
-    SUM(n1, n2);
+    int test;
+    cin>>test;
+    while(test--){
+        cin.ignore();
+        cin>>n1;
+        cin>>n2;
+        SUM(n1, n2);
+        cin>>endl;
+    }
 }
