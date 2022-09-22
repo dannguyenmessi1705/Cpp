@@ -41,11 +41,11 @@ int main(){
     string n2;
     int test;
     cin>>test;
+    cin.ignore();
     while(test--){
-        cin.ignore();
         cin>>n1;
         cin>>n2;
         SUM(n1, n2);
-        cin>>endl;
+        cout<<endl;
     }
 }
