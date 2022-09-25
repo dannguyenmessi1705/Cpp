@@ -1,19 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long double ld;
-ld Calculate(ld x, int n){
-    ld kq=0;
+float Mu(float x, int i){
+    float gt=1;
+    for(int k=1;k<=i;k++) gt*=x;
+    return gt;
+}
+float Calculate(float x, int n){
+    float kq=0;
     for(int i=1;i<=n;i++){
-        ld GT = pow(x,i);
-        ld can = 1.0/(i+1);
-        kq = pow(kq + GT, can);
+        kq = sqrt(Mu(x,i)+kq);
     }
     return kq;
 }
 int main(){
     int test;
     int n;
-    ld x;
+    float x;
     cin>>test;
     while(test--){
         cin>>n;
