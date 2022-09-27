@@ -1,37 +1,28 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include<bits/stdc++.h>
 #define PI 3.14159265358979323846
-typedef unsigned long long int lli;
-typedef long double ld;
-lli GT(int n){
-    if(n==0 || n==1) return 1;
-    return n * GT(n-1);
-}
-ld DegtoRad(ld x){
-    x = x/PI*180;
-    return x;
-}
-ld RadtoDeg(ld x){
-    x = x * PI /180;
-    return x;
-}
-ld Sin(ld x){
-    ld kq=0.0;
-    x = RadtoDeg(x);
-    for(int i=0;i<=10;i++){
-        kq += pow(-1, i) * pow(x, 2*i+1) / GT(2*i+1);
+#define epsilon 0.00001
+using namespace std;
+float SinX(float x){
+    while(x > 2*PI)
+        x-=2*PI;
+    float mau = 1.0;
+    float tu = x;
+    float sinx = x;
+    int dau = -1;
+    for(int i=1;(tu/mau)>epsilon;i++){
+        tu*=x*x;
+        mau*=(2*i)*(2*i+1);
+        sinx+=dau*(tu/mau);
+        dau=-dau;
     }
-    return kq;
+    return sinx;
 }
-
-int main(){
-    int test;
-    ld x;
-    cin>>test;
-    while (test--)
-    {
+int main() {
+    int t;
+    cin>>t;
+    while (t--) {
+    	float x;
         cin>>x;
-        cout<<fixed<<setprecision(6)<<Sin(DegtoRad(x))<<endl;
+        cout<<fixed<<setprecision(6)<<SinX(x)<<endl;
     }
-    
 }
