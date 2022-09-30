@@ -6,6 +6,7 @@
         "valarray": "cpp",
         "functional": "cpp",
         "iomanip": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "ostream": "cpp"
     }
 }
