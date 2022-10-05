@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 string IP;
+// Check Chi so y - x de tach thanh 1 doan
 bool CheckIP(int x, int y){
     int sum = 0;
-    if(y-x+1 > 3) return false; // Check tach doan neu lon hon 3
+    if(y-x+1 > 3) return false; // Check tach doan neu lon hon 3 thi sai
     if(IP[x]=='0'){ // Check neu co so 0 thi chi xet do dai cua no bang 1 tao thanh 1 doan moi thoa man, neu do dai >= 1 thi xet TH khac, vi du 012. == 12.
         if(y-x+1==1) return true;
         return false;
