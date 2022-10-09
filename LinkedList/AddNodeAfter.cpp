@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
-
+static long long so_phan_tu_trong_DS = 0; // Dung de dem so luong phan tu trong DS, moi lan them hay nhap thi bien nay se tang
+                                          // Tranh dung vong lap for de tranh truong hop trong DS chua rat nhieu phan tu, lam cham thuat toan
 // Khai bao cau truc 1 node
 struct node{
     int data; // Du lieu chua trong 1 node
@@ -33,7 +34,9 @@ NODE *KhoiTaoNode(int x){
 }
 
 // Ham dem so phan tu trong Danh sach lien ket don
-long long Dem(LIST l){
+long long Dem(LIST l){ // Khong nen dung cach nay de dem, vi neu so luong phan tu len den hang trieu phan tu thi se lam cho
+                       // thuat toan bi qua thoi gian chay
+                       // Nen khai bao 1 bien tinh toan cuc nhu o tren la bien so_luong_phan_tu
     long long count = 0;
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         count++;
@@ -46,10 +49,12 @@ void ThemVaoDau(LIST &l, NODE *p){
     // Check danh sach co rong hay khong
     if(l.pHead==NULL){
         l.pHead = l.pTail = p; // Node dau cung la node cuoi
+        so_phan_tu_trong_DS++;
     }
     else{
         p->pNext = l.pHead; // Cho con tro cua node p->pNext lien ket voi node l.pHead
         l.pHead = p; // Cap nhap lai cho node dau l.pHead chinh la node p
+        so_phan_tu_trong_DS++;
     }
 }
 
@@ -58,10 +63,12 @@ void ThemvaoCuoi(LIST &l, NODE *p){
     // Check danh sach co rong khong
     if(l.pHead==NULL){
         l.pHead = l.pTail = p; // node dau cung la node cuoi
+        so_phan_tu_trong_DS++;
     }
     else{
         l.pTail->pNext = p; // Cho con tro cua pTail->pNext lien ket voi node p
         l.pTail = p; // Cap nhat lai node p chinh la pTail 
+        so_phan_tu_trong_DS++;
     }
 }
 void XuatDS(LIST l){
@@ -92,6 +99,7 @@ void ThemNodePVaoSauNodeQ(LIST &l, NODE *p){
                 NODE *tmp = k->pNext; // cho node tmp tro den sau node q
                 h->pNext = tmp; // B1: Tao moi lien ket tu node p den node tmp <=> cung chinh la tao moi lien ket tu node p den node nam sau node q
                 k->pNext = h; // B2: Tao moi lien ket tu node q den node p <=> chinh la node k den node p
+                so_phan_tu_trong_DS++;
 
 
             }
@@ -120,6 +128,7 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
                                                     // khong bi lam mat lien ket giua cac node
                 tmp->pNext = k; // B1: tro tmp->pNext den node sau cua no la node k de tao lien ket
                 g->pNext = tmp; // B2: tro node g->pNext truoc node tmp de tao lien ket, => g -> tmp -> k
+                so_phan_tu_trong_DS++;
             }
             g = k; // Sau moi 1 vong lap gan node g = node k de giu lien ket cac node truoc q
                    // cung nhu de thuc hien baii toan them node p vao sau node g <=> them node p vao truoc node q
@@ -148,6 +157,7 @@ void ThemNodePVaoViTriBatKy(LIST &l, NODE *p, long long pos){
                 NODE *tmp = KhoiTaoNode(p->data); // Khoi tao 1 node co gia tri cua node P de tranh bi trung dia chi
                 tmp->pNext = k; // Neu dung vi tri can them thi cho node tmp lien ket voi node o vi tri do, dong thoi day node o vi tri do xuong vi tri pos+1
                 g->pNext = tmp; // Cho con tro pNext cua node truoc tro den tmp => tmp chinh la node sau khi chen vao vi tri pos
+                so_phan_tu_trong_DS++;
                 break; // xet den vi tri do xong coi nhu xong bai toan roi, nen break cho nhanh :))
             }
             g = k; // Luu lai, giu lien ket voi cac node truoc do
@@ -210,7 +220,7 @@ void Menu(LIST l){
 
         }
         else if(choice == 5){
-            cout<<"\t\tSo luong phan tu trong sanh sach lien ket la: "<<Dem(l)<<"\n\t\t";
+            cout<<"\t\tSo luong phan tu trong sanh sach lien ket la: "<<so_phan_tu_trong_DS<<"\n\t\t";
             system("pause");
         }
         else if(choice == 6){
@@ -219,7 +229,7 @@ void Menu(LIST l){
             cin>>x;
             NODE *p = KhoiTaoNode(x);
             int pos;
-            long long so_luong = Dem(l);
+            long long so_luong = so_phan_tu_trong_DS;
             do{
                 cout<<"\t\tNhap vi tri can them, trong khoang [1, "<<so_luong+1<<"]: "; // Vi tri phai tu 1 den pos+1 vi neu truong hop them vao cuoi thi node se o vi tri pos+1
                 cin>>pos;
