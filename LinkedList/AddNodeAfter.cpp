@@ -32,6 +32,15 @@ NODE *KhoiTaoNode(int x){
     return p;
 }
 
+// Ham dem so phan tu trong Danh sach lien ket don
+long long Dem(LIST l){
+    long long count = 0;
+    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        count++;
+    } 
+    return count;
+}
+
 //Them Node vao dau danh sach
 void ThemVaoDau(LIST &l, NODE *p){
     // Check danh sach co rong hay khong
@@ -98,7 +107,7 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
     cin>>x; // Nhap gia tri de tim node q
     NODE *q = KhoiTaoNode(x); // Khoi tao node q voi data la int x
     NODE *g = new NODE; // node nay de giu lien ket voi cac node truoc q
-    // Neu danh sach lien ket chi co 1 node, va node do dung = node q. bai toan tro thanh them vao dau
+    // Neu danh sach lien ket chi co 1 node, va node do dung = node q => bai toan tro thanh them vao dau
     if(q->data == l.pHead->data && l.pHead->pNext == NULL){
         ThemVaoDau(l, p);
     }
@@ -117,6 +126,35 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
         }
     }
 }
+
+// Ham them node p vao 1 vi tri bat ky trong dach sach lien ket
+void ThemNodePVaoViTriBatKy(LIST &l, NODE *p, long long pos){
+    long long so_luong = Dem(l); // lay so luong phan tu trong danh sach lien ket
+    // Neu danh sach dang la rong hoac muon them node vao vao vi tri dau tien => tro thanh bai toan ThemVaoDau
+    if(l.pHead == NULL || pos == 1){
+        ThemVaoDau(l, p);
+    }
+    // Neu vi tri muon them la vi tri cuoi cung => Bai toan tro thanh ThemVaoCuoi
+    else if(pos == so_luong+1){ // so_luong+1 vi ban dau chi co so_luong phan tu trong node, them vao vi tri cuoi cung chinh la sau node cuoi cung cua DS
+        ThemvaoCuoi(l, p);
+    }
+    // Neu vi tri muon them vao la vi tri nam trong khoang tu [2, so_luong] => Su dung bai toan ThemNodePvaoTruocNodeQ, khac o cho ko biet truoc node Q
+    else{
+        long long dem = 0; // su dung bien dem de check xem da tro den vi tri pos can them chua
+        NODE *g = new NODE; // Khoi tao node tmp de giu lien ket voi cac node truoc
+        for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+            dem++;
+            if(dem == pos){
+                NODE *tmp = KhoiTaoNode(p->data); // Khoi tao 1 node co gia tri cua node P de tranh bi trung dia chi
+                tmp->pNext = k; // Neu dung vi tri can them thi cho node tmp lien ket voi node o vi tri do, dong thoi day node o vi tri do xuong vi tri pos+1
+                g->pNext = tmp; // Cho con tro pNext cua node truoc tro den tmp => tmp chinh la node sau khi chen vao vi tri pos
+                break; // xet den vi tri do xong coi nhu xong bai toan roi, nen break cho nhanh :))
+            }
+            g = k; // Luu lai, giu lien ket voi cac node truoc do
+        }
+    }
+}
+
 void Menu(LIST l){
     int choice;
     while(1){ // Lap vo han
@@ -127,12 +165,14 @@ void Menu(LIST l){
         cout<<"\n\t\t2. In danh sach lien ket don";
         cout<<"\n\t\t3. Chen node q vao sau node q";
         cout<<"\n\t\t4. Chen node q vao truoc node q";
+        cout<<"\n\t\t5. So luong phan tu trong danh sach";
+        cout<<"\n\t\t6. Chen node q vao vi tri bat ky trong danh sach";
         cout<<"\n\t\t0. Thoat Menu";
         cout<<"\n\t\t----------------------------";
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
-        if(choice<0 || choice>4){
+        if(choice<0 || choice>6){
             cout<<"\t\tBan da nhap sai cu phap!!!";
             cout<<"\n\t\t";
             system("pause");
@@ -168,6 +208,27 @@ void Menu(LIST l){
             ThemNodePVaoTruocNodeQ(l, p); // them node p vao truoc node q
 
 
+        }
+        else if(choice == 5){
+            cout<<"\t\tSo luong phan tu trong sanh sach lien ket la: "<<Dem(l)<<"\n\t\t";
+            system("pause");
+        }
+        else if(choice == 6){
+            int x;
+            cout<<"\t\tNhap gia tri so nguyen can them: ";
+            cin>>x;
+            NODE *p = KhoiTaoNode(x);
+            int pos;
+            long long so_luong = Dem(l);
+            do{
+                cout<<"\t\tNhap vi tri can them, trong khoang [1, "<<so_luong+1<<"]: "; // Vi tri phai tu 1 den pos+1 vi neu truong hop them vao cuoi thi node se o vi tri pos+1
+                cin>>pos;
+                if(pos<1 || pos>so_luong+1){
+                    cout<<"\t\tVi tri nhap khong dung, moi ban nhap lai: ";
+                    system("pause");
+                }
+            } while(pos<1 || pos>so_luong+1);
+            ThemNodePVaoViTriBatKy(l, p, pos);
         }
         else{
             cout<<"\t\tNhan ENTER de thoat: ";
