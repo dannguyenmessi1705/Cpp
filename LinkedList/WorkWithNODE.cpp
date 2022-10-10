@@ -68,6 +68,7 @@ void ThemvaoCuoi(LIST &l, NODE *p){
     else{
         l.pTail->pNext = p; // Cho con tro cua pTail->pNext lien ket voi node p
         l.pTail = p; // Cap nhat lai node p chinh la pTail 
+        l.pTail->pNext = NULL; // Cap nhat lai node cuoi tro den NULL
         so_phan_tu_trong_DS++;
     }
 }
@@ -81,6 +82,8 @@ void XoaDau(LIST &l){
     NODE *p = l.pHead;     // Gan 1 node p cho node dau
     l.pHead = l.pHead->pNext; // Gan node dau = node sau
     delete p; // Xoa node p la node dau tien di => node sai chinh la node dau tien
+    so_phan_tu_trong_DS--;
+
 }
 
 // Ham xoa NODE cuoi cung
@@ -96,11 +99,13 @@ void XoaCuoi(LIST &l){
     }
     // Neu co nhieu phan tu trong danh sach
     else{
+        NODE *p = l.pTail;
         for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-            if(k->pNext == l.pTail){ // Tim node o gan node cuoi
-                delete l.pTail; // Xoa node cuoi
+            if(k->pNext == p){ // Tim node o gan node cuoi
                 k->pNext = NULL; // Tro pNext cua node gan cuoi den NULL => node gan cuoi chinh la node cuoi
+                delete p; // Xoa node cuoi
                 l.pTail = k; // Cap nhat lai node cuoi chinh la k(node gan cuoi ban dau)
+                so_phan_tu_trong_DS--;
                 return;
             }
         }
@@ -128,6 +133,10 @@ void ThemNodePVaoSauNodeQ(LIST &l, NODE *p){
         // Duyet tu dau toi cuoi danh sach de tim node q
         for(NODE *k=l.pHead; k!=NULL; k=k->pNext){
             if(q->data == k->data){
+                if(k->pNext == NULL){ // Neu node k la node cuoi cung chinh la node q => bai toan tro thanh them vao cuoi
+                    ThemvaoCuoi(l, p);
+                    break;
+                }
                 NODE *h = KhoiTaoNode(p->data); // Them node h moi vao sau node q, muc dich de moi lan kiem tra 1 node = node q thi
                                                 // ta gan Khoi chay 1 node h moi de no co 1 dia chi moi, nhu vay luc them vao pointer vao se
                                                 // khong bi lam mat lien ket giua cac node
@@ -136,7 +145,6 @@ void ThemNodePVaoSauNodeQ(LIST &l, NODE *p){
                 h->pNext = tmp; // B1: Tao moi lien ket tu node p den node tmp <=> cung chinh la tao moi lien ket tu node p den node nam sau node q
                 k->pNext = h; // B2: Tao moi lien ket tu node q den node p <=> chinh la node k den node p
                 so_phan_tu_trong_DS++;
-
 
             }
         }
@@ -153,12 +161,17 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
     NODE *g = new NODE; // node nay de giu lien ket voi cac node truoc q
     // Neu danh sach lien ket chi co 1 node, va node do dung = node q => bai toan tro thanh them vao dau
     // Hoac muon them va truoc node q ma node q do o vi tri dau tien
-    if(q->data == l.pHead->data){
-        ThemVaoDau(l, p);
-    }
-    else{
+    // if(q->data == l.pHead->data){
+    //     ThemVaoDau(l, p);
+    //     so_phan_tu_trong_DS++;
+    // }
     // Neu danh sach lien ket co nhieu hon mot phan tu
         for(NODE *k = l.pHead; k != NULL; k=k->pNext){
+            // Neu danh sach lien ket co node = node q, ma node q do o vi tri dau tien => bai toan tro thanh them vao dau 
+            if(q->data == l.pHead->data){
+                ThemVaoDau(l, p);
+                continue;
+            }
             if(q->data == k->data){
                 NODE *tmp = KhoiTaoNode(p->data); // Them node tmp moi vao sau node q, muc dich de moi lan kiem tra 1 node = node q thi
                                                     // ta gan Khoi chay 1 node tmp moi de no co 1 dia chi moi, nhu vay luc them vao pointer vao se
@@ -169,7 +182,6 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
             }
             g = k; // Sau moi 1 vong lap gan node g = node k de giu lien ket cac node truoc q
                    // cung nhu de thuc hien baii toan them node p vao sau node g <=> them node p vao truoc node q
-        }
     }
 }
 
@@ -202,6 +214,28 @@ void ThemNodePVaoViTriBatKy(LIST &l, NODE *p, long long pos){
     }
 }
 
+
+// HAM XOA NODE SAU NODE Q
+void XoaNodeSauNodeQ(LIST &l, NODE *q){
+    // Neu DS lien ket chi co 1 phan tu duy nhat, phan tu do chinh la node q => Ko xoa duoc phan tu nao, Tra va DS 
+    if(l.pHead->data == q->data && l.pHead->pNext == NULL){
+        return;
+    }
+    // Neu Node q la node cuoi cung => Ko xoa duoc phan tu nao, Tra ve DS
+    if(l.pTail->data == q->data){
+        return;
+    }
+    // Duyet tim Node q trong danh sach
+    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        if(k->data == q->data){ // Neu tim duoc Node q 
+            NODE *tmp = k->pNext; // Gan 1 node tmp = node sau q
+            k->pNext = tmp->pNext; // Tro phan tu sau k den phan tu sau tmp (chinh la phan tu sau node can xoa) <=> Cap nhat lai lien ket khi xoa 1 phan tu o sau node q
+            delete tmp; // Xoa node sau node q 
+            so_phan_tu_trong_DS--;
+        }
+    }
+}
+
 void Menu(LIST l){
     int choice;
     while(1){ // Lap vo han
@@ -210,18 +244,19 @@ void Menu(LIST l){
         cout<<"\n\t\tMOI BAN NHAP TUY CHON";
         cout<<"\n\t\t1. Them node vao danh sach";
         cout<<"\n\t\t2. In danh sach lien ket don";
-        cout<<"\n\t\t3. Chen node q vao sau node q";
-        cout<<"\n\t\t4. Chen node q vao truoc node q";
+        cout<<"\n\t\t3. Chen node p vao sau node q";
+        cout<<"\n\t\t4. Chen node p vao truoc node q";
         cout<<"\n\t\t5. So luong phan tu trong danh sach";
-        cout<<"\n\t\t6. Chen node q vao vi tri bat ky trong danh sach";
+        cout<<"\n\t\t6. Chen node p vao vi tri bat ky trong danh sach";
         cout<<"\n\t\t7. Xoa Phan tu dau tien";
         cout<<"\n\t\t8. Xoa Phan tu cuoi cung";
+        cout<<"\n\t\t9. Xoa Phan tu o sau node q";
         cout<<"\n\t\t0. Thoat Menu";
         cout<<"\n\t\t----------------------------";
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
-        if(choice<0 || choice>8){
+        if(choice<0 || choice>9){
             cout<<"\t\tBan da nhap sai cu phap!!!";
             cout<<"\n\t\t";
             system("pause");
@@ -282,12 +317,18 @@ void Menu(LIST l){
 
         else if(choice == 7){
             XoaDau(l);
-            so_phan_tu_trong_DS--;
         }
 
         else if(choice == 8){
             XoaCuoi(l);
-            so_phan_tu_trong_DS--;
+        }
+
+        else if(choice == 9){
+            int x;
+            cout<<"\t\tNhap gia tri node q: ";
+            cin>>x;
+            NODE *q = KhoiTaoNode(x);
+            XoaNodeSauNodeQ(l, q);
         }
 
         else{
