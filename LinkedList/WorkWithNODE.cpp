@@ -71,6 +71,42 @@ void ThemvaoCuoi(LIST &l, NODE *p){
         so_phan_tu_trong_DS++;
     }
 }
+
+// Ham xoa NODE dau tien
+void XoaDau(LIST &l){
+    // Neu Danh sach dang rong tra ve list
+    if(l.pHead == NULL){
+        return;
+    }
+    NODE *p = l.pHead;     // Gan 1 node p cho node dau
+    l.pHead = l.pHead->pNext; // Gan node dau = node sau
+    delete p; // Xoa node p la node dau tien di => node sai chinh la node dau tien
+}
+
+// Ham xoa NODE cuoi cung
+void XoaCuoi(LIST &l){
+    // Neu danh sach dang rong tra ve list
+    if(l.pHead == NULL){
+        return;
+    }
+    // Neu danh sach con dung 1 phan tu => Thuc hien XoaDau
+    else if(l.pHead->pNext == NULL){
+        XoaDau(l);
+        return;
+    }
+    // Neu co nhieu phan tu trong danh sach
+    else{
+        for(NODE *k=l.pHead; k != NULL; k = k->pNext){
+            if(k->pNext == l.pTail){ // Tim node o gan node cuoi
+                delete l.pTail; // Xoa node cuoi
+                k->pNext = NULL; // Tro pNext cua node gan cuoi den NULL => node gan cuoi chinh la node cuoi
+                l.pTail = k; // Cap nhat lai node cuoi chinh la k(node gan cuoi ban dau)
+                return;
+            }
+        }
+    }
+}
+
 void XuatDS(LIST l){
     for(NODE *k=l.pHead; k!=NULL; k=k->pNext){
         cout<<k->data<<" ";
@@ -116,7 +152,8 @@ void ThemNodePVaoTruocNodeQ(LIST &l, NODE *p){
     NODE *q = KhoiTaoNode(x); // Khoi tao node q voi data la int x
     NODE *g = new NODE; // node nay de giu lien ket voi cac node truoc q
     // Neu danh sach lien ket chi co 1 node, va node do dung = node q => bai toan tro thanh them vao dau
-    if(q->data == l.pHead->data && l.pHead->pNext == NULL){
+    // Hoac muon them va truoc node q ma node q do o vi tri dau tien
+    if(q->data == l.pHead->data){
         ThemVaoDau(l, p);
     }
     else{
@@ -177,12 +214,14 @@ void Menu(LIST l){
         cout<<"\n\t\t4. Chen node q vao truoc node q";
         cout<<"\n\t\t5. So luong phan tu trong danh sach";
         cout<<"\n\t\t6. Chen node q vao vi tri bat ky trong danh sach";
+        cout<<"\n\t\t7. Xoa Phan tu dau tien";
+        cout<<"\n\t\t8. Xoa Phan tu cuoi cung";
         cout<<"\n\t\t0. Thoat Menu";
         cout<<"\n\t\t----------------------------";
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
-        if(choice<0 || choice>6){
+        if(choice<0 || choice>8){
             cout<<"\t\tBan da nhap sai cu phap!!!";
             cout<<"\n\t\t";
             system("pause");
@@ -240,6 +279,17 @@ void Menu(LIST l){
             } while(pos<1 || pos>so_luong+1);
             ThemNodePVaoViTriBatKy(l, p, pos);
         }
+
+        else if(choice == 7){
+            XoaDau(l);
+            so_phan_tu_trong_DS--;
+        }
+
+        else if(choice == 8){
+            XoaCuoi(l);
+            so_phan_tu_trong_DS--;
+        }
+
         else{
             cout<<"\t\tNhan ENTER de thoat: ";
             cout<<"\n\t\t";
