@@ -68,7 +68,6 @@ void ThemvaoCuoi(LIST &l, NODE *p){
     else{
         l.pTail->pNext = p; // Cho con tro cua pTail->pNext lien ket voi node p
         l.pTail = p; // Cap nhat lai node p chinh la pTail 
-        l.pTail->pNext = NULL; // Cap nhat lai node cuoi tro den NULL
         so_phan_tu_trong_DS++;
     }
 }
@@ -221,18 +220,79 @@ void XoaNodeSauNodeQ(LIST &l, NODE *q){
     if(l.pHead->data == q->data && l.pHead->pNext == NULL){
         return;
     }
-    // Neu Node q la node cuoi cung => Ko xoa duoc phan tu nao, Tra ve DS
-    if(l.pTail->data == q->data){
-        return;
-    }
+
+    // if(l.pTail->data == q->data){
+    //     return;
+    // }
     // Duyet tim Node q trong danh sach
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        if(k->pNext == NULL && k->data == q->data){ // Neu Node q la node cuoi cung => Ko xoa duoc phan tu nao, Tra ve DS
+                                                    // Cho vao vong lap for thay vi dung lenh if o tren se lam cho cac gia 
+                                                    // tri cua node q o dang truoc neu co ton tai se bi bo qua va khong the xoa duoc
+            return;
+        }
         if(k->data == q->data){ // Neu tim duoc Node q 
             NODE *tmp = k->pNext; // Gan 1 node tmp = node sau q
             k->pNext = tmp->pNext; // Tro phan tu sau k den phan tu sau tmp (chinh la phan tu sau node can xoa) <=> Cap nhat lai lien ket khi xoa 1 phan tu o sau node q
             delete tmp; // Xoa node sau node q 
             so_phan_tu_trong_DS--;
         }
+    }
+}
+
+// HAM XOA NODE Q O VI TRI BAT KY TRONG DS LIEN KET DON
+void XoaNodeQTrongList(LIST &l, NODE *q){
+    // Neu DS rong, tra ve list
+    if(l.pHead == NULL){
+        return;
+    }
+    // Neu DS co nhieu hon 1 phan tu va node q nam o vi tri dau tien
+    while(l.pHead->data == q->data && l.pHead->pNext != NULL){ // Phong truong hop phan tu tiep theo se thanh pHead lai chinh bang node q
+            XoaDau(l); 
+    }
+    // Neu DS chi co dung 1 phan tu, phan tu do chinh la node q
+    if(l.pHead->data == q->data && l.pHead->pNext == NULL){
+        XoaDau(l);
+        return;
+    }
+
+    NODE *g = new NODE; // Khai nao 1 node de tro lien ket toi cac node truoc q
+    NODE *k = l.pHead;
+    while(k != NULL){
+        bool check = false; // Khai bao bien check kiem tra xem tim duoc node q de xoa khong
+        NODE *tmp = k; // Khai bao node tmp tro den node k, de sau khi tim duoc node q, ta tro node k den node 
+                       // node sau truoc khi xoa node k(tmp), bai toan se khong bi loi
+        if(k->data == q->data && k->pNext == NULL){ // Neu phan tu node q can xoa o vi tri cuoi cung
+            g->pNext = k->pNext;
+            so_phan_tu_trong_DS--;
+            l.pTail = g;
+            delete k;
+            return;
+        }
+        if(k->data == q->data){
+            g->pNext = k->pNext;
+            so_phan_tu_trong_DS--;
+            check = true;
+        }
+        if(check == true){
+            k = k->pNext;
+            delete tmp;
+            continue; // Dung continue de tranh truong hop sau khi delete node tmp(k) roi se nhan gia tri rac va 
+                      // node g se van tro den node truoc khi bi xoa chu khong phai tro den node rac da xoa nua
+        }
+        g = k;
+        k = k->pNext;
+    }
+}
+
+// HAM GIAI PHONG BO NHO CHO DANH SACH LIEN KET
+void ClearList(LIST &l){
+    NODE *k = new NODE;
+    // Nen dung cach nay
+    while(l.pHead != NULL){ // Xet den khi nao DS rong
+        k = l.pHead;
+        l.pHead = l.pHead->pNext;
+        delete k;
     }
 }
 
@@ -251,12 +311,13 @@ void Menu(LIST l){
         cout<<"\n\t\t7. Xoa Phan tu dau tien";
         cout<<"\n\t\t8. Xoa Phan tu cuoi cung";
         cout<<"\n\t\t9. Xoa Phan tu o sau node q";
-        cout<<"\n\t\t0. Thoat Menu";
+        cout<<"\n\t\t10. Xoa node q trong danh sach";
+        cout<<"\n\t\t0. Thoat Menu va Xoa bo nho danh sach";
         cout<<"\n\t\t----------------------------";
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
-        if(choice<0 || choice>9){
+        if(choice<0 || choice>10){
             cout<<"\t\tBan da nhap sai cu phap!!!";
             cout<<"\n\t\t";
             system("pause");
@@ -331,6 +392,14 @@ void Menu(LIST l){
             XoaNodeSauNodeQ(l, q);
         }
 
+        else if(choice == 10){
+            int x;
+            cout<<"\t\tNhap gia tri node q: ";
+            cin>>x;
+            NODE *q = KhoiTaoNode(x);
+            XoaNodeQTrongList(l, q);
+        }
+
         else{
             cout<<"\t\tNhan ENTER de thoat: ";
             cout<<"\n\t\t";
@@ -343,4 +412,5 @@ int main(){
     LIST l;
     KhoiTaoDS(l);
     Menu(l);
+    ClearList(l);
 }
