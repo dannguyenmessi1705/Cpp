@@ -1,52 +1,60 @@
-// CPP program to implement traveling salesman
-// problem using naive approach.
+// CPP program to answer queries for count of
+// primes in given range.
 #include <bits/stdc++.h>
 using namespace std;
-#define V 5
 
-// implementation of traveling Salesman Problem
-int travllingSalesmanProblem(int graph[][V], int s)
+const int MAX = 10000;
+
+// prefix[i] is going to store count of primes
+// till i (including i).
+int prefix[MAX + 1];
+
+void buildPrefix()
 {
-	// store all vertex apart from source vertex
-	vector<int> vertex;
-	for (int i = 0; i < V; i++)
-		if (i != s)
-			vertex.push_back(i);
+	// Create a boolean array "prime[0..n]". A
+	// value in prime[i] will finally be false
+	// if i is Not a prime, else true.
+	bool prime[MAX + 1];
+	memset(prime, true, sizeof(prime));
 
-	// store minimum weight Hamiltonian Cycle.
-	int min_path = INT_MAX;
-	do {
+	for (int p = 2; p * p <= MAX; p++) {
 
-		// store current Path weight(cost)
-		int current_pathweight = 0;
+		// If prime[p] is not changed, then
+		// it is a prime
+		if (prime[p] == true) {
 
-		// compute current path weight
-		int k = s;
-		for (int i = 0; i < vertex.size(); i++) {
-			current_pathweight += graph[k][vertex[i]];
-			k = vertex[i];
+			// Update all multiples of p
+			for (int i = p * 2; i <= MAX; i += p)
+				prime[i] = false;
 		}
-		current_pathweight += graph[k][s];
+	}
 
-		// update minimum
-		min_path = min(min_path, current_pathweight);
-
-	} while (
-		next_permutation(vertex.begin(), vertex.end()));
-
-	return min_path;
+	// Build prefix array
+	prefix[0] = prefix[1] = 0;
+	for (int p = 2; p <= MAX; p++) {
+		prefix[p] = prefix[p - 1];
+		if (prime[p])
+			prefix[p]++;
+	}
 }
 
-// Driver Code
+// Returns count of primes in range from L to
+// R (both inclusive).
+int query(int L, int R)
+{
+	return prefix[R] - prefix[L - 1];
+}
+
+// Driver code
 int main()
 {
-	// matrix representation of graph
-	int graph[][V] = { { 0, 8 , 5, 22, 11 },
-					{ 4, 0, 9, 17, 27 },
-					{ 15, 7, 0, 12, 35 },
-					{ 5, 27, 17, 0, 29 },
-                    {23, 21, 10, 7, 0} };
-	int s = 0;
-	cout << travllingSalesmanProblem(graph, s) << endl;
+	buildPrefix();
+
+	int L = 5, R = 10;
+	cout << query(L, R) << endl;
+
+	L = 1, R = 10;
+	cout << query(L, R) << endl;
+
 	return 0;
 }
