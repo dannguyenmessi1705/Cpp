@@ -146,7 +146,6 @@ void Menu(STACK s){
         else if(choice == 4){
             int value;
             cout<<"\t\tPhan tu dau tien: ";
-            Top(s, value);
             if(Top(s, value) == true) // Vua Thuc hien ham Top vua kiem tra bool
                 cout<<value<<"\n\t\t";
             else cout<<"Khong co phan tu nao\n\t\t";
