@@ -15,6 +15,7 @@ Giả sử X là phần tử đang xét trong biểu thức trung tổ, ta có c
                         Lấy phần tử đầu STACK Push vào trong QUEUE 
                 BƯỚC 2: Quay lên BƯỚC 1 cho đến khi ... 
                         STACK rỗng thì dừng 
+                        Đến Khi gặp phần tử nhỏ hơn X thì dừng (VD: X là phép '*' gặp phần tử '+' nhỏ hơn sẽ dừng)
                         Phần từ đầu STACK hiện tại không phải là toán tử nữa thì dừng 
             	Sau đó Push X vào trong STACK
 
@@ -26,46 +27,56 @@ using namespace std;
 #define ToanTu xau[i] == 42 || xau[i] == 43 || xau[i] == 45 || xau[i] == 47
 #define NotToanTu s.pTop->data != 42 && s.pTop->data != 43 && s.pTop->data != 45 && s.pTop->data != 47
 
+// Khai bao cau truc NODE
 struct Node{
-    char data;
-    float KQ;
-    struct Node *pNext;
+    char data; // bien luu ky tu Ba Lan sau khi nhap tu xau
+    float KQ;   // Bien luu KQ sau khi tinh toan tu ky tu Ba Lan
+    struct Node *pNext; // Con tro quan ly cac Node
 }typedef NODE;
 
+// Khai bao cau truc Queue, Dung de luu ky tu Ba Lan
 struct Queue{
-    NODE *pHead;
-    NODE *pTail;
+    NODE *pHead; // Con tro quan ly dau Queue
+    NODE *pTail; // Con tro quan ly cuoi Queue
 }typedef QUEUE;
 
+// Khai bao cau truc Stack, Dung de luu ky tu Ba Lan va KQ cuoi cung cua phep tinh
 struct Stack{
-    NODE *pTop;
+    NODE *pTop; // Con tro quan ly dau Stack
 }typedef STACK;
 
+// Khoi tao Stack, ban dau Stack rong
 void KhoiTaoListStack(STACK &s){
-    s.pTop = NULL;
+    s.pTop = NULL; 
 }
 
+// Khoi tao Queue, ban dau Queue rong
 void KhoiTaoListQueue(QUEUE &q){
     q.pHead = NULL;
     q.pTail = NULL;
 }
 
+// Khoi tao Node cho bien char
 NODE *KhoiTaoNode(char x){
     NODE *p = new NODE();
-    if(p == NULL){
+    // Neu khong cap phat thanh cong
+    if(p == NULL){ 
         return NULL;
     }
-    p->data = x;
-    p->pNext = NULL;
+    p->data = x; // Truyen gia tri x vao data cua con tro p
+    p->pNext = NULL; // Vi chua co lien ket nen con tro tiep theo cua p tro toi NULL
 }
 NODE *KhoiTaoNode(float x){
     NODE *p = new NODE();
-    if(p == NULL){
+    // Neu khong cap phat thanh cong
+    if(p == NULL){ 
         return NULL;
     }
-    p->KQ = x;
-    p->pNext = NULL;
+    p->KQ = x; // Truyen gia tri x vao KQ cua con tro p
+    p->pNext = NULL; // Vi chua co lien ket nen con tro tiep theo cua p tro toi NULL
 }
+
+// Ham kiem tra DS co rong hay khong
 bool IsEmpty(STACK &s){
     if(s.pTop == NULL) return true;
     else return false;
@@ -76,6 +87,7 @@ bool IsEmpty(QUEUE &q){
     else return false;
 }
 
+// Ham Push vao dau Stack - theo co che LIFO (Last In First Out)
 bool PUSH(STACK &s, char x){
     NODE *p = new NODE();
     if(p == NULL){
@@ -106,6 +118,8 @@ bool PUSH(STACK &s, float x){
     }
     return true;
 }
+
+// Ham Push vao cuoi QUeue, theo co che FIFO (First In First Out)
 bool PUSH(QUEUE &q, char x){
     NODE *p = new NODE();
     if(p == NULL){
@@ -122,6 +136,7 @@ bool PUSH(QUEUE &q, char x){
     return true;
 }
 
+// Ham lay gia tri dau tien cua Stack, dong thoi xoa no di(LIFO)
 bool POP(STACK &s, char &value){
     if(IsEmpty(s)){
         return false;
@@ -141,6 +156,7 @@ bool POP(STACK &s, float &value){
     delete tmp;
 }
 
+// Ham lay gia tri dau cua Queue, dong thoi xoa no di(FIFO)
 bool POP(QUEUE &q, char &value){
     if(IsEmpty(q)){
         return false;
@@ -151,6 +167,7 @@ bool POP(QUEUE &q, char &value){
     delete tmp;
 }
 
+// Ham lay gia tri dau cua Stack 
 bool TOP(STACK s, char &value){
     if(IsEmpty(s)){
         return false;
@@ -164,6 +181,7 @@ bool TOP(STACK s, float &value){
     value = s.pTop->KQ;
 }
 
+// Ham lay gia tri dau tien cua Queue
 bool TOP(QUEUE q, char &value){
     if(IsEmpty(q)){
         return false;
@@ -173,40 +191,72 @@ bool TOP(QUEUE q, char &value){
 // -----------HAM CHUYEN BIEU THUC TRUNG TO SANG BIEU THUC HAU TO----------------
 // BIEU THUC HAU TO SE LUU VAO QUEUE
 
+// Ham kiem tra Toan Hang
+bool ToanHang(char x){
+    if(x >= '0' && x <= '9')
+        return true;
+    else return false;
+}
+
+// Ham Kiem tra toan tu cua xau
+bool CheckToanTuChar(char x){
+    if(x == 42 || x == 43 || x == 45 || x == 47) return true;
+    else return false;
+}
+
+// Ham kiem tra toan tu dau Stack
+bool CheckToanTuStack(STACK s){
+    if(IsEmpty(s)) return false;
+    else if(s.pTop->data == 42 || s.pTop->data == 43 || s.pTop->data == 45 || s.pTop->data == 47) return true;
+    else return false;
+}
+
+// Ham kiem tra toan tu xau X co lon hon toan tu o dau Stack hay khong
+bool CheckToanTuX_LonHonToanTuDauStack(STACK s, char x){
+    if((x == '*' || x == '/') && (s.pTop->data == '+' || s.pTop->data == '-'))
+        return true;
+    else return false;
+}
+
 void ConvertTrungTo_HauTo(STACK &s, QUEUE &q, string xau){
     int len = xau.length();
-    for(int i=0; i<len; i++){ // 0->9
-        if(xau[i] >= 48 && xau[i] <= 57){
+    for(int i=0; i<len; i++){
+        // Kiem tra Toan Hang 
+        if(ToanHang(xau[i])){
             PUSH(q, xau[i]);
             continue;
         }
+        // Kiem tra dau mo ngoac
         if(xau[i] == 40){ // Dau "("
             PUSH(s, xau[i]);
             continue;
         }
+        // Kiem tra dau dong ngoac
         if(xau[i] == 41){ // Dau")"
             char value;
-            while(s.pTop->data != 40){ // Gap ky tu "("
+            while(s.pTop->data != 40){ // Gap ky tu "(" thi dung
                 POP(s, value);
                 PUSH(q, value);
             }
             POP(s, value);
             continue;
         }
-        if(ToanTu){ // Dau"+, -, *, /"
+        // Kiem tra Toan tu
+        if(CheckToanTuChar(xau[i])){ // Dau"+, -, *, /"
             if(IsEmpty(s))  
                 PUSH(s, xau[i]);
-            else if(NotToanTu)
+            else if(!CheckToanTuStack(s))
                 PUSH(s, xau[i]);
             else{
-                if((xau[i] == '*' || xau[i] == '/') && (s.pTop->data == '+' || s.pTop->data == '-'))
+                if(CheckToanTuX_LonHonToanTuDauStack(s, xau[i]))
                     PUSH(s, xau[i]);
                 else{
                     char value;
                     while(POP(s, value) == true){
                         PUSH(q, value);
+                        char tmp = value;
                         TOP(s, value);
-                        if((value >= 48 && value <= 57) || value == 40 || value == 41)
+                        if((ToanHang(value)) || value == 40 || value == 41 || ((tmp == '*' || tmp == '/') && (value == '+' || value == '-')))
                             break;
                     }
                     PUSH(s, xau[i]); 
@@ -216,6 +266,7 @@ void ConvertTrungTo_HauTo(STACK &s, QUEUE &q, string xau){
             
         }
     }
+    // Neu Stack van con phan tu, Push het vao Queue
     while(IsEmpty(s) == false){
         char value;
         POP(s, value);
@@ -223,6 +274,7 @@ void ConvertTrungTo_HauTo(STACK &s, QUEUE &q, string xau){
     }
 }
 
+// Ham Xuat Bieu thuc Hau to
 void Xuat(QUEUE q){
     for(NODE *k = q.pHead; k != NULL; k = k->pNext){
         cout<<k->data;
@@ -241,7 +293,7 @@ void Calculate(STACK &s, QUEUE &q){
     while(!IsEmpty(q)){
         char value;
         POP(q, value);
-        if(value >= 48 && value <= 57){
+        if(ToanHang(value)){
             float x = (value - '0');
             PUSH(s, x);
             continue;
@@ -270,13 +322,14 @@ int main(){
     QUEUE q;
     KhoiTaoListQueue(q);
     string xau;
-    cout<<"Nhap phep tinh trung to!!!\n";
+    cout<<"Nhap phep tinh trung to: ";
     cin>>xau;
     ConvertTrungTo_HauTo(s, q, xau);
-    // Xuat(q);
+    cout<<"Bieu thuc hau to: ";
+    Xuat(q);
     Calculate(s, q);
     float KQ;
     TOP(s, KQ);
     if((int)KQ == KQ) KQ = (int)KQ;
-    cout<<xau<<" = "<<KQ;
+    cout<<"\nKet qua cua phep tinh: "<<xau<<" = "<<KQ;
 }
