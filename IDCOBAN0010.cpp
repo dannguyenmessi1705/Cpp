@@ -12,7 +12,7 @@ int Kiemtra(lli number){
 int TachKiemTra(lli n){
     if(n>=0){
         while(n>0){
-            lli a = n%10;o../
+            lli a = n%10;
             if(Kiemtra(a)==0) return 0;
             n/=10;
         }

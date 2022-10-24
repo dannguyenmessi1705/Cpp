@@ -28,7 +28,7 @@ int main(){
                     // Tach doan dau toi i
                     // Tach doan i+1 toi j
                     // Tach doan j+1 toi k
-                    // Tach doan k toi len-1
+                    // Tach doan k+1 toi len-1
                     // Thanh A.B.C.D
                     // A.length, B.length, C.length, D.length <=3 and lenA+lenB+lenC+lenD == lenIP
                     if(CheckIP(0,i) && CheckIP(i+1,j) && CheckIP(j+1,k) && CheckIP(k+1,len-1))
