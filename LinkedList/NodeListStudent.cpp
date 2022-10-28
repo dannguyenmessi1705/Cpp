@@ -269,7 +269,6 @@ void Menu(LIST l){
             FileIn.close();
         }
         else if(choice == 2){
-            ClearList(l);
             ThemVaoFileTuDanhSachLienKet(FileOut, l);
             cout<<"\t\tDa them vao FILE\n\t\t";
             system("pause");
