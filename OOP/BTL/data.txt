@@ -1,0 +1,5 @@
+ID  NAME                          ADDRESS                       EMAIL                         PHONE         SERVICE                                                     BILL                 
+1   Dan                           Hung Yen                      messi&gmail.com               0345221946    Drink, Food                                                 300000 VND
+2   Thang                         Ha Noi                        ronal&gmail.com               0954739445    Drink                                                       5000 VND
+3   A                             b                             c                             d             e                                                           10 VND
+4   q                             w                             e                             r             t                                                           12 VND
