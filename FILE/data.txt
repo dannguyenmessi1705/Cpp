@@ -1,1 +1,9 @@
-112
+ID  NAME                          ADDRESS                       EMAIL                         PHONE         SERVICE                                                     BILL                 
+1   Dan                           Hung Yen                      messi&gmail.com               0345221946    Drink, Food                                                 300000 VND
+2   Thang                         Ha Noi                        ronal&gmail.com               0954739445    Drink                                                       5000 VND
+3   Messi                         Paris                         leomessi@worldcup.com         068369375     Pepsi                                                       200000 VND
+4   Ronaldo                       Manchester                    cr7@baycho.com                092574332     Shiper                                                      10000 VND
+5   Pogba                         Torino                        pog3@foot.com                 674324564     Haircut                                                     80 VND
+6   Haaland                       Norway                        mabu@gamil.com                6474354242    Boxing                                                      299110 VND
+7   Neymar                        Brazil                        neyngavo@gmail.com            742694952     Boots                                                       856000 VND
+8   Nguyen Di Dan                 Viet Nam                      danprohy@gmail.com            0345221946    myK+                                                        175000 VND

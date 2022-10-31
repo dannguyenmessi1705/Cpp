@@ -1,4 +1,4 @@
-ID  NAME                          ADDRESS                       EMAIL                         PHONE         SERVICE                                                     BILL         
-1   Dan                           Hung Yen                      messi&gmail.com               0345221946    Drink, Food                                                 300000      
-2   Thang                         Ha Noi                        ronal&gmail.com               0954739445    Drink                                                       5000        
-3   Nguyen Vu Phong               Ho Chi Minh                   vuphongchampions              0783546721    FPT, K+                                                     320000      
+ID  NAME                          ADDRESS                       EMAIL                         PHONE         SERVICE                                                     BILL                 
+1   Dan                           Hung Yen                      messi&gmail.com               0345221946    Drink, Food                                                 300000 VND
+2   Thang                         Ha Noi                        ronal&gmail.com               0954739445    Drink                                                       5000 VND
+3   Messi                         Paris                         leomessi@worldcup.com         883573222     Pepsi, Nike                                                 956000 VND

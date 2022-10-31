@@ -256,7 +256,7 @@ void XoaNodeQTrongList(LIST &l, NODE *q){
         return;
     }
 
-    NODE *g = new NODE; // Khai nao 1 node de tro lien ket toi cac node truoc q
+    NODE *g = new NODE; // Khai bao 1 node de tro lien ket toi cac node truoc q
     NODE *k = l.pHead;
     while(k != NULL){
         bool check = false; // Khai bao bien check kiem tra xem tim duoc node q de xoa khong
