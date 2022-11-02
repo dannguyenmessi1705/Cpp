@@ -210,27 +210,21 @@ void ThemCustomerVaoList(ifstream &FileIn, LIST &l){
 }
 
 void XuatInfo(Customer x){
-    cout<<setw(30)<<left<<x.getName();
-    cout<<setw(30)<<left<<x.getAddress();
-    cout<<setw(30)<<left<<x.getEmail();
-    cout<<setw(14)<<left<<x.getPhone();
-    cout<<setw(60)<<left<<x.getService();
-    cout<<setw(20)<<left<<x.getBill()<<" VND";
+    cout<<"\nNAME: "<<x.getName();
+    cout<<"\nADDRESS: "<<x.getAddress();
+    cout<<"\nEMAIL: "<<x.getEmail();
+    cout<<"\nPHONE: "<<x.getPhone();
+    cout<<"\nSERVICE: "<<x.getService();
+    cout<<"\nBILL: "<<x.getBill()<<" VND";
 }
 
 
 void XuatDS(LIST l){
-    cout<<setw(4)<<left<<"ID";
-    cout<<setw(30)<<left<<"NAME";
-    cout<<setw(30)<<left<<"ADDRESS";
-    cout<<setw(30)<<left<<"EMAIL";
-    cout<<setw(14)<<left<<"PHONE";
-    cout<<setw(60)<<left<<"SERVICE";
-    cout<<setw(20)<<left<<"BILL"<<" ";
     int id = 0;
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
-        cout<<"\n"<<setw(4)<<left<<++id;
+        cout<<"ID: "<<++id;
         XuatInfo(k->data);
+        cout<<endl;
     }
 }
 

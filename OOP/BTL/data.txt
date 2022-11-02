@@ -6,3 +6,4 @@ ID  NAME                          ADDRESS                       EMAIL           
 5   Benzema                       Madrid                        ben09@gmail.com               0572557443    Ballon Dor                                                  100 VND
 6   De Bruyne                     Belgium                       kevin17@gmail.com             8375867362    EPL, myK+                                                   45000 VND
 7   Eden Hazard                   London                        h10@london.uk                 643546753     Netflix, Fshare                                             40222 VND
+8   Lewandowski                   Poland                        lewy09@email.po               83274673922   Taekondo                                                    700 VND
