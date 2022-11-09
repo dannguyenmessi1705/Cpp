@@ -3,39 +3,57 @@
 using namespace std;
 typedef unsigned long long ll;
 
-//-------------Khai bao clss Customer--------------
+//=============KHAI BAO CLASS CUSTOMER=============
 class Customer{
 private:
+    string user = "admin"; // Khai bao tai khoan mac dinh de dang nhap vao he thong
+    string password; // Khai bao mat khau mac dinh de dang nhap vao he thong, pass thay doi theo thoi gian (VD: 2h23 11/10/2022 => pass 22311102022)
+    // Khai bao thuoc tinh ten, dia chi, email, sdt, dich vu, tong so tien va feedback cua khach hang
     string name;
     string address;
     string email;
     string phone;
     string service;
     ll bill;
+    int rate;
 public:
-    Customer(){};
-    Customer(string name, string address, string email, string phone, string service, ll bill){
+    Customer(){}; // Constructor mac dinh cua class
+    // Truyen thuoc tinh vao class Customer
+    Customer(string name, string address, string email, string phone, int rate, ll bill, string service){
         this->name = name;
         this->address = address;
         this->email = email;
         this->phone = phone;
         this->service = service;
         this->bill = bill;
+        this->rate = rate;
     }
-    void setName(string name);
-    string getName();
-    void setAddress(string adddress);
-    string getAddress();
-    void setEmail(string email);
-    string getEmail();
-    void setPhone(string phone);
-    string getPhone();
+    bool CheckLogin(string us, string pass); // Phuong thuc dat pass, check tai khoan dang nhap he thong
+    void setName(string name); // Phuong thuc dat ten KH 
+    string getName(); // Phuong thuc goi ten KH
+    void setAddress(string adddress); // Phuong thuc dat bien dia chi
+    string getAddress(); // Phuong thuc tra ve bien dia chi
+    void setEmail(string email); // Phuong thuc dat bien email
+    string getEmail(); // Phuong thuc tra ve bien email
+    void setPhone(string phone); // Phuong thuc dat bien so dien thoai
+    string getPhone(); // Phuong thuc tra ve so dien thoai....
     void setService(string service);
     string getService();
     void setBill(ll bill);
     ll getBill();
-
+    void setRate(int rate);
+    int getRate();
+    void XuatInfo();    // Phuong thuc xuat thong tin Khach hang
+    void NhapThongtin(); // Phuong thuc dung de nhap thong tin Khach hang
 };
+bool Customer::CheckLogin(string us, string pass){
+    time_t t = time(0);   // lay thoi gian hien tai
+    tm* now = localtime(&t); // Chuyen doi sang kieu int
+    this->password = to_string(now->tm_hour)+to_string(now->tm_min)+to_string(now->tm_m day)+to_string(now->tm_mon+1)+to_string(now->tm_year+1900);
+    if(strcmp(us.c_str(), user.c_str())==0 && strcmp(pass.c_str(), password.c_str())==0 ) // Neu nhap dung
+        return true;
+    else return false;
+}
 void Customer::setName(string name){
     this->name = name;
 }
@@ -72,75 +90,183 @@ void Customer::setBill(ll bill){
 ll Customer::getBill(){
     return bill;
 }
-
-//--------------Khai bao NODE-----------
-struct Node{
-    Customer data;
-    struct Node *pNext;
-}typedef NODE;
-
-NODE *KhoiTaoNode(Customer x){
-    NODE *p = new NODE;
-    if(p == NULL){
-        cout<<"Cap phat bo nho khong thanh cong";
-        return NULL;
-    }
-    p->data = x;
-    p->pNext = NULL;
-    return p;
+void Customer::setRate(int rate){
+    this->rate = rate;
+}
+int Customer::getRate(){
+    return rate;
 }
 
-//--------------Khai bao LIST--------------
-struct List{
+//============KHAI BAO CLASS NODE===========
+// 1 Node bao gio cung gom 2 phan. 1 la du lieu chua trong node, 2 la con tro de xac dinh vi tri tro toi node tiep theo
+// Khoi tao Node chua co lien ket bat ki voi node nao => con tro pNext = NULL
+class NODE{
+public:
+    Customer data;
+    NODE *pNext;
+    NODE(){
+        this->pNext = NULL;
+    }
+    NODE(Customer x){
+        this->data = x;
+        this->pNext = NULL;
+    }
+};
+
+//===========KHAI BAO CLASS LIST============
+// Duoc quan ly bang 2 node dau cuoi pHead, pTail, LIST moi khoi tao bao gio cung la LIST rong
+class LIST{
+public:
     NODE *pHead;
     NODE *pTail;
-}typedef LIST;
-
-void KhoiTaoList(LIST &l){
-    l.pHead = NULL;
-    l.pTail = NULL;
-}
-
-
-bool IsEmpty(LIST l){
-    if(l.pHead == NULL) return true;
-    else return false;
-}
-
-void ThemCuoi(LIST &l, NODE *p){
-    if(l.pHead == NULL){
-        l.pHead = l.pTail = p;
+    LIST(){
+        this->pHead = NULL;
+        this->pTail = NULL;
     }
-    else{
-    l.pTail->pNext = p;
-    l.pTail = p;
+    bool IsEmpty(){ // Ham check Danh sach co rong hay khong
+        if(this->pHead == NULL) return true;
+        else return false;
     }
-}
-// Ham xoa NODE dau tien
-void XoaDau(LIST &l){
-    // Neu Danh sach dang rong tra ve list
-    if(l.pHead == NULL){
-        return;
+    void ThemCuoi(NODE *p){ // Ham them 1 node vao cuoi danh sach
+        if(this->pHead == NULL){ // Neu list rong
+            this->pHead = this->pTail = p;
+        }
+        else{
+        this->pTail->pNext = p;
+        this->pTail = p;
+        }
     }
-    NODE *p = l.pHead;     // Gan 1 node p cho node dau
-    l.pHead = l.pHead->pNext; // Gan node dau = node sau
-    delete p; // Xoa node p la node dau tien di => node sai chinh la node dau tien
+    // Ham xoa NODE dau tien
+    void XoaDau(){
+        // Neu Danh sach dang rong tra ve list
+        if(this->pHead == NULL){
+            return;
+        }
+        NODE *p = this->pHead;     // Gan 1 node p cho node dau
+        this->pHead = this->pHead->pNext; // Gan node dau = node sau
+        delete p; // Xoa node p la node dau tien di => node sai chinh la node dau tien
 
+    }
+    // Ham dem so phan tu node co trong LIST
+    int SoPhanTu(){ 
+        int dem = 0;
+        for(NODE *k = this->pHead; k != NULL; k = k->pNext){
+            dem++;
+        }
+        return dem;
+    }
+    // Ham giai phong bo nho cho LIST
+    void ClearList(){
+        NODE *k = new NODE();
+        while (this->pHead != NULL){
+        k = this->pHead; // Gan node k vao vi tri dau de xoa sau  khi cho pHead tro toi node tiep theo, khong phat sinh loi
+        this->pHead = this->pHead->pNext;
+        delete k; 
+        }
+    }
+    // Ham xuat du lieu trong LIST 
+    void XuatDS();
+
+};
+
+//=============KIEM TRA DANG NHAP HE THONG=============
+
+void Login(){
+    Customer x;
+    string us, pass;
+    do{
+        system("cls");
+        cout<<"\n\t\tVui long nhap tai khoan:";
+        cout<<"\n\t\tUser: ";
+        cin>>us;
+        cout<<"\t\tPassword: ";
+        cin>>pass;
+        if(!x.CheckLogin(us, pass)){
+            cout<<"\t\tThong tin tai khoan hoac mat khau khong hop le";
+            Sleep(1000);
+        }
+    }while(!x.CheckLogin(us, pass)); 
 }
 
-int SoPhanTu(LIST l){
-    int dem = 0;
-    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
-        dem++;
+
+//============TIM DO DAI CAC TRUONG=====================
+void TimDoDai(int &lenid, int &lenname, int &lenaddress, int &lenemail, int &lenphone, int &lenrate, int &lenbill){
+    ifstream FileIn; 
+    FileIn.open("data.txt", ios::in);
+    string line;
+    getline(FileIn, line);
+    lenid = 2; // Bang chieu dai "ID"
+    for(int i=2;i<=line.length();i++) { // Bat dau tu sau tu "ID" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenid++;
     }
-    return dem;
+    lenname = 4; // Bang do dai "NAME"
+    for(int i=lenid+lenname;i<=line.length();i++) { // Bat dau tu sau tu "NAME" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenname++;
+    }
+    lenaddress = 7; // Bang do dai "ADDRESS"
+    for(int i=lenid + lenname + lenaddress;i<=line.length();i++) { // Bat dau tu sau tu "ADDRESS" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenaddress++;
+    }
+    lenemail = 5; // Bang do dai "EMAIL"
+    for(int i=lenid + lenname + lenemail + lenaddress;i<=line.length();i++) { // Bat dau tu sau tu "EMAIL" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenemail++;
+    }
+    lenphone = 5; // Bang do dai "PHONE"
+    for(int i=lenid + lenname + lenemail + lenphone + lenaddress;i<=line.length();i++) { // Bat dau tu sau tu "PHONE" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenphone++;
+    }
+    lenrate = 8; // Bang do dai "FEEDBACK"
+    for(int i=lenid + lenname + lenemail + lenphone + lenaddress + lenrate;i<=line.length();i++) { // Bat dau tu sau tu "RATE" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenrate++;
+    }
+    lenbill = 4; // Bang do dai "BILL"
+    for(int i=lenid + lenname + lenemail + lenphone + lenaddress + lenrate + lenbill;i<=line.length();i++) { // Bat dau tu sau tu "BILL" de tim khoang trong do dai
+        if(line[i] != ' ') break;
+        else lenbill++;
+    }
+
+    FileIn.close();
 }
+int lenid, lenname, lenaddress, lenemail, lenphone, lenbill, lenrate;
 
 
 //------------XUAT THONG TIN RA MAN HINH==================
+ll Pow(int a, int b){
+    ll kq = 1;
+    for(int i=1; i<=b; i++){
+        kq *= a;
+    }
+    return kq;
+}
+string TachDonVi(ll bill){
+	string tmp = "";
+	string num = to_string(bill);
+	int count = 0;
+	for (int i = num.size() - 1; i >= 0; i--) {
+		count++;
+		tmp.push_back(num[i]);
+		if (count == 3) {
+			tmp.push_back('.');
+			count = 0;
+		}
+	}
+	reverse(tmp.begin(), tmp.end());
+	if (tmp.size() % 4 == 0) {
+		tmp.erase(tmp.begin());
+	}
+	return tmp + " VND";
+}
 void DocInfoTuFile(ifstream &FileIn, Customer &x){
-    string name, address, email, phone, service, tmp;
-    int id = 0, checkname = 0, checkaddress = 0, checkemail = 0, checkphone = 0, checkservice = 0, checkbill = 0;
+    string name, address, email, phone, service, tmp, sbill, srate;
+    int id = 0, checkname = 0, checkaddress = 0, checkemail = 0, checkphone = 0, checkservice = 0, checkbill = 0, checkrate = 0;
+    int rate;
+    ll bill;
     FileIn>>id;
     getline(FileIn, tmp);
     int cat = 0;
@@ -152,7 +278,7 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
     for(int i=0; i<tmp.length();i++){
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkname == 0){
             name = tmp.substr(0, i+1);
-            x.setName(name);
+            // x.setName(name);
             checkname = 1;
             while(tmp[++i]==' ');
             tmp.erase(tmp.begin(), tmp.begin()+i);
@@ -161,16 +287,16 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
         }
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkaddress == 0){
             address = tmp.substr(0, i+1);
-            x.setAddress(address);
+            // x.setAddress(address);
             checkaddress = 1;
             while(tmp[++i]==' ');
             tmp.erase(tmp.begin(), tmp.begin()+i);
             i = -1;
             continue;        
-        }
+        }  
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkemail == 0){
             email = tmp.substr(0, i+1);
-            x.setEmail(email);
+            // x.setEmail(email);
             checkemail = 1;
             while(tmp[++i]==' ');
             tmp.erase(tmp.begin(), tmp.begin()+i);
@@ -179,99 +305,131 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
         }
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkphone == 0){
             phone = tmp.substr(0, i+1);
-            x.setPhone(phone);
+            // x.setPhone(phone);
             checkphone = 1;
             while(tmp[++i]==' ');
             tmp.erase(tmp.begin(), tmp.begin()+i);
             i = -1;
             continue;        
-        }        
-        if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkservice == 0){
-            service = tmp.substr(0, i+1);
-            x.setService(service);
-            checkservice = 1;
+        }
+        if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkrate == 0){
+            srate = tmp.substr(0, i+1);
+            rate = srate[0] - '0';
+            // x.setRate(rate);
+            checkrate = 1;
             while(tmp[++i]==' ');
             tmp.erase(tmp.begin(), tmp.begin()+i);
             i = -1;
-            break;        
-        }        
+            continue;        
+        }
+        if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkbill == 0){
+            sbill = tmp.substr(0, i+1);
+            bill = 0;
+            int mu = 0;
+            for(int i=sbill.length()-1; i >= 0; i--){
+                if(tmp[i] >= '0' && tmp[i] <= '9')
+                    bill += (tmp[i] - '0') * Pow(10, mu++);
+            }
+            // x.setBill(bill);
+            checkbill = 1;
+            while(tmp[++i]==' ');
+            tmp.erase(tmp.begin(), tmp.begin()+i);
+            i = -1;
+            continue;        
+        }
+        
     }
-    ll bill = stoull(tmp);
-    x.setBill(bill);
+    // Lay string service
+    cat = 0;
+    for(int i=0; i<tmp.length(); i++){
+        if(tmp[i] != ' ') break;
+        cat++;
+    }
+    service = tmp.substr(cat, tmp.length()-cat);
+    // x.setService(service);
+    x = Customer(name, address, email, phone, rate, bill, service);
 }
 
 void ThemCustomerVaoList(ifstream &FileIn, LIST &l){
     while(! FileIn.eof()){
         Customer x;
         DocInfoTuFile(FileIn, x);
-        NODE *p = KhoiTaoNode(x);
-        ThemCuoi(l, p);
+        NODE *p = new NODE(x);
+        l.ThemCuoi(p);
     }
 }
 
-void XuatInfo(Customer x){
-    cout<<"\nNAME: "<<x.getName();
-    cout<<"\nADDRESS: "<<x.getAddress();
-    cout<<"\nEMAIL: "<<x.getEmail();
-    cout<<"\nPHONE: "<<x.getPhone();
-    cout<<"\nSERVICE: "<<x.getService();
-    cout<<"\nBILL: "<<x.getBill()<<" VND";
+void Customer::XuatInfo(){
+    cout<<"\nNAME: "<<this->getName();
+    cout<<"\nADDRESS: "<<this->getAddress();
+    cout<<"\nEMAIL: "<<this->getEmail();
+    cout<<"\nPHONE: "<<this->getPhone();
+    cout<<"\nFEEDBACK: "<<this->getRate()<<"*";
+    cout<<"\nBILL: "<<TachDonVi(this->getBill());
+    cout<<"\nSERVICE: "<<this->getService();
 }
 
 
-void XuatDS(LIST l){
+void LIST::XuatDS(){
     int id = 0;
-    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+    for(NODE *k = this->pHead; k != NULL; k = k->pNext){
         cout<<"ID: "<<++id;
-        XuatInfo(k->data);
+        k->data.XuatInfo();
         cout<<endl;
     }
 }
 
 //-------------THEM THONG TIN KHACH HANG--------------------
-void NhapThongtin(Customer &x){
+void Customer::NhapThongtin(){
     ll bill;
     string name, address, email, phone, service;
+    int rate;
     cout<<"\t\tNhap ten: ";
     getline(cin, name);
-    x.setName(name);
+    this->setName(name);
     cout<<"\t\tNhap dia chi: ";
     getline(cin, address);
-    x.setAddress(address);
+    this->setAddress(address);
     cout<<"\t\tNhap email: ";
     getline(cin, email);
-    x.setEmail(email);
+    this->setEmail(email);
     cout<<"\t\tNhap so dien thoai: ";
     getline(cin, phone);
-    x.setPhone(phone);
+    this->setPhone(phone);
     cout<<"\t\tNhap ten cac dich vu da su dung: ";
     getline(cin, service);
-    x.setService(service);
+    this->setService(service);
     cout<<"\t\tNhap tong so tien hoa don: ";
     cin>>bill;
-    x.setBill(bill);
+    this->setBill(bill);
+    cout<<"\t\tVui long danh gia dich vu: ";
+    cin>>rate;
+    this->setRate(rate);
 }
 
 void XuatCacTruong(ofstream &FileOut){
-    FileOut<<setw(4)<<left<<"ID";
-    FileOut<<setw(30)<<left<<"NAME";
-    FileOut<<setw(30)<<left<<"ADDRESS";
-    FileOut<<setw(30)<<left<<"EMAIL";
-    FileOut<<setw(14)<<left<<"PHONE";
-    FileOut<<setw(60)<<left<<"SERVICE";
-    FileOut<<setw(20)<<left<<"BILL"<<" ";
+    ifstream FileIn;
+    FileOut<<setw(lenid)<<left<<"ID";
+    FileOut<<setw(lenname)<<left<<"NAME";
+    FileOut<<setw(lenaddress)<<left<<"ADDRESS";
+    FileOut<<setw(lenemail)<<left<<"EMAIL";
+    FileOut<<setw(lenphone)<<left<<"PHONE";
+    FileOut<<setw(lenrate)<<left<<"FEEDBACK";
+    FileOut<<setw(lenbill)<<left<<"BILL";
+    FileOut<<"SERVICE"<<" ";
 }
 
 //Ham them thong tin 1 Khach hang ra FILE
 void AddInfoRaFile(ofstream &FileOut, LIST l){
     FileOut<<endl;
-    FileOut<<setw(4)<<left<<SoPhanTu(l);
-    FileOut<<setw(30)<<left<<l.pTail->data.getName();
-    FileOut<<setw(30)<<left<<l.pTail->data.getAddress();
-    FileOut<<setw(30)<<left<<l.pTail->data.getEmail();
-    FileOut<<setw(14)<<left<<l.pTail->data.getPhone();
-    FileOut<<setw(60)<<left<<l.pTail->data.getService();
-    FileOut<<l.pTail->data.getBill()<<" VND";
+    FileOut<<setw(lenid)<<left<<l.SoPhanTu();
+    FileOut<<setw(lenname)<<left<<l.pTail->data.getName();
+    FileOut<<setw(lenaddress)<<left<<l.pTail->data.getAddress();
+    FileOut<<setw(lenemail)<<left<<l.pTail->data.getEmail();
+    FileOut<<setw(lenphone)<<left<<l.pTail->data.getPhone();
+    FileOut<<setw(lenrate)<<left<<"   "+to_string(l.pTail->data.getRate())+"*";
+    FileOut<<setw(lenbill)<<left<<TachDonVi(l.pTail->data.getBill());
+    FileOut<<l.pTail->data.getService();
 }
 // Ham them DS thong tin khach hang ra FILE
 void XuatDSInFoRaFile(ofstream &FileOut, LIST l){
@@ -279,13 +437,14 @@ void XuatDSInFoRaFile(ofstream &FileOut, LIST l){
     int id=0;
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
     FileOut<<endl;
-    FileOut<<setw(4)<<left<<++id;
-    FileOut<<setw(30)<<left<<k->data.getName();
-    FileOut<<setw(30)<<left<<k->data.getAddress();
-    FileOut<<setw(30)<<left<<k->data.getEmail();
-    FileOut<<setw(14)<<left<<k->data.getPhone();
-    FileOut<<setw(60)<<left<<k->data.getService();
-    FileOut<<k->data.getBill()<<" VND";
+    FileOut<<setw(lenid)<<left<<++id;
+    FileOut<<setw(lenname)<<left<<k->data.getName();
+    FileOut<<setw(lenaddress)<<left<<k->data.getAddress();
+    FileOut<<setw(lenemail)<<left<<k->data.getEmail();
+    FileOut<<setw(lenphone)<<left<<k->data.getPhone();
+    FileOut<<setw(lenrate)<<"   "+to_string(k->data.getRate())+"*";
+    FileOut<<setw(lenbill)<<left<<TachDonVi(k->data.getBill());
+    FileOut<<k->data.getService();
     }
 }
 //--------------XOA THONG TIN CUA KHACH HANG RA KHOI DANH SACH--------------------------
@@ -293,20 +452,20 @@ void XuatDSInFoRaFile(ofstream &FileOut, LIST l){
 // Xoa Info, Chi can tim Dia chi, email,... la ta co the truy cao vao ten cua Khach hang, nen chi can tim den Truong cot NAME de tim roi xoa
 void XoaInfo(LIST &l, NODE *q){
     // Neu DS rong, tra ve list
-    if(l.pHead == NULL){
+    if(l.IsEmpty()){
         return;
     }
     // Neu DS co nhieu hon 1 phan tu va node q nam o vi tri dau tien
     while(strcmp(l.pHead->data.getName().c_str(), q->data.getName().c_str())==0 && l.pHead->pNext != NULL){ // Phong truong hop phan tu tiep theo se thanh pHead lai chinh bang node q
-            XoaDau(l); 
+            l.XoaDau(); 
     }
     // Neu DS chi co dung 1 phan tu, phan tu do chinh la node q
     if(strcmp(l.pHead->data.getName().c_str(), q->data.getName().c_str())==0 && l.pHead->pNext == NULL){
-        XoaDau(l);
+        l.XoaDau();
         return;
     }
 
-    NODE *g = new NODE; // Khai bao 1 node de tro lien ket toi cac node truoc q
+    NODE *g = new NODE(); // Khai bao 1 node de tro lien ket toi cac node truoc q
     NODE *k = l.pHead;
     while(k != NULL){
         bool check = false; // Khai bao bien check kiem tra xem tim duoc node q de xoa khong
@@ -388,6 +547,16 @@ void SuaBill(LIST &l, NODE *q, ll bill){
     }
 }
 
+void SuaRate(LIST &l, NODE *q, int rate){
+    for(NODE *k=l.pHead; k != NULL; k = k->pNext){
+        if(k->data.getRate() == q->data.getRate()){
+            k->data.setRate(rate);
+            q->data.setRate(rate);
+        }
+    }
+}
+
+
 void SuaInfo(LIST &l, LIST &tmp){
     char choice2;
     while(1){
@@ -398,6 +567,7 @@ void SuaInfo(LIST &l, LIST &tmp){
         cout<<"\n\t\t\t4. Sua so dien thoai cua Khach hang";
         cout<<"\n\t\t\t5. Sua dich vu da su dung cua Khach hang";
         cout<<"\n\t\t\t6. Sua so tien hoa don dich vu da su dung cua Khach hang";
+        cout<<"\n\t\t\t7. Sua danh gia dich vu cua Khach hang";
         cout<<"\n\t\t\t0. Thoat tinh nang";
         cout<<"\n\t\t\tMoi ban nhap lua chon de sua: ";
         cin>>choice2;
@@ -552,6 +722,30 @@ void SuaInfo(LIST &l, LIST &tmp){
                 break;
             }
         }
+        else if(choice2 == '7'){
+            int rate;
+            cout<<"\t\t\tNhap lai danh gia thay the: ";
+            cin>>rate;
+            NODE *q = tmp.pHead;
+            while(q != NULL){
+                SuaRate(l, q, rate);
+                q = q->pNext;
+            }
+            XuatDSInFoRaFile(FileOut, l);
+            FileOut.close();
+            cout<<"\t\t\tSua danh gia dich vu thanh cong\n\t\t\tBan co muon tiep tuc sua!";
+            cout<<"\n\t\t\t1. Co";
+            cout<<"\n\t\t\t0. Khong va thoat";
+            cout<<"\n\t\t\tNhap lua chon: ";                        
+            char choice3;
+            cin>>choice3;
+            if(choice3 == '1'){
+                continue;
+            }
+            else{ 
+                break;
+            }
+        }
         else if(choice2 == '0'){
             cout<<"\t\t\t";
             system("pause");
@@ -584,7 +778,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
             return;
         }
         else if(choice1 == '1'){
-            XuatDS(tmp);
+            tmp.XuatDS();
             system("pause");
         }
         else if(choice1 == '2'){
@@ -604,7 +798,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             XuatDSInFoRaFile(FileOut, l);
-            cout<<"\t\tDa xoa thong tin Khach hang";
+            cout<<"\t\tDa xoa thong tin Khach hang\n\t\t";
             system("pause");
             FileOut.close();
         }
@@ -641,15 +835,14 @@ bool CompareStringParentWithChild(string a, string b){
 
 void SearchName(ifstream &FileIn, LIST l, string name){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(CompareStringParentWithChild(k->data.getName(), name)){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -663,15 +856,14 @@ void SearchName(ifstream &FileIn, LIST l, string name){
 
 void SearchAddress(ifstream &FileIn, LIST l, string address){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(CompareStringParentWithChild(k->data.getAddress(), address)){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -686,15 +878,14 @@ void SearchAddress(ifstream &FileIn, LIST l, string address){
 
 void SearchEmail(ifstream &FileIn, LIST l, string email){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(CompareStringParentWithChild(k->data.getEmail(), email)){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -709,15 +900,14 @@ void SearchEmail(ifstream &FileIn, LIST l, string email){
 
 void SearchPhone(ifstream &FileIn, LIST l, string phone){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(CompareStringParentWithChild(k->data.getPhone(), phone)){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -731,15 +921,14 @@ void SearchPhone(ifstream &FileIn, LIST l, string phone){
 
 void SearchService(ifstream &FileIn, LIST l, string service){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(CompareStringParentWithChild(k->data.getService(), service)){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -753,15 +942,36 @@ void SearchService(ifstream &FileIn, LIST l, string service){
 
 void SearchBill(ifstream &FileIn, LIST l, ll bill){
     ThemCustomerVaoList(FileIn, l);
-    LIST tmp;
-    KhoiTaoList(tmp);
+    LIST tmp = LIST();
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
         if(k->data.getBill()==bill){
-            NODE *them = KhoiTaoNode(k->data);
-            ThemCuoi(tmp, them);
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
         }
     }
-    if(IsEmpty(tmp)){
+    if(tmp.IsEmpty()){
+        cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
+        system("pause");
+        return;
+    }
+    else{
+        cout<<"\t\tTim kiem thanh cong";
+        Sleep(1000);
+        ManageCustomer(l, tmp);
+    }
+
+}
+
+void SearchRate(ifstream &FileIn, LIST l, int rate){
+    ThemCustomerVaoList(FileIn, l);
+    LIST tmp = LIST();
+    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        if(k->data.getRate()==rate){
+            NODE *them = new NODE(k->data);
+            tmp.ThemCuoi(them);
+        }
+    }
+    if(tmp.IsEmpty()){
         cout<<"\t\tKhong co tim kiem phu hop!\n\t\t";
         system("pause");
         return;
@@ -926,7 +1136,7 @@ void SortAddress_Z_to_A(ifstream &FileIn, LIST &l){
 }
 
 void SortBill_0_to_9(ifstream &FileIn, LIST l){
-ThemCustomerVaoList(FileIn, l);
+    ThemCustomerVaoList(FileIn, l);
     for(NODE *k = l.pHead; k->pNext != NULL; k = k->pNext){
         for(NODE *g = k->pNext; g != NULL; g = g->pNext){
             if(k->data.getBill() > g->data.getBill())
@@ -941,7 +1151,7 @@ ThemCustomerVaoList(FileIn, l);
 }
 
 void SortBill_9_to_0(ifstream &FileIn, LIST l){
-ThemCustomerVaoList(FileIn, l);
+    ThemCustomerVaoList(FileIn, l);
     for(NODE *k = l.pHead; k->pNext != NULL; k = k->pNext){
         for(NODE *g = k->pNext; g != NULL; g = g->pNext){
             if(k->data.getBill() < g->data.getBill())
@@ -954,28 +1164,49 @@ ThemCustomerVaoList(FileIn, l);
     XuatDSInFoRaFile(FileOut, l);
     FileOut.close();    
 }
-
-//---------------CLEAR LIST--------------
-void ClearList(LIST &l){
-    NODE *k = new NODE;
-    while (l.pHead != NULL){
-        k = l.pHead;
-        l.pHead = l.pHead->pNext;
-        delete k; 
+void SortRate_0_to_9(ifstream &FileIn, LIST l){
+    ThemCustomerVaoList(FileIn, l);
+    for(NODE *k = l.pHead; k->pNext != NULL; k = k->pNext){
+        for(NODE *g = k->pNext; g != NULL; g = g->pNext){
+            if(k->data.getRate() > g->data.getRate())
+                Swap(k->data, g->data);
+        }
     }
+    FileIn.close();
+    ofstream FileOut;
+    FileOut.open("data.txt", ios::out);
+    XuatDSInFoRaFile(FileOut, l);
+    FileOut.close();    
 }
+
+void SortRate_9_to_0(ifstream &FileIn, LIST l){
+    ThemCustomerVaoList(FileIn, l);
+    for(NODE *k = l.pHead; k->pNext != NULL; k = k->pNext){
+        for(NODE *g = k->pNext; g != NULL; g = g->pNext){
+            if(k->data.getRate() < g->data.getRate())
+                Swap(k->data, g->data);
+        }
+    }
+    FileIn.close();
+    ofstream FileOut;
+    FileOut.open("data.txt", ios::out);
+    XuatDSInFoRaFile(FileOut, l);
+    FileOut.close();    
+}
+
+
 void MENU(LIST l){
     char choice;
     while(1){ // Lap vo han
         system("cls"); // Xoa man hinh de khong hien thi lai Menu nua
-        cout<<"\t\t------------MENU------------";
-        cout<<"\n\t\tMOI BAN NHAP TUY CHON";
-        cout<<"\n\t\t1. Xuat Danh Sach Khach hang tu FILE ra man hinh";
-        cout<<"\n\t\t2. Them Thong tin Khach hang vao FILE";
-        cout<<"\n\t\t3. Tim kiem Thong tin Khach hang tu FILE va Chinh sua";
-        cout<<"\n\t\t4. Sap xep lai thong tin Khach hang";
-        cout<<"\n\t\t0. Thoat Menu va Xoa bo nho danh sach";
-        cout<<"\n\t\t----------------------------";
+        cout<<"\t\t===========================MENU=============================";
+        cout<<"\n\t\t|                MOI BAN NHAP TUY CHON                     |";
+        cout<<"\n\t\t| 1. Xuat Danh Sach Khach hang tu FILE ra man hinh         |";
+        cout<<"\n\t\t| 2. Them Thong tin Khach hang vao FILE                    |";
+        cout<<"\n\t\t| 3. Tim kiem Thong tin Khach hang tu FILE va Chinh sua    |";
+        cout<<"\n\t\t| 4. Sap xep lai thong tin Khach hang                      |";
+        cout<<"\n\t\t| 0. Thoat Menu va Xoa bo nho danh sach                    |";
+        cout<<"\n\t\t============================================================";
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
@@ -986,25 +1217,25 @@ void MENU(LIST l){
             break;
         }
         if(choice == '1'){
-            ClearList(l);
+            l.ClearList();
             ifstream FileIn;
             FileIn.open("data.txt", ios::in);
             string xuongdong;
             getline(FileIn, xuongdong);
             ThemCustomerVaoList(FileIn, l);
-            if(IsEmpty(l)){
+            if(l.IsEmpty()){
                 cout<<"Danh sach dang rong!\n";
                 system("pause");
                 return;
             }
             else{
-                XuatDS(l);
+                l.XuatDS();
                 system("pause");
                 FileIn.close();
             }
         }
         else if(choice == '2'){
-            ClearList(l);
+            l.ClearList();
             cin.ignore();
             ifstream FileIn;
             FileIn.open("data.txt", ios::in);
@@ -1015,15 +1246,17 @@ void MENU(LIST l){
             ofstream FileOut;
             FileOut.open("data.txt", ios::app);
             Customer x;
-            NhapThongtin(x);
-            NODE *p = KhoiTaoNode(x);
-            ThemCuoi(l, p);
+            x.NhapThongtin();
+            NODE *p = new NODE(x);
+            l.ThemCuoi(p);
             AddInfoRaFile(FileOut, l);
+            cout<<"\t\tThem thong tin Khach hang thanh cong";
             FileOut.close();
+            Sleep(1000);
         }
         else if(choice == '3'){
             while(1){
-                ClearList(l);
+                l.ClearList();
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
                 char choice1;
@@ -1034,6 +1267,7 @@ void MENU(LIST l){
                 cout<<"\n\t\t4. Tim kiem theo so dien thoai";
                 cout<<"\n\t\t5. Tim kiem theo dich vu da su dung";
                 cout<<"\n\t\t6. Tim kiem theo hoa don";
+                cout<<"\n\t\t7. Tim kiem theo chat luong danh gia dich vu";
                 cout<<"\n\t\t0. Thoat tim kiem";
                 cout<<"\n\t\tNhap lua chon: ";
 
@@ -1098,6 +1332,14 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchBill(FileIn, l, bill);                 
                 }
+                else if(choice1 == '7'){
+                    int rate;
+                    cout<<"\t\tNhap chat luong danh gia can tim (0-10): ";
+                    cin>>rate;
+                    string xuongdong;
+                    getline(FileIn, xuongdong);
+                    SearchRate(FileIn, l, rate);                 
+                }
                 else{
                     cout<<"\t\tBan da nhap sai cu phap!!!";
                     cout<<"\n\t\t";
@@ -1107,7 +1349,7 @@ void MENU(LIST l){
         }
         else if(choice == '4'){
             while(1){
-                ClearList(l);
+                l.ClearList();
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
                 char choice1;
@@ -1115,6 +1357,7 @@ void MENU(LIST l){
                 cout<<"\n\t\t1. Sap xep theo ten";
                 cout<<"\n\t\t2. Sap xep theo dia chi";
                 cout<<"\n\t\t3. Sap xep theo tong so tien hoa don";
+                cout<<"\n\t\t4. Sap xep theo chat luong danh gia san pham";
                 cout<<"\n\t\t0. Thoat tinh nang";
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
@@ -1196,6 +1439,29 @@ void MENU(LIST l){
                         Sleep(1000);                        
                     }
                 }
+                else if(choice1 == '4'){
+                    cout<<"\t\t\t1. Sap xep tang dan";
+                    cout<<"\n\t\t\t2. Sap xep giam dan";
+                    cout<<"\n\t\t\tNhap lua chon: ";
+                    char choice2;
+                    cin>>choice2;
+                    if(choice2 == '1'){
+                        cin.ignore();
+                        string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
+                        getline(FileIn, xuongdong);
+                        SortRate_0_to_9(FileIn, l);
+                        cout<<"\t\t\tSap xep thanh cong";
+                        Sleep(1000);
+                    }
+                    if(choice2 == '2'){
+                        cin.ignore();
+                        string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
+                        getline(FileIn, xuongdong);
+                        SortRate_9_to_0(FileIn, l);
+                        cout<<"\t\t\tSap xep thanh cong";
+                        Sleep(1000);                        
+                    }
+                }
                 else{
                     cout<<"\t\tBan da nhap sai cu phap!!!";
                     cout<<"\n\t\t";
@@ -1216,7 +1482,9 @@ void MENU(LIST l){
 
 
 int main(){
-    LIST l;
-    KhoiTaoList(l);
+    Login();
+    TimDoDai(lenid, lenname, lenaddress, lenemail, lenphone, lenrate, lenbill);
+    LIST l = LIST();
     MENU(l);
+    l.ClearList();
 }

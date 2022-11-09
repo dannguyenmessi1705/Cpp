@@ -17,6 +17,7 @@
         "unordered_set": "cpp",
         "initializer_list": "cpp",
         "new": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "random": "cpp"
     }
 }
