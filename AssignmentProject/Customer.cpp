@@ -839,12 +839,12 @@ void ManageCustomer(LIST &l, LIST &tmp){
         }
         else if(choice1 == '3'){
             ofstream FileOut;
-            FileOut.open("data.txt", ios::out);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 XoaInfo(l, q);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             cout<<"\t\tDa xoa thong tin Khach hang\n\t\t";
             system("pause");
