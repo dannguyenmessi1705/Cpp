@@ -6,7 +6,7 @@ Một project dùng để thực hiện các thao tác quản lý File Khách h�
 ## Hướng dẫn
 ### Cài môi trường để chạy file C++
 [![Guide](https://img.shields.io/badge/Guide-C%2B%2B-green)](https://codelearn.io/sharing/cai-vscode-lap-trinh-cpp-de-nhat)
-> Click vào biểu tượng trên để xem hướng dẫn
+> Click vào biểu tượng trên để xem hướng dẫn.
 ### Chạy project
 Vui lòng click chuột vào file Run để chạy project.
 ### Đăng nhập tài khoản vào hệ thống để chạy project
