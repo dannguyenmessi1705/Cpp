@@ -6,5 +6,4 @@ Một project dùng để thực hiện các thao tác quản lý File Khách h�
 ## Hướng dẫn
 ### Đăng nhập tài khoản vào hệ thống để chạy project
 Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người dùng nhập user và password. Muốn đăng nhập vào người dùng cần nhập
-> User: admin
-  Password: Giờ phút ngày tháng năm hiện tại (VD: 14:20 30/1/2030 => Password: 14203012030)
+> User: admin                                                                                                                           Password: Giờ phút ngày tháng năm hiện tại (VD: 14:20 30/1/2030 => Password: 14203012030)
