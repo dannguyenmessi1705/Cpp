@@ -618,7 +618,6 @@ void SuaInfo(LIST &l, LIST &tmp){
         cout<<"\n\t\t\tMoi ban nhap lua chon de sua: ";
         cin>>choice2;
         ofstream FileOut;
-        FileOut.open("data.txt", ios::out);
         if(choice2 == '1'){
             string name;
             cout<<"\t\t\tNhap ten thay the: ";
@@ -629,6 +628,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaName(l, q, name);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua ten thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -654,6 +654,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaAddress(l, q, address);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua dia chi thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -679,6 +680,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaEmail(l, q, email);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua email thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -704,6 +706,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaPhone(l, q, phone);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua so dien thoai thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -729,6 +732,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaService(l, q, service);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua ten dich vu thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -753,6 +757,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaBill(l, q, bill);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua so tien trong hoa don thanh cong\n\t\t\tBan co muon tiep tuc sua!";
@@ -777,6 +782,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 SuaRate(l, q, rate);
                 q = q->pNext;
             }
+            FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
             FileOut.close();
             cout<<"\t\t\tSua danh gia dich vu thanh cong\n\t\t\tBan co muon tiep tuc sua!";
