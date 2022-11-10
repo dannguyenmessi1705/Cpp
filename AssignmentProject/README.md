@@ -4,6 +4,8 @@ Một project dùng để thực hiện các thao tác quản lý File Khách h�
 > Project được viết bằng ngôn ngữ C++, vui lòng cài môi trường biên dịch của C++ trước khi chạy project.
 
 ## Hướng dẫn
+### Chạy project
+Vui lòng click chuột vào file Run để chạy project.
 ### Đăng nhập tài khoản vào hệ thống để chạy project
 Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người dùng nhập user và password. Muốn đăng nhập vào người dùng cần nhập:
 - User: admin
