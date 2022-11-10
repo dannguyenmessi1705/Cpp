@@ -11,5 +11,5 @@ Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người
 ### Sử dụng tool
 > Các chức năng của tool sẽ được hiển thị trong từng mục Menu ở trong project. Người dùng cần đọc rõ chỉ dẫn để thực hiện đúng các lệnh chính xác. 
 ## Help 
-![Contact](https://img.shields.io/badge/Contact-Gmail-red)
-Mọi thắc mắc, góp ý về project vui lòng liên hệ vào hòm thư điện tử 
+[![Contact](https://img.shields.io/badge/Contact-Telegram-blue)](https://t.me/MHZidane)
+> Mọi thắc mắc, góp ý về project vui lòng liên hệ vào hòm thư điện tử 
