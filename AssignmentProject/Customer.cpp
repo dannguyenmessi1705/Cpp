@@ -49,7 +49,25 @@ public:
 bool Customer::CheckLogin(string us, string pass){
     time_t t = time(0);   // lay thoi gian hien tai
     tm* now = localtime(&t); // Chuyen doi sang kieu int
-    this->password = to_string(now->tm_hour)+to_string(now->tm_min)+to_string(now->tm_mday)+to_string(now->tm_mon+1)+to_string(now->tm_year+1900);
+    string h, min, day, mon, y;
+    h = to_string(now->tm_hour);
+    if(h.length()==1){
+        h = "0"+h;
+    }
+    min = to_string(now->tm_min);
+    if(min.length()==1){
+        min= "0"+min;
+    }
+    day = to_string(now->tm_mday);
+    if(day.length()==1){
+        day="0"+day;
+    }
+    mon = to_string(now->tm_mon + 1);
+    if(mon.length()==1){
+        mon="0"+mon;
+    }    
+    y = to_string(now->tm_year + 1900);
+    this->password = h+min+day+mon+y;
     if(strcmp(us.c_str(), user.c_str())==0 && strcmp(pass.c_str(), password.c_str())==0 ) // Neu nhap dung
         return true;
     else return false;
@@ -263,6 +281,26 @@ string TachDonVi(ll bill){
 	}
 	return tmp + " VND";
 }
+string TachDonVi(string money){
+    string tmp = "";
+	int count = 0; // dem do dai string de ngan cach
+    int dem = 0; // dung de dem so cham ".", phong truong hop khi len den hang ty thi khong can cham nua
+	for (int i = money.length() - 1; i >= 0; i--) {
+		count++;
+		tmp.push_back(money[i]);
+		if (count == 3 && dem < 3) {
+			tmp.push_back('.');
+			count = 0;
+            dem++;
+		}
+	}
+	reverse(tmp.begin(), tmp.end());
+	if (tmp.size() % 4 == 0) {
+		tmp.erase(tmp.begin());
+	}
+	return tmp + " VND";
+}
+// Chuyen string sang kieu so nguyen
 void DocInfoTuFile(ifstream &FileIn, Customer &x){
     string name, address, email, phone, service, tmp, sbill, srate;
     int id = 0, checkname = 0, checkaddress = 0, checkemail = 0, checkphone = 0, checkservice = 0, checkbill = 0, checkrate = 0;
@@ -405,8 +443,13 @@ void Customer::NhapThongtin(){
     cout<<"\t\tNhap tong so tien hoa don: ";
     cin>>bill;
     this->setBill(bill);
-    cout<<"\t\tVui long danh gia dich vu: ";
-    cin>>rate;
+    do{
+        cout<<"\t\tVui long danh gia dich vu (0-5): ";
+        cin>>rate;
+        if(rate<0 || rate>5){
+            cout<<"\t\tBan da nhap sai\n";
+        }
+    }while(rate<0 || rate>5);
     this->setRate(rate);
 }
 
@@ -750,8 +793,6 @@ void SuaInfo(LIST &l, LIST &tmp){
             }
         }
         else if(choice2 == '0'){
-            cout<<"\t\t\t";
-            system("pause");
             FileOut.close();
             return;
         }
@@ -776,8 +817,6 @@ void ManageCustomer(LIST &l, LIST &tmp){
         char choice1;
         cin>>choice1;
         if(choice1 == '0'){
-            cout<<"\t\t";
-            system("pause");
             return;
         }
         else if(choice1 == '1'){
@@ -1199,7 +1238,84 @@ void SortRate_9_to_0(ifstream &FileIn, LIST l){
     FileOut.close();    
 }
 
-
+//============THONG KE==============
+// Ham tinh tong so lon
+void swap(string &n1, string &n2){
+    string tmp = n1;
+    n1 = n2;
+    n2 = tmp;
+}
+string SUM(string n1, string n2){
+    if(n1.length()<n2.length()){
+        swap(n1, n2);
+    }
+    string tmp(n1.size()+1, 0); // Khai bao chuoi ket qua co do dai max, gia tri 0
+    int l1=n1.length();
+    int l2=n2.length();
+    int dis=l1-l2; // n1 dài hơn n2 bao số
+    int sum=0;
+    int nho=0; // lưu biến nhớ
+    int k=tmp.size();; // lưu biến độ dài trong SUM
+    for(int i = l2-1;i>=0;i--){
+        sum = (n1[i+dis]-'0')+(n2[i]-'0')+nho;
+        int donvi = sum%10; // tìm giá trị đơn vị
+        nho = sum/10;
+        tmp[--k] = donvi;
+    }
+    for(int i = dis-1;i>=0;i--){
+        sum=(n1[i]-'0') + nho;
+        int donvi = sum%10;
+        nho = sum/10;
+        tmp[--k] = donvi;
+    }
+    if(nho>0){
+        tmp[--k] = nho;
+    }
+    for(int i=0;i<tmp.size();i++){
+        tmp[i]+='0';
+    }
+    if(tmp[0]=='0'){
+        return tmp.substr(1); //Cat chuoi neu ky tu dau bang 0
+    }
+    return tmp;
+}
+// Ham thong ke tong so tien cua tat ca khach hang
+string TotalBill(ifstream &FileIn, LIST l){
+    ThemCustomerVaoList(FileIn, l);
+    string sum = "0";
+    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        sum = SUM(sum, to_string(k->data.getBill()));
+    }
+    FileIn.close();
+    return sum;
+}
+// Ham thong ke tong so khach hang
+ll TotalCustomer(ifstream &FileIn, LIST l){
+    ThemCustomerVaoList(FileIn, l);
+    FileIn.close();
+    return l.SoPhanTu();
+}
+// Ham thong ke so luot danh gia
+void TotalRate(ifstream &FileIn, LIST l){
+    ThemCustomerVaoList(FileIn, l);
+    ll rate0 = 0, rate1 = 0, rate2 =0, rate3 = 0, rate4 = 0, rate5 = 0;
+    for(NODE *k = l.pHead; k != NULL; k = k->pNext){
+        if(k->data.getRate() == 0) rate0++;
+        else if(k->data.getRate() == 1) rate1++;
+        else if(k->data.getRate() == 2) rate2++;
+        else if(k->data.getRate() == 3) rate3++;
+        else if(k->data.getRate() == 4) rate4++;
+        else rate5++;
+    }
+    cout<<"\t\tCo tong "<<l.SoPhanTu()<<" luot danh gia";
+    cout<<"\n\t\tSo luot danh gia 0*: "<<rate0<<" danh gia";
+    cout<<"\n\t\tSo luot danh gia 1*: "<<rate1<<" danh gia";
+    cout<<"\n\t\tSo luot danh gia 2*: "<<rate2<<" danh gia";
+    cout<<"\n\t\tSo luot danh gia 3*: "<<rate3<<" danh gia";
+    cout<<"\n\t\tSo luot danh gia 4*: "<<rate4<<" danh gia";
+    cout<<"\n\t\tSo luot danh gia 5*: "<<rate5<<" danh gia\n\t\t";
+}
+//===============MENU==================
 void MENU(LIST l){
     char choice;
     while(1){ // Lap vo han
@@ -1210,6 +1326,7 @@ void MENU(LIST l){
         cout<<"\n\t\t| 2. Them Thong tin Khach hang vao FILE                    |";
         cout<<"\n\t\t| 3. Tim kiem Thong tin Khach hang tu FILE va Chinh sua    |";
         cout<<"\n\t\t| 4. Sap xep lai thong tin Khach hang                      |";
+        cout<<"\n\t\t| 5. Thong ke cac chi so trong danh sach                   |";
         cout<<"\n\t\t| 0. Thoat Menu va Xoa bo nho danh sach                    |";
         cout<<"\n\t\t============================================================";
 
@@ -1278,9 +1395,6 @@ void MENU(LIST l){
 
                 cin>>choice1;
                 if(choice1 == '0'){
-                    cout<<"\t\tNhan ENTER de thoat: ";
-                    cout<<"\n\t\t";
-                    system("pause");
                     FileIn.close();
                     break; 
                 }
@@ -1339,7 +1453,7 @@ void MENU(LIST l){
                 }
                 else if(choice1 == '7'){
                     int rate;
-                    cout<<"\t\tNhap chat luong danh gia can tim (0-10): ";
+                    cout<<"\t\tNhap chat luong danh gia can tim (0-5): ";
                     cin>>rate;
                     string xuongdong;
                     getline(FileIn, xuongdong);
@@ -1367,9 +1481,6 @@ void MENU(LIST l){
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
                 if(choice1 == '0'){
-                    cout<<"\t\tNhan ENTER de thoat: ";
-                    cout<<"\n\t\t";
-                    system("pause");
                     FileIn.close();
                     break; 
                 }
@@ -1474,6 +1585,51 @@ void MENU(LIST l){
                 }
 
             }
+        }
+        else if(choice == '5'){
+            while(1){
+                l.ClearList();
+                ifstream FileIn;
+                FileIn.open("data.txt", ios::in);
+                char choice1;
+                system("cls");
+                cout<<"\n\t\t1. Thong ke tong so khach hang";
+                cout<<"\n\t\t2. Thong ke tong so tien cua tat ca cac khach hang";
+                cout<<"\n\t\t3. Thong ke luot danh gia cua khach hang";
+                cout<<"\n\t\t0. Thoat tinh nang";
+                cout<<"\n\t\tNhap lua chon: ";
+                cin>>choice1;
+                if(choice1 == '0'){
+                    FileIn.close();
+                    break; 
+                }
+                else if(choice1 == '1'){
+                    cin.ignore();
+                    string xuongdong;
+                    getline(FileIn, xuongdong);
+                    cout<<"\t\tTong so khach hang: "<<TotalCustomer(FileIn, l)<<"\n\t\t";
+                    system("pause");
+                }
+                else if(choice1 == '2'){
+                    cin.ignore();
+                    string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
+                    getline(FileIn, xuongdong);
+                    cout<<"\t\tTong so tien trong danh sach da thong ke la: "<<TachDonVi(TotalBill(FileIn, l))<<"\n\t\t";
+                    system("pause");
+                }
+                else if(choice1 == '3'){
+                    cin.ignore();
+                    string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
+                    getline(FileIn, xuongdong);
+                    TotalRate(FileIn, l);
+                    system("pause");
+                }
+                else{
+                    cout<<"\t\tBan da nhap sai cu phap!!!";
+                    cout<<"\n\t\t";
+                    system("pause");
+                }
+            }   
         }
         else{
             cout<<"\t\tBan da nhap sai cu phap!!!";
