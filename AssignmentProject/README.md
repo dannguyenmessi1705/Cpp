@@ -17,5 +17,5 @@ Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người
 > Các chức năng của tool sẽ được hiển thị trong từng mục Menu ở trong project. Người dùng cần đọc rõ chỉ dẫn để thực hiện đúng các lệnh chính xác. 
 ## Giúp đỡ
 [![Contact](https://img.shields.io/badge/Contact-Telegram-blue)](https://t.me/MHZidane)
-> Mọi thắc mắc, góp ý về project vui lòng liên hệ qua Telegam bằng cách click chuột vào biểu tượng trên
+> Mọi thắc mắc, góp ý về project vui lòng liên hệ qua Telegam bằng cách click chuột vào biểu tượng trên.
 ## Developed by Nguyễn Di Đan. Thank you for downloading
