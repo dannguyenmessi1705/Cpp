@@ -49,7 +49,7 @@ public:
 bool Customer::CheckLogin(string us, string pass){
     time_t t = time(0);   // lay thoi gian hien tai
     tm* now = localtime(&t); // Chuyen doi sang kieu int
-    this->password = to_string(now->tm_hour)+to_string(now->tm_min)+to_string(now->tm_m day)+to_string(now->tm_mon+1)+to_string(now->tm_year+1900);
+    this->password = to_string(now->tm_hour)+to_string(now->tm_min)+to_string(now->tm_mday)+to_string(now->tm_mon+1)+to_string(now->tm_year+1900);
     if(strcmp(us.c_str(), user.c_str())==0 && strcmp(pass.c_str(), password.c_str())==0 ) // Neu nhap dung
         return true;
     else return false;
@@ -244,11 +244,12 @@ ll Pow(int a, int b){
     }
     return kq;
 }
+// Lam dau cham phan cach hang nghin trong hoa don
 string TachDonVi(ll bill){
 	string tmp = "";
 	string num = to_string(bill);
 	int count = 0;
-	for (int i = num.size() - 1; i >= 0; i--) {
+	for (int i = num.length() - 1; i >= 0; i--) {
 		count++;
 		tmp.push_back(num[i]);
 		if (count == 3) {
@@ -268,23 +269,25 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
     int rate;
     ll bill;
     FileIn>>id;
-    getline(FileIn, tmp);
+    getline(FileIn, tmp); // Doc 1 dong trong FILE, sau khi doc xong, con tro tri vi nam o dau dong ke tiep
     int cat = 0;
     for(int i=0;i<tmp.length();i++){
-        if(tmp[i] != ' ') break;
+        if(tmp[i] != ' ') break; // Bo qua dau khoang cach
         cat++;
     }
+    // Check cac thong tin trong cac truong, den khi gap 2 dau khang cach thi doc het thong tin trong 1 truong nao do
     tmp = tmp.substr(cat);
     for(int i=0; i<tmp.length();i++){
-        if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkname == 0){
-            name = tmp.substr(0, i+1);
+        if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkname == 0){ 
+            name = tmp.substr(0, i+1); // cat string lay thong tin trong truong NAME
             // x.setName(name);
-            checkname = 1;
-            while(tmp[++i]==' ');
-            tmp.erase(tmp.begin(), tmp.begin()+i);
-            i = -1;
+            checkname = 1; // Bien kiem tra xem thong tin da duoc lay hay chua
+            while(tmp[++i]==' '); // Dem so khoang cach phia sau truong NAME
+            tmp.erase(tmp.begin(), tmp.begin()+i); // Xoa tu dau den cuoi khoang cach trong truong NAME de bat dau tiep tuc doc thong tin trong truong ke tiep  
+            i = -1; 
             continue;
         }
+        // Tuong tu voi cac truong sau
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkaddress == 0){
             address = tmp.substr(0, i+1);
             // x.setAddress(address);
@@ -314,7 +317,7 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
         }
         if(tmp[i]!=' ' && tmp[i+1]==' ' && tmp[i+2]==' ' && checkrate == 0){
             srate = tmp.substr(0, i+1);
-            rate = srate[0] - '0';
+            rate = srate[0] - '0'; // Lay phan so, bo dau "*" o sau
             // x.setRate(rate);
             checkrate = 1;
             while(tmp[++i]==' ');
@@ -326,7 +329,7 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
             sbill = tmp.substr(0, i+1);
             bill = 0;
             int mu = 0;
-            for(int i=sbill.length()-1; i >= 0; i--){
+            for(int i=sbill.length()-1; i >= 0; i--){ // Chuyen string sang so
                 if(tmp[i] >= '0' && tmp[i] <= '9')
                     bill += (tmp[i] - '0') * Pow(10, mu++);
             }
@@ -347,15 +350,15 @@ void DocInfoTuFile(ifstream &FileIn, Customer &x){
     }
     service = tmp.substr(cat, tmp.length()-cat);
     // x.setService(service);
-    x = Customer(name, address, email, phone, rate, bill, service);
+    x = Customer(name, address, email, phone, rate, bill, service); // Goi constructor cua class Customer
 }
 
 void ThemCustomerVaoList(ifstream &FileIn, LIST &l){
-    while(! FileIn.eof()){
+    while(! FileIn.eof()){ // Doc file cho toi khi den cuoi dong
         Customer x;
         DocInfoTuFile(FileIn, x);
-        NODE *p = new NODE(x);
-        l.ThemCuoi(p);
+        NODE *p = new NODE(x); // Khoi tao 1 node moi co data la Customer
+        l.ThemCuoi(p); // Them node vua khoi tao vao cuoi danh sach
     }
 }
 
@@ -374,7 +377,7 @@ void LIST::XuatDS(){
     int id = 0;
     for(NODE *k = this->pHead; k != NULL; k = k->pNext){
         cout<<"ID: "<<++id;
-        k->data.XuatInfo();
+        k->data.XuatInfo(); // Goi phuong thuc cua Customer (k->data = Customer)
         cout<<endl;
     }
 }
@@ -496,8 +499,8 @@ void XoaInfo(LIST &l, NODE *q){
 void SuaName(LIST &l, NODE *q, string name){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
         if(strcmp(k->data.getName().c_str(), q->data.getName().c_str())==0){
-            k->data.setName(name);
-            q->data.setName(name);
+            k->data.setName(name); // Cap nhat thong tin trong LIST
+            q->data.setName(name); // Cap nhat thong tin trong NODE de dong bo
         }
     }
 }
@@ -578,7 +581,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\t\t\tNhap ten thay the: ";
             cin.ignore();
             getline(cin, name);
-            NODE *q = tmp.pHead;
+            NODE *q = tmp.pHead; // Cho node q tro toi dau LIST de check tim cac phan tu khac trong danh sach co trung thong tin de sua hay khong
             while(q != NULL){
                 SuaName(l, q, name);
                 q = q->pNext;
@@ -813,6 +816,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
 }
 
 //-------------TIM KIEM THONG TIN KHACH HANG----------------
+// Ham kiem tra ky tu nhap vao co phai la chuoi con cua 1 chuoi cha lon hon hay khong
 bool CompareStringParentWithChild(string a, string b){
     bool check = false;
     for(int i=0; i<a.length(); i++){
@@ -1087,6 +1091,7 @@ void SortName_Z_to_A(ifstream &FileIn, LIST &l){
             lenG = g->data.getName().length();
             TenG = g->data.getName().substr(lenG - DoDaiTenG, DoDaiTenG);
             HoG = k->data.getName().substr(0, lenG - DoDaiTenG);
+            // Sap xep theo ten truoc roi trung nhau moi xet den ho
             if(strcmp(TenK.c_str(), TenG.c_str()) == 0){
                 if(SapxepString_giamdan(HoK, HoG) == false){
                     Swap(k->data, g->data);
@@ -1217,11 +1222,11 @@ void MENU(LIST l){
             break;
         }
         if(choice == '1'){
-            l.ClearList();
+            l.ClearList(); 
             ifstream FileIn;
             FileIn.open("data.txt", ios::in);
             string xuongdong;
-            getline(FileIn, xuongdong);
+            getline(FileIn, xuongdong); // doc hang ten cac truong, xong xuong dong bat dau doc thong tin khach hang 
             ThemCustomerVaoList(FileIn, l);
             if(l.IsEmpty()){
                 cout<<"Danh sach dang rong!\n";
@@ -1240,7 +1245,7 @@ void MENU(LIST l){
             ifstream FileIn;
             FileIn.open("data.txt", ios::in);
             string xuongdong;
-            getline(FileIn, xuongdong);
+            getline(FileIn, xuongdong); // Bo qua truong ten
             ThemCustomerVaoList(FileIn, l);
             FileIn.close();
             ofstream FileOut;
