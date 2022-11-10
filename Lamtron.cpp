@@ -2,7 +2,7 @@
 #include <math.h>
 using namespace std;
 int main(){
-    double a;
+    double a, b;
     int s;
     cin>>a;
     s=round(a);
