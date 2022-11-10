@@ -13,7 +13,7 @@ Vui lòng click chuột vào file Run để chạy project.
 ### Đăng nhập tài khoản vào hệ thống để chạy project
 Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người dùng nhập user và password. Muốn đăng nhập vào người dùng cần nhập:
 - User: admin
-- Password: Giờ phút ngày tháng năm hiện tại (VD: 14:20 30/1/2030 => Password: 14203012030)
+- Password: Giờ phút ngày tháng năm hiện tại (VD: 14:20 30/1/2030 => Password: 142030012030)
 ### Sử dụng tool
 > Các chức năng của tool sẽ được hiển thị trong từng mục Menu ở trong project. Người dùng cần đọc rõ chỉ dẫn để thực hiện đúng các lệnh chính xác. 
 ## Giúp đỡ
