@@ -18,3 +18,4 @@ ID    NAME                          ADDRESS               EMAIL                 
 17    Sadio Mane                    Senegal               mane10@bayern.sel             759255534           5*         642.853.457 VND            Hospital
 18    Wu Lei                        China                 leiwu@esp.cn                  863566457           2*         759.699 VND                Wechat
 19    Luis Diaz                     Colombia              diaz17@liv.co                 6582536476          3*         600.000 VND                CocaCola, Pepsi
+20    Sadio Mane                    Selegal               mane10@baycup.se              4629578253          5*         5.326.000 VND              Building

@@ -187,12 +187,20 @@ public:
 
 };
 
+//===========DOI MA MAU TEXT============
+void TextColor(int x){
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, x);
+}
+
 //=============KIEM TRA DANG NHAP HE THONG=============
 
 void Login(){
+    system("Color 02");
     Customer x;
     string us, pass;
     do{
+        system("Color 02");
         system("cls");
         cout<<"\n\t\tVui long nhap tai khoan:";
         cout<<"\n\t\tUser: ";
@@ -200,10 +208,14 @@ void Login(){
         cout<<"\t\tPassword: ";
         cin>>pass;
         if(!x.CheckLogin(us, pass)){
+            TextColor(4);
             cout<<"\t\tThong tin tai khoan hoac mat khau khong hop le";
             Sleep(1000);
         }
     }while(!x.CheckLogin(us, pass)); 
+    TextColor(11);
+    cout<<"\t\tDang nhap thanh cong";
+    Sleep(1000);
 }
 
 
@@ -538,7 +550,7 @@ void XoaInfo(LIST &l, NODE *q){
     }
 }
 
-//-------------SUA THONG TIN KHACH HANG---------------
+//=================SUA THONG TIN KHACH HANG=========================
 void SuaName(LIST &l, NODE *q, string name){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
         if(strcmp(k->data.getName().c_str(), q->data.getName().c_str())==0){
@@ -607,14 +619,16 @@ void SuaInfo(LIST &l, LIST &tmp){
     char choice2;
     while(1){
         system("cls");
-        cout<<"\t\t\t1. Sua ten Khach hang";
-        cout<<"\n\t\t\t2. Sua dia chi cua Khach hang";
-        cout<<"\n\t\t\t3. Sua email cua Khach hang";
-        cout<<"\n\t\t\t4. Sua so dien thoai cua Khach hang";
-        cout<<"\n\t\t\t5. Sua dich vu da su dung cua Khach hang";
-        cout<<"\n\t\t\t6. Sua so tien hoa don dich vu da su dung cua Khach hang";
-        cout<<"\n\t\t\t7. Sua danh gia dich vu cua Khach hang";
-        cout<<"\n\t\t\t0. Thoat tinh nang";
+        cout<<"\t\t\t==========================CHINH SUA=============================";
+        cout<<"\n\t\t\t|    1. Sua ten Khach hang                                     |";
+        cout<<"\n\t\t\t|    2. Sua dia chi cua Khach hang                             |";
+        cout<<"\n\t\t\t|    3. Sua email cua Khach hang                               |";
+        cout<<"\n\t\t\t|    4. Sua so dien thoai cua Khach hang                       |";
+        cout<<"\n\t\t\t|    5. Sua dich vu da su dung cua Khach hang                  |";
+        cout<<"\n\t\t\t|    6. Sua so tien hoa don dich vu da su dung cua Khach hang  |";
+        cout<<"\n\t\t\t|    7. Sua danh gia dich vu cua Khach hang                    |";
+        cout<<"\n\t\t\t|    0. Thoat tinh nang                                        |";
+        cout<<"\n\t\t\t================================================================";
         cout<<"\n\t\t\tMoi ban nhap lua chon de sua: ";
         cin>>choice2;
         ofstream FileOut;
@@ -814,11 +828,13 @@ void SuaInfo(LIST &l, LIST &tmp){
 void ManageCustomer(LIST &l, LIST &tmp){
     while(1){
         system("cls");
-        cout<<"\n\t\t1. In thong tin Khach hang ra man hinh";
-        cout<<"\n\t\t2. In thong tin Khach hang ra FILE";
-        cout<<"\n\t\t3. Xoa thong tin Khach hang trong FILE";
-        cout<<"\n\t\t4. Sua thong tin Khach hang trong FILE";
-        cout<<"\n\t\t0. Thoat chuong trinh";
+        cout<<"\n\t\t=================TUY CHON===================";
+        cout<<"\n\t\t|  1. In thong tin Khach hang ra man hinh  |";
+        cout<<"\n\t\t|  2. In thong tin Khach hang ra FILE      |";
+        cout<<"\n\t\t|  3. Xoa thong tin Khach hang trong FILE  |";
+        cout<<"\n\t\t|  4. Sua thong tin Khach hang trong FILE  |";
+        cout<<"\n\t\t|  0. Thoat chuong trinh                   |";
+        cout<<"\n\t\t============================================";
         cout<<"\n\t\tNhap lua chon: ";
         char choice1;
         cin>>choice1;
@@ -898,7 +914,8 @@ void SearchName(ifstream &FileIn, LIST l, string name){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 }
@@ -919,7 +936,8 @@ void SearchAddress(ifstream &FileIn, LIST l, string address){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 
@@ -941,7 +959,8 @@ void SearchEmail(ifstream &FileIn, LIST l, string email){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 
@@ -963,7 +982,8 @@ void SearchPhone(ifstream &FileIn, LIST l, string phone){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 }
@@ -984,7 +1004,8 @@ void SearchService(ifstream &FileIn, LIST l, string service){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 }
@@ -1005,7 +1026,8 @@ void SearchBill(ifstream &FileIn, LIST l, ll bill){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 
@@ -1027,7 +1049,8 @@ void SearchRate(ifstream &FileIn, LIST l, int rate){
     }
     else{
         cout<<"\t\tTim kiem thanh cong";
-        Sleep(1000);
+        cout<<"\n\t\tSo khach hang co thong tin tim kiem phu hop: "<<tmp.SoPhanTu();
+        Sleep(2000);
         ManageCustomer(l, tmp);
     }
 
@@ -1389,14 +1412,16 @@ void MENU(LIST l){
                 FileIn.open("data.txt", ios::in);
                 char choice1;
                 system("cls");
-                cout<<"\n\t\t1. Tim kiem theo ten";
-                cout<<"\n\t\t2. Tim kiem theo dia chi";
-                cout<<"\n\t\t3. Tim kiem theo email";
-                cout<<"\n\t\t4. Tim kiem theo so dien thoai";
-                cout<<"\n\t\t5. Tim kiem theo dich vu da su dung";
-                cout<<"\n\t\t6. Tim kiem theo hoa don";
-                cout<<"\n\t\t7. Tim kiem theo chat luong danh gia dich vu";
-                cout<<"\n\t\t0. Thoat tim kiem";
+                cout<<"\n\t\t===================TIM KIEM=======================";
+                cout<<"\n\t\t|  1. Tim kiem theo ten                          |";
+                cout<<"\n\t\t|  2. Tim kiem theo dia chi                      |";
+                cout<<"\n\t\t|  3. Tim kiem theo email                        |";
+                cout<<"\n\t\t|  4. Tim kiem theo so dien thoai                |";
+                cout<<"\n\t\t|  5. Tim kiem theo dich vu da su dung           |";
+                cout<<"\n\t\t|  6. Tim kiem theo hoa don                      |";
+                cout<<"\n\t\t|  7. Tim kiem theo chat luong danh gia dich vu  |";
+                cout<<"\n\t\t|  0. Thoat tim kiem                             |";
+                cout<<"\n\t\t==================================================";
                 cout<<"\n\t\tNhap lua chon: ";
 
                 cin>>choice1;
@@ -1478,12 +1503,15 @@ void MENU(LIST l){
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
                 char choice1;
+                
                 system("cls");
-                cout<<"\n\t\t1. Sap xep theo ten";
-                cout<<"\n\t\t2. Sap xep theo dia chi";
-                cout<<"\n\t\t3. Sap xep theo tong so tien hoa don";
-                cout<<"\n\t\t4. Sap xep theo chat luong danh gia san pham";
-                cout<<"\n\t\t0. Thoat tinh nang";
+                cout<<"\n\t\t====================SAP XEP========================";
+                cout<<"\n\t\t|  1. Sap xep theo ten                            |";
+                cout<<"\n\t\t|  2. Sap xep theo dia chi                        |";
+                cout<<"\n\t\t|  3. Sap xep theo tong so tien hoa don           |";
+                cout<<"\n\t\t|  4. Sap xep theo chat luong danh gia san pham   |";
+                cout<<"\n\t\t|  0. Thoat tinh nang                             |";
+                cout<<"\n\t\t===================================================";
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
                 if(choice1 == '0'){
@@ -1599,10 +1627,12 @@ void MENU(LIST l){
                 FileIn.open("data.txt", ios::in);
                 char choice1;
                 system("cls");
-                cout<<"\n\t\t1. Thong ke tong so khach hang";
-                cout<<"\n\t\t2. Thong ke tong so tien cua tat ca cac khach hang";
-                cout<<"\n\t\t3. Thong ke luot danh gia cua khach hang";
-                cout<<"\n\t\t0. Thoat tinh nang";
+                cout<<"\n\t\t|========================THONG KE=======================|";
+                cout<<"\n\t\t|  1. Thong ke tong so khach hang                       |";
+                cout<<"\n\t\t|  2. Thong ke tong so tien cua tat ca cac khach hang   |";
+                cout<<"\n\t\t|  3. Thong ke luot danh gia cua khach hang             |";
+                cout<<"\n\t\t|  0. Thoat tinh nang                                   |";
+                cout<<"\n\t\t|=======================================================|";
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
                 if(choice1 == '0'){
@@ -1652,6 +1682,7 @@ int main(){
     Login();
     TimDoDai(lenid, lenname, lenaddress, lenemail, lenphone, lenrate, lenbill);
     LIST l = LIST();
+    system("Color 70");
     MENU(l);
     l.ClearList();
 }
