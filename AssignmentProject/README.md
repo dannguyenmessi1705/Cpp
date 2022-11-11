@@ -3,7 +3,8 @@
 Một project dùng để thực hiện các thao tác quản lý File Khách hàng như đọc thông tin, tìm kiến thông tin, thêm thông tin cũng như sắp xếp, lọc các thông tin của khách hàng từ File data.txt.
 > Project được viết bằng ngôn ngữ C++, vui lòng cài môi trường biên dịch của C++ trước khi chạy project.
 ## Download
-[![Download](https://img.shields.io/badge/Download-Here-yellow)](https://github.com/dannguyenmessi1705/AssignmentComputerProgramming/files/9982272/AssignmentProject.zip)
+[![Download](https://img.shields.io/badge/Download-Here-yellow)](https://github.com/dannguyenmessi1705/AssignmentComputerProgramming/releases/tag/vBeta)
+> Click vào biểu tượng trên để tải xuống project
 ## Hướng dẫn
 ### Cài môi trường để chạy file C++
 [![Guide](https://img.shields.io/badge/Guide-C%2B%2B-green)](https://codelearn.io/sharing/cai-vscode-lap-trinh-cpp-de-nhat)
