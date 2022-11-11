@@ -862,9 +862,10 @@ void ManageCustomer(LIST &l, LIST &tmp){
             }
             FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
+            FileOut.close();
             cout<<"\t\tDa xoa thong tin Khach hang\n\t\t";
             system("pause");
-            FileOut.close();
+            return;
         }
         else if(choice1 == '4'){
             SuaInfo(l, tmp);

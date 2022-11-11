@@ -616,7 +616,7 @@ void SuaRate(LIST &l, NODE *q, int rate){
 
 
 void SuaInfo(LIST &l, LIST &tmp){
-    char choice2;
+    string choice2;
     while(1){
         system("cls");
         cout<<"\t\t\t==========================CHINH SUA=============================";
@@ -632,7 +632,7 @@ void SuaInfo(LIST &l, LIST &tmp){
         cout<<"\n\t\t\tMoi ban nhap lua chon de sua: ";
         cin>>choice2;
         ofstream FileOut;
-        if(choice2 == '1'){
+        if(choice2 == "1"){
             string name;
             cout<<"\t\t\tNhap ten thay the: ";
             cin.ignore();
@@ -649,16 +649,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{   
                 break;
             }
         }
-        else if(choice2 == '2'){
+        else if(choice2 == "2"){
             string address;
             cout<<"\t\t\tNhap dia chi thay the: ";
             cin.ignore();
@@ -675,16 +675,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{
                 break;
             }
         }
-        else if(choice2 == '3'){
+        else if(choice2 == "3"){
             string email;
             cout<<"\t\t\tNhap email thay the: ";
             cin.ignore();
@@ -701,16 +701,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{
                 break;
             }                 
         }
-        else if(choice2 == '4'){
+        else if(choice2 == "4"){
             string phone;
             cout<<"\t\t\tNhap so dien thoai thay the: ";
             cin.ignore();
@@ -727,16 +727,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{
                 break;
             }
         }
-        else if(choice2 == '5'){
+        else if(choice2 == "5"){
             string service;
             cout<<"\t\t\tNhap ten dich vu thay the: ";
             cin.ignore();
@@ -753,16 +753,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{
                 break;
             }
         }
-        else if(choice2 == '6'){
+        else if(choice2 == "6"){
             ll bill;
             cout<<"\t\t\tNhap so tien hoa don thay the: ";
             cin>>bill;
@@ -778,16 +778,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{ 
                 break;
             }
         }
-        else if(choice2 == '7'){
+        else if(choice2 == "7"){
             int rate;
             cout<<"\t\t\tNhap lai danh gia thay the: ";
             cin>>rate;
@@ -803,16 +803,16 @@ void SuaInfo(LIST &l, LIST &tmp){
             cout<<"\n\t\t\t1. Co";
             cout<<"\n\t\t\t0. Khong va thoat";
             cout<<"\n\t\t\tNhap lua chon: ";                        
-            char choice3;
+            string choice3;
             cin>>choice3;
-            if(choice3 == '1'){
+            if(choice3 == "1"){
                 continue;
             }
             else{ 
                 break;
             }
         }
-        else if(choice2 == '0'){
+        else if(choice2 == "0"){
             FileOut.close();
             return;
         }
@@ -836,16 +836,16 @@ void ManageCustomer(LIST &l, LIST &tmp){
         cout<<"\n\t\t|  0. Thoat chuong trinh                   |";
         cout<<"\n\t\t============================================";
         cout<<"\n\t\tNhap lua chon: ";
-        char choice1;
+        string choice1;
         cin>>choice1;
-        if(choice1 == '0'){
+        if(choice1 == "0"){
             return;
         }
-        else if(choice1 == '1'){
+        else if(choice1 == "1"){
             tmp.XuatDS();
             system("pause");
         }
-        else if(choice1 == '2'){
+        else if(choice1 == "2"){
             ofstream FileOut;
             FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, tmp);
@@ -853,7 +853,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
             system("pause");
             FileOut.close();
         }
-        else if(choice1 == '3'){
+        else if(choice1 == "3"){
             ofstream FileOut;
             NODE *q = tmp.pHead;
             while(q != NULL){
@@ -862,11 +862,12 @@ void ManageCustomer(LIST &l, LIST &tmp){
             }
             FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, l);
+            FileOut.close();
             cout<<"\t\tDa xoa thong tin Khach hang\n\t\t";
             system("pause");
-            FileOut.close();
+            return;
         }
-        else if(choice1 == '4'){
+        else if(choice1 == "4"){
             SuaInfo(l, tmp);
         }
         else{
@@ -1346,7 +1347,7 @@ void TotalRate(ifstream &FileIn, LIST l){
 }
 //===============MENU==================
 void MENU(LIST l){
-    char choice;
+    string choice;
     while(1){ // Lap vo han
         system("cls"); // Xoa man hinh de khong hien thi lai Menu nua
         cout<<"\t\t===========================MENU=============================";
@@ -1361,13 +1362,13 @@ void MENU(LIST l){
 
         cout<<"\n\t\tNhap lua chon: ";
         cin>>choice;
-        if(choice == '0'){
+        if(choice == "0"){
             cout<<"\t\tNhan ENTER de thoat: ";
             cout<<"\n\t\t";
             system("pause");
             break;
         }
-        if(choice == '1'){
+        if(choice == "1"){
             l.ClearList(); 
             ifstream FileIn;
             FileIn.open("data.txt", ios::in);
@@ -1385,7 +1386,7 @@ void MENU(LIST l){
                 FileIn.close();
             }
         }
-        else if(choice == '2'){
+        else if(choice == "2"){
             l.ClearList();
             cin.ignore();
             ifstream FileIn;
@@ -1405,12 +1406,12 @@ void MENU(LIST l){
             FileOut.close();
             Sleep(1000);
         }
-        else if(choice == '3'){
+        else if(choice == "3"){
             while(1){
                 l.ClearList();
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
-                char choice1;
+                string choice1;
                 system("cls");
                 cout<<"\n\t\t===================TIM KIEM=======================";
                 cout<<"\n\t\t|  1. Tim kiem theo ten                          |";
@@ -1425,11 +1426,11 @@ void MENU(LIST l){
                 cout<<"\n\t\tNhap lua chon: ";
 
                 cin>>choice1;
-                if(choice1 == '0'){
+                if(choice1 == "0"){
                     FileIn.close();
                     break; 
                 }
-                else if(choice1 == '1'){
+                else if(choice1 == "1"){
                     string name;
                     cout<<"\t\tNhap ten can tim kiem: ";
                     cin.ignore();
@@ -1438,7 +1439,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchName(FileIn, l, name);
                 }
-                else if(choice1 == '2'){
+                else if(choice1 == "2"){
                     string address;
                     cout<<"\t\tNhap dia chi can tim kiem: ";
                     cin.ignore();
@@ -1447,7 +1448,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchAddress(FileIn, l, address);                 
                 }
-                else if(choice1 == '3'){
+                else if(choice1 == "3"){
                     string email;
                     cout<<"\t\tNhap email can tim kiem: ";
                     cin.ignore();
@@ -1456,7 +1457,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchEmail(FileIn, l, email);                 
                 }
-                else if(choice1 == '4'){
+                else if(choice1 == "4"){
                     string phone;
                     cout<<"\t\tNhap so dien thoai can tim kiem: ";
                     cin.ignore();
@@ -1465,7 +1466,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchPhone(FileIn, l, phone);                 
                 }
-                else if(choice1 == '5'){
+                else if(choice1 == "5"){
                     string service;
                     cout<<"\t\tNhap ten dich vu can tim kiem: ";
                     cin.ignore();
@@ -1474,7 +1475,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchService(FileIn, l, service);                 
                 }
-                else if(choice1 == '6'){
+                else if(choice1 == "6"){
                     ll bill;
                     cout<<"\t\tNhap so tien hoa don can tim: ";
                     cin>>bill;
@@ -1482,7 +1483,7 @@ void MENU(LIST l){
                     getline(FileIn, xuongdong);
                     SearchBill(FileIn, l, bill);                 
                 }
-                else if(choice1 == '7'){
+                else if(choice1 == "7"){
                     int rate;
                     cout<<"\t\tNhap chat luong danh gia can tim (0-5): ";
                     cin>>rate;
@@ -1497,12 +1498,12 @@ void MENU(LIST l){
                 }
             }
         }
-        else if(choice == '4'){
+        else if(choice == "4"){
             while(1){
                 l.ClearList();
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
-                char choice1;
+                string choice1;
                 
                 system("cls");
                 cout<<"\n\t\t====================SAP XEP========================";
@@ -1514,17 +1515,17 @@ void MENU(LIST l){
                 cout<<"\n\t\t===================================================";
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
-                if(choice1 == '0'){
+                if(choice1 == "0"){
                     FileIn.close();
                     break; 
                 }
-                else if(choice1 == '1'){
+                else if(choice1 == "1"){
                     cout<<"\t\t\t1. Sap xep tang dan";
                     cout<<"\n\t\t\t2. Sap xep giam dan";
                     cout<<"\n\t\t\tNhap lua chon: ";
-                    char choice2;
+                    string choice2;
                     cin>>choice2;
-                    if(choice2 == '1'){
+                    if(choice2 == "1"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1532,7 +1533,7 @@ void MENU(LIST l){
                         cout<<"\t\t\tSap xep thanh cong";
                         Sleep(1000);
                     }
-                    if(choice2 == '2'){
+                    if(choice2 == "2"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1542,13 +1543,13 @@ void MENU(LIST l){
                     }
 
                 }
-                else if(choice1 == '2'){
+                else if(choice1 == "2"){
                     cout<<"\t\t\t1. Sap xep tang dan";
                     cout<<"\n\t\t\t2. Sap xep giam dan";
                     cout<<"\n\t\t\tNhap lua chon: ";
-                    char choice2;
+                    string choice2;
                     cin>>choice2;
-                    if(choice2 == '1'){
+                    if(choice2 == "1"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1556,7 +1557,7 @@ void MENU(LIST l){
                         cout<<"\t\t\tSap xep thanh cong";
                         Sleep(1000);
                     }
-                    if(choice2 == '2'){
+                    if(choice2 == "2"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1566,13 +1567,13 @@ void MENU(LIST l){
                     }
 
                 }
-                else if(choice1 == '3'){
+                else if(choice1 == "3"){
                     cout<<"\t\t\t1. Sap xep tang dan";
                     cout<<"\n\t\t\t2. Sap xep giam dan";
                     cout<<"\n\t\t\tNhap lua chon: ";
-                    char choice2;
+                    string choice2;
                     cin>>choice2;
-                    if(choice2 == '1'){
+                    if(choice2 == "1"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1580,7 +1581,7 @@ void MENU(LIST l){
                         cout<<"\t\t\tSap xep thanh cong";
                         Sleep(1000);
                     }
-                    if(choice2 == '2'){
+                    if(choice2 == "2"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1589,13 +1590,13 @@ void MENU(LIST l){
                         Sleep(1000);                        
                     }
                 }
-                else if(choice1 == '4'){
+                else if(choice1 == "4"){
                     cout<<"\t\t\t1. Sap xep tang dan";
                     cout<<"\n\t\t\t2. Sap xep giam dan";
                     cout<<"\n\t\t\tNhap lua chon: ";
-                    char choice2;
+                    string choice2;
                     cin>>choice2;
-                    if(choice2 == '1'){
+                    if(choice2 == "1"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1603,7 +1604,7 @@ void MENU(LIST l){
                         cout<<"\t\t\tSap xep thanh cong";
                         Sleep(1000);
                     }
-                    if(choice2 == '2'){
+                    if(choice2 == "2"){
                         cin.ignore();
                         string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                         getline(FileIn, xuongdong);
@@ -1620,12 +1621,12 @@ void MENU(LIST l){
 
             }
         }
-        else if(choice == '5'){
+        else if(choice == "5"){
             while(1){
                 l.ClearList();
                 ifstream FileIn;
                 FileIn.open("data.txt", ios::in);
-                char choice1;
+                string choice1;
                 system("cls");
                 cout<<"\n\t\t|========================THONG KE=======================|";
                 cout<<"\n\t\t|  1. Thong ke tong so khach hang                       |";
@@ -1635,25 +1636,25 @@ void MENU(LIST l){
                 cout<<"\n\t\t|=======================================================|";
                 cout<<"\n\t\tNhap lua chon: ";
                 cin>>choice1;
-                if(choice1 == '0'){
+                if(choice1 == "0"){
                     FileIn.close();
                     break; 
                 }
-                else if(choice1 == '1'){
+                else if(choice1 == "1"){
                     cin.ignore();
                     string xuongdong;
                     getline(FileIn, xuongdong);
                     cout<<"\t\tTong so khach hang: "<<TotalCustomer(FileIn, l)<<"\n\t\t";
                     system("pause");
                 }
-                else if(choice1 == '2'){
+                else if(choice1 == "2"){
                     cin.ignore();
                     string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                     getline(FileIn, xuongdong);
                     cout<<"\t\tTong so tien trong danh sach da thong ke la: "<<TachDonVi(TotalBill(FileIn, l))<<"\n\t\t";
                     system("pause");
                 }
-                else if(choice1 == '3'){
+                else if(choice1 == "3"){
                     cin.ignore();
                     string xuongdong; // tao bien tam \n de bo qua viec doc cac truong ID,... o dong dau tien
                     getline(FileIn, xuongdong);

@@ -5,7 +5,7 @@ ID    NAME                          ADDRESS               EMAIL                 
 4     Ronaldo                       Ha Noi                ronal&gmail.com               0954739445          2*         5.000 VND                  Drink                                                       
 5     Frank Kessie                  Cote d'lvoire         bossfrank&barca.cot           8537356375          3*         43.000 VND                 Spotify
 6     De Bruyne                     Belgium               kevin17@gmail.com             8375867362          1*         45.000 VND                 EPL, myK+                                                   
-7     Zidane                        France                danprohy@yahoo.com            0345221946          3*         300.000 VND                Drink, Food                                                 
+7     Zinedine Zidane               France                danprohy@yahoo.com            0345221946          3*         300.000 VND                Drink, Food                                                 
 8     Eden Hazard                   London                h10@london.uk                 643546753           3*         375.000 VND                Netflix, Fshare                                             
 9     Lionel Adress Messi           Argentina             leomessi@worldcup.com         883573222           5*         956.000 VND                Pepsi, Nike                                                 
 10    Luka Modric                   Croatia               luka10@rma.cr                 0458276444          3*         1.750.000 VND              Internet 1000Mbps                                           
