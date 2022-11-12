@@ -3,14 +3,17 @@
 Một project dùng để thực hiện các thao tác quản lý File Khách hàng như đọc thông tin, tìm kiến thông tin, thêm thông tin cũng như sắp xếp, lọc các thông tin của khách hàng từ File data.txt.
 > Project được viết bằng ngôn ngữ C++, vui lòng cài môi trường biên dịch của C++ trước khi chạy project.
 ## Download
-[![Download](https://img.shields.io/badge/Download-Here-yellow)](https://github.com/dannguyenmessi1705/AssignmentComputerProgramming/releases/tag/v1)
+[![Download](https://img.shields.io/badge/Download-Here-yellow)](https://github.com/dannguyenmessi1705/AssignmentComputerProgramming/releases)
 > Click vào biểu tượng trên để tải xuống project
 ## Hướng dẫn
 ### Cài môi trường để chạy file C++
-[![Guide](https://img.shields.io/badge/Guide-C%2B%2B-green)](https://codelearn.io/sharing/cai-vscode-lap-trinh-cpp-de-nhat)
-> Click vào biểu tượng trên để xem hướng dẫn.
+[![Guide](https://img.shields.io/badge/Guide-C%2B%2B-green)](https://codelearn.io/sharing/cai-vscode-lap-trinh-cpp-de-nhat) [![Download](https://img.shields.io/badge/Download-MinGW-yellow)](https://mega.nz/file/Yst3xBLa#NlHoXHnCvibkYj0mjD1uoHMkmCQ97KSdEWYAXswjOyA) 
+- Tải MinGW C++ bằng việc click vào nút Download để có thể cài trình biên dịch cho C++.
+> Tải xong vui lòng giải nén nó vào ổ C:\
+- Click vào biểu tượng trên để xem hướng dẫn cài môi trường. Chỉ cần làm bước 3 trong bài hướng dẫn là được rồi.
+> Nếu đã tải và giải nén MinGW ở bước trên rồi thì bỏ qua phần download ở bài viết hướng dẫn. Nên tải ở đây vì trong bài hướng dẫn link có thể sẽ bị lỗi.
 ### Chạy project
-Vui lòng click chuột vào file Run để chạy project.
+Vui lòng click chuột vào file RunMe để chạy project. Hoặc bạn có thể download sourcecode rồi tự biên dịch
 ### Đăng nhập tài khoản vào hệ thống để chạy project
 Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người dùng nhập user và password. Muốn đăng nhập vào người dùng cần nhập:
 - User: admin
