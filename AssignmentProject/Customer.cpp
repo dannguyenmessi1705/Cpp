@@ -934,9 +934,9 @@ void ManageCustomer(LIST &l, LIST &tmp){
             ofstream FileOut;
             FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, tmp);
+            FileOut.close();
             cout<<"\t\tIn FILE thanh cong\n\t\t";
             system("pause");
-            FileOut.close();
         }
         else if(choice1 == "3"){
             ofstream FileOut;
