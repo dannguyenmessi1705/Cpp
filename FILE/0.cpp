@@ -636,20 +636,21 @@ void XoaInfo(LIST &l, NODE *q){
 }
 
 //=================SUA THONG TIN KHACH HANG=========================
+// Vi email dinh danh khach hang la duy nhat, khong trung lap
 void SuaName(LIST &l, NODE *q, string name){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(strcmp(k->data.getName().c_str(), q->data.getName().c_str())==0){
+        if(strcmp(k->data.getEmail().c_str(), q->data.getEmail().c_str())==0){
             k->data.setName(name); // Cap nhat thong tin trong LIST
-            q->data.setName(name); // Cap nhat thong tin trong NODE de dong bo
+            // q->data.setName(name); // Cap nhat thong tin trong NODE de dong bo
         }
     }
 }
 
 void SuaAddress(LIST &l, NODE *q, string address){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(strcmp(k->data.getAddress().c_str(), q->data.getAddress().c_str())==0){
+        if(strcmp(k->data.getEmail().c_str(), q->data.getEmail().c_str())==0){
             k->data.setAddress(address);
-            q->data.setAddress(address);
+            // q->data.setAddress(address);
         }
     }
 }
@@ -658,43 +659,43 @@ void SuaEmail(LIST &l, NODE *q, string email){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
         if(strcmp(k->data.getEmail().c_str(), q->data.getEmail().c_str())==0){
             k->data.setEmail(email);
-            q->data.setEmail(email);
+            // q->data.setEmail(email);
         }
     }
 }
 
 void SuaPhone(LIST &l, NODE *q, string phone){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(strcmp(k->data.getPhone().c_str(), q->data.getPhone().c_str())==0){
+        if(strcmp(k->data.getEmail().c_str(), q->data.getEmail().c_str())==0){
             k->data.setPhone(phone);
-            q->data.setPhone(phone);
+            // q->data.setPhone(phone);
         }
     }
 }
 
 void SuaService(LIST &l, NODE *q, string service){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(strcmp(k->data.getService().c_str(), q->data.getService().c_str())==0){
+        if(strcmp(k->data.getEmail().c_str(), q->data.getEmail().c_str())==0){
             k->data.setService(service);
-            q->data.setService(service);
+            // q->data.setService(service);
         }
     }
 }
 
 void SuaBill(LIST &l, NODE *q, ll bill){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(k->data.getBill() == q->data.getBill()){
+        if(k->data.getEmail() == q->data.getEmail()){
             k->data.setBill(bill);
-            q->data.setBill(bill);
+            // q->data.setBill(bill);
         }
     }
 }
 
 void SuaRate(LIST &l, NODE *q, int rate){
     for(NODE *k=l.pHead; k != NULL; k = k->pNext){
-        if(k->data.getRate() == q->data.getRate()){
+        if(k->data.getEmail() == q->data.getEmail()){
             k->data.setRate(rate);
-            q->data.setRate(rate);
+            // q->data.setRate(rate);
         }
     }
 }
@@ -725,6 +726,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead; // Cho node q tro toi dau LIST de check tim cac phan tu khac trong danh sach co trung thong tin de sua hay khong
             while(q != NULL){
                 SuaName(l, q, name);
+                q->data.setName(name); // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -751,6 +753,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaAddress(l, q, address);
+                q->data.setAddress(address);  // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -777,6 +780,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaEmail(l, q, email);
+                q->data.setEmail(email);  // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -803,6 +807,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaPhone(l, q, phone);
+                q->data.setPhone(phone); // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -829,6 +834,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaService(l, q, service);
+                q->data.setService(service); // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -854,6 +860,7 @@ void SuaInfo(LIST &l, LIST &tmp){
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaBill(l, q, bill);
+                q->data.setBill(bill); // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -874,11 +881,17 @@ void SuaInfo(LIST &l, LIST &tmp){
         }
         else if(choice2 == "7"){
             int rate;
-            cout<<"\t\t\tNhap lai danh gia thay the: ";
-            cin>>rate;
+            do{
+                cout<<"\t\t\tNhap lai danh gia thay the(0-5): ";
+                cin>>rate;
+                if(rate<0 || rate>5){
+                    cout<<"\n\t\t\tBan da nhap sai, vui long nhap lai\n";
+                }
+            }while(rate<0 || rate>5);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaRate(l, q, rate);
+                q->data.setRate(rate); // Cap nhat lai thong tin da sua
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
@@ -924,6 +937,10 @@ void ManageCustomer(LIST &l, LIST &tmp){
         string choice1;
         cin>>choice1;
         if(choice1 == "0"){
+            ofstream FileOut;
+            FileOut.open("data.txt", ios::in);
+            XuatDSInFoRaFile(FileOut, l); // Xuat, backup lai danh sach phong truong hop nguoi dung an phim tuy chon so 2 se lam mat danh sach
+            FileOut.close();
             return;
         }
         else if(choice1 == "1"){
@@ -934,9 +951,9 @@ void ManageCustomer(LIST &l, LIST &tmp){
             ofstream FileOut;
             FileOut.open("data.txt", ios::out);
             XuatDSInFoRaFile(FileOut, tmp);
+            FileOut.close();
             cout<<"\t\tIn FILE thanh cong\n\t\t";
             system("pause");
-            FileOut.close();
         }
         else if(choice1 == "3"){
             ofstream FileOut;
