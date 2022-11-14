@@ -1,3 +1,8 @@
+<p
+     <a href="https://t.me/MHZidane"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=8E1A&width=500&lines=PROJECT+IS+CREATED+BY+NGUYỄN+DI+ĐAN" alt="Typing SVG" />
+     </a>
+ </p>
+
 # **QUẢN LÝ FILE KHÁCH HÀNG C++**
 ## **Giới thiệu**
 Một project dùng để thực hiện các thao tác quản lý File Khách hàng như đọc thông tin, tìm kiến thông tin, thêm thông tin cũng như sắp xếp, lọc các thông tin của khách hàng từ File data.txt.
