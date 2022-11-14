@@ -18,6 +18,7 @@
         "initializer_list": "cpp",
         "new": "cpp",
         "iosfwd": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "future": "cpp"
     }
 }

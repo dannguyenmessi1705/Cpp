@@ -125,30 +125,42 @@ int Customer::getID(){
     return id;
 }
 void Customer::XuatInfo(){
-    cout<<"\nID: "<<this->getID();
-    cout<<"\nNAME: "<<this->getName();
-    cout<<"\nADDRESS: "<<this->getAddress();
-    cout<<"\nEMAIL: "<<this->getEmail();
-    cout<<"\nPHONE: "<<this->getPhone();
-    cout<<"\nFEEDBACK: "<<this->getRate()<<"*";
-    cout<<"\nBILL: "<<TachDonVi(this->getBill());
-    cout<<"\nSERVICE: "<<this->getService();
+    cout<<setw(lenid)<<this->getID();
+    cout<<setw(lenname)<<this->getName();
+    cout<<setw(lenaddress)<<this->getAddress();
+    cout<<setw(lenemail)<<this->getEmail();
+    cout<<setw(lenphone)<<this->getPhone();
+    cout<<setw(lenrate)<<"   "+to_string(this->getRate())+"*";
+    cout<<setw(lenbill)<<TachDonVi(this->getBill());
+    cout<<this->getService();
 }
 void Customer::NhapThongtin(){
     ll bill;
     string name, address, email, phone, service;
     int rate;
-    cout<<"\t\tNhap ten: ";
-    getline(cin, name);
+    cout<<"\t\tNhap ten(25 ky tu): ";
+    do{
+        getline(cin, name);
+        if(name.length() > 25 ) cout<<"Ten qua dai, vui long nhap lai(25 ky tu): ";
+    } while(name.length() > 25);
     this->setName(name);
-    cout<<"\t\tNhap dia chi: ";
-    getline(cin, address);
+    cout<<"\t\tNhap dia chi(18 ky tu): ";
+    do{
+        getline(cin, address);
+        if(address.length() > 18 ) cout<<"Dia chi qua dai, vui long nhap lai(18 ky tu): ";
+    } while(address.length() >  18);
     this->setAddress(address);
-    cout<<"\t\tNhap email: ";
-    getline(cin, email);
+    cout<<"\t\tNhap email(30 ky tu): ";
+    do{
+        getline(cin, email);
+        if(email.length() > 30 ) cout<<"Email qua dai, vui long nhap lai(30 ky tu): ";
+    } while(email.length() > 30);
     this->setEmail(email);
-    cout<<"\t\tNhap so dien thoai: ";
-    getline(cin, phone);
+    cout<<"\t\tNhap so dien thoai(12 so): ";
+    do{
+        getline(cin, phone);
+        if(phone.length() > 12 ) cout<<"So dien thoai qua dai, vui long nhap lai(12 so): ";
+    } while(phone.length() > 12);
     this->setPhone(phone);
     cout<<"\t\tNhap ten cac dich vu da su dung: ";
     getline(cin, service);
@@ -237,6 +249,14 @@ public:
 
 };
 void LIST::XuatDS(){
+    cout<<setw(lenid)<<left<<"ID";
+    cout<<setw(lenname)<<left<<"NAME";
+    cout<<setw(lenaddress)<<left<<"ADDRESS";
+    cout<<setw(lenemail)<<left<<"EMAIL";
+    cout<<setw(lenphone)<<left<<"PHONE";
+    cout<<setw(lenrate)<<left<<"FEEDBACK";
+    cout<<setw(lenbill)<<left<<"BILL";
+    cout<<"SERVICE"<<endl;
     for(NODE *k = this->pHead; k != NULL; k = k->pNext){
         k->data.XuatInfo(); // Goi phuong thuc cua Customer (k->data = Customer)
         cout<<endl;

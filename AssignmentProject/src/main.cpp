@@ -1,6 +1,4 @@
-#include "Object.h"
-#include "Security.h"
-#include "Menu.h"
+#include "bits\Customer.h"
 int main(){
     Login();
     TimDoDai(lenid, lenname, lenaddress, lenemail, lenphone, lenrate, lenbill);

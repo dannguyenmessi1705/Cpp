@@ -16,12 +16,12 @@ void TimDoDai(int &lenid, int &lenname, int &lenaddress, int &lenemail, int &len
     getline(FileIn, line);
     if(line.length() == 0){ // File data rong
         lenid = 6;
-        lenname = 30;
-        lenaddress = 22;
+        lenname = 25;
+        lenaddress = 18;
         lenemail = 30;
-        lenphone = 17;
-        lenrate = 14;
-        lenbill = 27;
+        lenphone = 13;
+        lenrate = 10;
+        lenbill = 24;
     }
     else{
         lenid = 2; // Bang chieu dai "ID"
