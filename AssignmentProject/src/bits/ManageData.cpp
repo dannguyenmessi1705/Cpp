@@ -20,7 +20,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
         if(choice1 == "0"){
             ofstream FileOut;
             FileOut.open("data.txt", ios::in);
-            XuatDSInFoRaFile(FileOut, l); // Xuat, backup lai danh sach phong truong hop nguoi dung an phim tuy chon so 2 se lam mat danh sach
+            XuatDSInFoRaFile(FileOut, l, 0); // Xuat, backup lai danh sach phong truong hop nguoi dung an phim tuy chon so 2 se lam mat danh sach
             FileOut.close();
             return;
         }
@@ -31,7 +31,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
         else if(choice1 == "2"){
             ofstream FileOut;
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, tmp);
+            XuatDSInFoRaFile(FileOut, tmp, 0);
             FileOut.close();
             cout<<"\t\tIn FILE thanh cong\n\t\t";
             system("pause");
@@ -44,7 +44,7 @@ void ManageCustomer(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 1); // Xoa xong cap nhat lai ID => update = 1
             FileOut.close();
             cout<<"\t\tDa xoa thong tin Khach hang\n\t\t";
             system("pause");

@@ -85,9 +85,12 @@ void SuaInfo(LIST &l, LIST &tmp){
         ofstream FileOut;
         if(choice2 == "1"){
             string name;
-            cout<<"\t\t\tNhap ten thay the: ";
+            cout<<"\t\t\tNhap ten thay the(25 ky tu): ";
             cin.ignore();
-            getline(cin, name);
+            do{
+                getline(cin, name);
+            if(name.length() > 25 || name.length() == 0) cout<<"\t\t\tTen qua dai hoac khong hop le, vui long nhap lai(25 ky tu): ";
+            } while(name.length() >  25 || name.length() == 0);
             NODE *q = tmp.pHead; // Cho node q tro toi dau LIST de check tim cac phan tu khac trong danh sach co trung thong tin de sua hay khong
             while(q != NULL){
                 SuaName(l, q, name);
@@ -95,7 +98,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua ten thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -112,9 +115,12 @@ void SuaInfo(LIST &l, LIST &tmp){
         }
         else if(choice2 == "2"){
             string address;
-            cout<<"\t\t\tNhap dia chi thay the: ";
+            cout<<"\t\t\tNhap dia chi thay the(18 ky tu): ";
             cin.ignore();
-            getline(cin, address);
+            do{
+                getline(cin, address);
+                if(address.length() > 18 || address.length() == 0) cout<<"\t\t\tDia chi qua dai hoac khong hop le, vui long nhap lai(18 ky tu): ";
+            } while(address.length() >  18 || address.length() == 0);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaAddress(l, q, address);
@@ -122,7 +128,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua dia chi thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -139,9 +145,12 @@ void SuaInfo(LIST &l, LIST &tmp){
         }
         else if(choice2 == "3"){
             string email;
-            cout<<"\t\t\tNhap email thay the: ";
+            cout<<"\t\t\tNhap email thay the(30 ky tu): ";
             cin.ignore();
-            getline(cin, email);
+            do{
+                getline(cin, email);
+                if(email.length() > 30 || email.length() == 0) cout<<"\t\t\tEmail qua dai hoac khong hop le, vui long nhap lai(30 ky tu): ";
+            } while(email.length() >  30 || email.length() == 0);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaEmail(l, q, email);
@@ -149,7 +158,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua email thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -166,9 +175,12 @@ void SuaInfo(LIST &l, LIST &tmp){
         }
         else if(choice2 == "4"){
             string phone;
-            cout<<"\t\t\tNhap so dien thoai thay the: ";
+            cout<<"\t\t\tNhap so dien thoai thay the(12 so): ";
             cin.ignore();
-            getline(cin, phone);
+            do{
+                getline(cin, phone);
+                if(phone.length() > 12 || phone.length() == 0) cout<<"\t\t\tSo dien thoai khong hop le, vui long nhap lai(12 so): ";
+            } while(phone.length() >  12 || phone.length() == 0);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaPhone(l, q, phone);
@@ -176,7 +188,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua so dien thoai thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -195,7 +207,10 @@ void SuaInfo(LIST &l, LIST &tmp){
             string service;
             cout<<"\t\t\tNhap ten dich vu thay the: ";
             cin.ignore();
-            getline(cin, service);
+            do{
+                getline(cin, service);
+                if(service.length() == 0) cout<<"\t\t\tNhap ten dich vu thay the: ";
+            } while(service.length() == 0);
             NODE *q = tmp.pHead;
             while(q != NULL){
                 SuaService(l, q, service);
@@ -203,7 +218,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua ten dich vu thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -229,7 +244,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua so tien trong hoa don thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";
@@ -260,7 +275,7 @@ void SuaInfo(LIST &l, LIST &tmp){
                 q = q->pNext;
             }
             FileOut.open("data.txt", ios::out);
-            XuatDSInFoRaFile(FileOut, l);
+            XuatDSInFoRaFile(FileOut, l, 0);
             FileOut.close();
             cout<<"\t\t\tSua danh gia dich vu thanh cong\n\t\t\tBan co muon tiep tuc sua!";
             cout<<"\n\t\t\t1. Co";

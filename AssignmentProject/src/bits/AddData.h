@@ -10,6 +10,6 @@ void XuatCacTruong(ofstream &FileOut);
 void AddInfoRaFile(ofstream &FileOut, LIST l);
 
 // Ham them DS thong tin khach hang ra FILE
-void XuatDSInFoRaFile(ofstream &FileOut, LIST l);
+void XuatDSInFoRaFile(ofstream &FileOut, LIST l, int update);
 
 #endif

@@ -86,7 +86,7 @@ void SortName_A_to_Z(ifstream &FileIn, LIST &l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();
 }
 
@@ -119,7 +119,7 @@ void SortName_Z_to_A(ifstream &FileIn, LIST &l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();
 }
 
@@ -134,7 +134,7 @@ void SortAddress_A_to_Z(ifstream &FileIn, LIST &l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }
 
@@ -149,7 +149,7 @@ void SortAddress_Z_to_A(ifstream &FileIn, LIST &l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }
 
@@ -164,7 +164,7 @@ void SortBill_0_to_9(ifstream &FileIn, LIST l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }
 
@@ -179,7 +179,7 @@ void SortBill_9_to_0(ifstream &FileIn, LIST l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }
 void SortRate_0_to_9(ifstream &FileIn, LIST l){
@@ -193,7 +193,7 @@ void SortRate_0_to_9(ifstream &FileIn, LIST l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }
 
@@ -208,6 +208,6 @@ void SortRate_9_to_0(ifstream &FileIn, LIST l){
     FileIn.close();
     ofstream FileOut;
     FileOut.open("data.txt", ios::out);
-    XuatDSInFoRaFile(FileOut, l);
+    XuatDSInFoRaFile(FileOut, l, 1);
     FileOut.close();    
 }

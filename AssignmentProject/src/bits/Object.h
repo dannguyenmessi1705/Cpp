@@ -141,29 +141,32 @@ void Customer::NhapThongtin(){
     cout<<"\t\tNhap ten(25 ky tu): ";
     do{
         getline(cin, name);
-        if(name.length() > 25 ) cout<<"Ten qua dai, vui long nhap lai(25 ky tu): ";
-    } while(name.length() > 25);
+        if(name.length() > 25 || name.length() == 0) cout<<"\t\tTen qua dai hoac khong hop le, vui long nhap lai(25 ky tu): ";
+    } while(name.length() > 25 || name.length() == 0);
     this->setName(name);
     cout<<"\t\tNhap dia chi(18 ky tu): ";
     do{
         getline(cin, address);
-        if(address.length() > 18 ) cout<<"Dia chi qua dai, vui long nhap lai(18 ky tu): ";
-    } while(address.length() >  18);
+        if(address.length() > 18 || address.length() == 0) cout<<"\t\tDia chi qua dai hoac khong hop le, vui long nhap lai(18 ky tu): ";
+    } while(address.length() > 18 || address.length() == 0);
     this->setAddress(address);
     cout<<"\t\tNhap email(30 ky tu): ";
     do{
         getline(cin, email);
-        if(email.length() > 30 ) cout<<"Email qua dai, vui long nhap lai(30 ky tu): ";
-    } while(email.length() > 30);
+        if(email.length() > 30 || email.length() == 0) cout<<"\t\tEmail qua dai hoac khong hop le, vui long nhap lai(30 ky tu): ";
+    } while(email.length() > 30 || email.length() == 0);
     this->setEmail(email);
     cout<<"\t\tNhap so dien thoai(12 so): ";
     do{
         getline(cin, phone);
-        if(phone.length() > 12 ) cout<<"So dien thoai qua dai, vui long nhap lai(12 so): ";
-    } while(phone.length() > 12);
+        if(phone.length() > 12 || phone.length() == 0) cout<<"\t\tSo dien thoai khong hop le, vui long nhap lai(12 so): ";
+    } while(phone.length() > 12 || phone.length() == 0);
     this->setPhone(phone);
-    cout<<"\t\tNhap ten cac dich vu da su dung: ";
-    getline(cin, service);
+    do{
+        cout<<"\t\tNhap ten cac dich vu da su dung: ";
+        getline(cin, service);
+        if(service.length() == 0) cout<<"\n";
+    } while(service.length() == 0);
     this->setService(service);
     cout<<"\t\tNhap tong so tien hoa don: ";
     cin>>bill;

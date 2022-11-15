@@ -6,4 +6,5 @@ int main(){
     system("Color 70");
     MENU(l);
     l.ClearList();
+    system("data.txt");
 }

@@ -37,11 +37,12 @@ void AddInfoRaFile(ofstream &FileOut, LIST l){
     FileOut<<setw(lenbill)<<left<<TachDonVi(l.pTail->data.getBill());
     FileOut<<l.pTail->data.getService();
 }
-void XuatDSInFoRaFile(ofstream &FileOut, LIST l){
+void XuatDSInFoRaFile(ofstream &FileOut, LIST l, int update){
     XuatCacTruong(FileOut);
     int id=0;
     for(NODE *k = l.pHead; k != NULL; k = k->pNext){
-        k->data.setID(++id);
+        if(update == 1) // Chi cap nhat lai ID sau khi xoa, nguoc lai thi khong can cap nhat vi so luong khach hang khong bi mat di
+            k->data.setID(++id); 
         FileOut<<endl;
         FileOut<<setw(lenid)<<left<<k->data.getID();
         FileOut<<setw(lenname)<<left<<k->data.getName();
