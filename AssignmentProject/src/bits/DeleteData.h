@@ -5,5 +5,4 @@
 
 // Xoa Info, Chi can tim Dia chi, email,... la ta co the truy cao vao ten cua Khach hang, nen chi can tim den Truong cot NAME de tim roi xoa
 void XoaInfo(LIST &l, NODE *q);
-
 #endif
