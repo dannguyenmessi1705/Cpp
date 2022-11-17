@@ -30,5 +30,5 @@ Sau khi chạy project, màn hình console sẽ hiển thị yêu cầu người
 ## **Giúp đỡ**
 [![Contact](https://img.shields.io/badge/Contact-Telegram-blue)](https://t.me/MHZidane)
 > Mọi thắc mắc, góp ý về project vui lòng liên hệ qua Telegam bằng cách click chuột vào biểu tượng trên.
-## **Developed by [Nguyễn Di Đan](http://nguyendidan.199z.net). Thank you for downloading**
+## **Developed by [Nguyễn Di Đan](https://dannguyenmessi1705.github.io/lovefootball/). Thank you for downloading**
 ![](https://thaitrien.com/wp-content/uploads/2021/06/QATAR-2022-WORLCUP-LOGO.jpg)
