@@ -4,7 +4,13 @@ int n, x[105], k, used[105] = {};
 void Output()
 {
     for (int i = 1; i <= n; ++i)
-        cout << x[i] << (i < n ? " " : "\n");
+    {
+        cout << x[i];
+        if (i >= n)
+        {
+            cout << " ";
+        }
+    }
 }
 void Try(int i)
 {
@@ -32,6 +38,7 @@ int main()
     {
         cin >> n;
         Try(1);
+        cout << "\n";
     }
     return 0;
 }

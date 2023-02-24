@@ -1,24 +1,24 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled",
-    "files.associations": {
-        "iostream": "cpp",
-        "vector": "cpp",
-        "valarray": "cpp",
-        "functional": "cpp",
-        "iomanip": "cpp",
-        "regex": "cpp",
-        "ostream": "cpp",
-        "array": "cpp",
-        "deque": "cpp",
-        "forward_list": "cpp",
-        "list": "cpp",
-        "string": "cpp",
-        "unordered_map": "cpp",
-        "unordered_set": "cpp",
-        "initializer_list": "cpp",
-        "new": "cpp",
-        "iosfwd": "cpp",
-        "random": "cpp",
-        "future": "cpp"
-    }
+  "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
+  "files.associations": {
+    "iostream": "cpp",
+    "vector": "cpp",
+    "valarray": "cpp",
+    "functional": "cpp",
+    "iomanip": "cpp",
+    "regex": "cpp",
+    "ostream": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "initializer_list": "cpp",
+    "new": "cpp",
+    "iosfwd": "cpp",
+    "random": "cpp",
+    "future": "cpp"
+  }
 }
