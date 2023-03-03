@@ -6,7 +6,7 @@ string Gray(string Binary)
     gray += Binary[0];
     for (int i = 1; i < Binary.length(); i++)
     {
-        gray += (Binary[i - 1] != Binary[i]) ? "1" : "0";
+        gray += (Binary[i - 1] != Binary[i]) ? "1" : "0"; // gray[k] = bin[k] XOR bin[k-1]
     }
     return gray;
 }

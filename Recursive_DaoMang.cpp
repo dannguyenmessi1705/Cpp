@@ -16,7 +16,7 @@ void In(int *a, int n)
 {
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
+        a[i] = i + 1;
     }
 }
 void Out(int *a, int n)

@@ -1,5 +1,5 @@
 {
-  "C_Cpp.errorSquiggles": "EnabledIfIncludesResolve",
+  "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
   "files.associations": {
     "iostream": "cpp",
     "vector": "cpp",
@@ -19,8 +19,6 @@
     "new": "cpp",
     "iosfwd": "cpp",
     "random": "cpp",
-    "future": "cpp",
-    "chrono": "cpp",
-    "limits": "cpp"
+    "future": "cpp"
   }
 }
