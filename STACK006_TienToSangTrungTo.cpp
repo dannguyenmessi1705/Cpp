@@ -1,37 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve()
+string hautoToTrungTo(string str)
 {
-    string s;
-    getline(cin, s);
     stack<string> st;
-    for(int i=s.length() - 1; i>=0; i--){
-        if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/')
-        {
-            string tmp1 = st.top();
-            st.pop();
-            string tmp2 = st.top();
-            st.pop();
-            string tmp = tmp1 + tmp2 + s[i];
-            st.push(tmp);
-        }
+
+    for (int i = 0; i < str.size(); i++)
+    {
+        string temp = ""; // variable to store substring
+
+        // traverse each character, nếu là toán tử or operand thì đưa vào stack
+        if (str[i] >= 'a' && str[i] <= 'z')
+            st.push(string(1, str[i]));
         else
         {
-            string tmp = "";
-            tmp += s[i];
-            st.push(tmp);
+            // pop two recent elements from stack
+            string op1 = st.top(), op2;
+            st.pop();
+
+            op2 = st.top();
+            st.pop();
+
+            temp += '(';
+            temp += op2;
+            temp += str[i];
+            temp += op1;
+            temp += ')';
+
+            st.push(temp);
         }
     }
-    cout << st.top() << endl;
+
+    return st.top(); // output expression
 }
 
-int main(){
-    int t;
-    cin >>t;
-    cin.ignore();
-    while(t--){
-        
-        solve();
+int main()
+{
+    int test;
+    cin >> test;
+    while (test--)
+    {
+        string str;
+        cin >> str;
+        cout << hautoToTrungTo(str) << endl;
     }
 }

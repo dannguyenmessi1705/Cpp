@@ -1,13 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+// int FindMax(int a[], int n)
+// {
+//     if (n == 1)
+//     {
+//         return a[0];
+//     }
+//     return max(a[n - 1], FindMax(a, n - 1));
+// }
 int FindMax(int a[], int n)
 {
-    if (n == 1)
-    {
+    if (n <= 1)
         return a[0];
-    }
-    return max(a[n - 1], FindMax(a, n - 1));
+    int max = FindMax(a + 1, n - 1);
+    return (a[0] > max) ? a[0] : max;
 }
+
 int main()
 {
     int n;

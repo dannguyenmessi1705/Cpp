@@ -1,64 +1,112 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
-const int MAX_N = 505;
-const int MAX_K = 2000005;
-
-int K, N;
-int Value[MAX_N], Weight[MAX_N];
-int MaxCost[2][MAX_K];
-// MAX[1][j] là giá tr? l?n nh?t thu du?c
-// v?i vi?c ch?n t? d? v?t t? 1 d?n i và
-// kh?i lu?ng không vu?t quá j
-
-// MAX[0][j] là giá tr? cu tru?c dó.
-// Và ngu?c l?i
-
-int Max(int a, int b)
+string deleteSpace (string x)   //a+ b -> a+b
 {
-	if(a > b) return a;
-	return b;
+    string rs = "";
+    for (int i=0; i<x.length(); i++)
+        if (x[i]!=' ')
+            rs+=x[i];
+    return rs;
 }
 
-int main()
+string delete_1 (string x)  //delete string like (a)->a || ((a+b))->(a+b)
 {
-	int T, test_case;
-	ios::sync_with_stdio(false);
-	//freopen("input.txt", "r", stdin);
+    stack <char> s;
+    stack <int> index;
+    int dele[300] = {0};
+    for (int i=0; i<x.length(); i++)
+    {
+        if (x[i]==')')
+        {
+            int flag = 0;
+            while (s.top()!='(')
+            {
+                char top = s.top();
+                if (top=='+' || top=='-')
+                    flag = 1;
+                s.pop();
+                index.pop();
+            }
+            if (flag == 0)
+            {
+                dele[index.top()] = 1;
+                dele[i] = 1;
+            }
+            s.pop();
+            index.pop();
+        }
+        else
+        {
+            s.push(x[i]);
+            index.push(i);
+        }
+    }
+    string rs = "";
+    for (int i=0; i<x.length(); i++)
+    {
+        if (dele[i]==0)
+            rs+=x[i];
+    }
+    return rs;
+}
 
-	cin >> K >> N;
-	for(int i = 1; i <= N; i++)
-	    cin >> Value[i] >> Weight[i];
+string delete_2 (string x)  //delete string like ((a+b)+c)->(a+b+c) || (a+(b-c))->(a+b-c)
+{
+    stack <char> s;
+    stack <int> index;
+    int dele[300] = {0};
+    for (int i=x.length()-1; i>=0; i--)
+    {
+        if (x[i]=='(')
+        {
+            int flag = 1;
+            if (i==0 || x[i-1]!='-')
+                flag = 0;
+            while (s.top()!=')')
+            {
+                s.pop();
+                index.pop();
+            }
+            if (flag == 0)
+            {
+                dele[index.top()] = 1;
+                dele[i] = 1;
+            }
+            s.pop();
+            index.pop();
+        }
+        else
+        {
+            s.push(x[i]);
+            index.push(i);
+        }
+    }
+    string rs="";
+    for (int i=0; i<x.length(); i++)
+    {
+        if (dele[i]==0)
+            rs+=x[i];
+    }
+    return rs;
+}
 
-	// Tru?ng h?p co s?
-	for(int j = 0; j <= K; j++)
-		MaxCost[0][j] = 0;
-
-	for(int i = 0; i < 2; i++)
-		MaxCost[i][0] = 0;
-
-	int before = 0, current = 1;
-	for(int i = 1; i <= N; i++)
-	{
-		for(int j = 1; j <= K; j++)
-		{
-			// Không ch?n v?t i
-			MaxCost[current][j] = MaxCost[before][j];
-			int a = MaxCost[current][j];
-
-			// Ch?n v?t i
-			if(Weight[i] <= j) 
-				MaxCost[current][j] = Max(MaxCost[current][j], MaxCost[before][j - Weight[i]] + Value[i]);
-			int b = MaxCost[current][j];
-		}
-
-		// Ð?i current và before cho nhau.
-		current = 1 - current;
-		before  = 1 - before;
-	}
-	// N ch?n thì k?t qu? là MaxCost[0][K]
-	// N l? thì k?t qu? là MaxCost[1][K]
-	cout << MaxCost[N % 2][K] << endl;
-
-	return 0;//Your program should return 0 on normal termination.
+int main ()
+{
+    string str = "";
+    int n;
+    cin>>n;
+    cin.ignore();
+    while (1)
+    {
+        if (n==0) break;
+        n--;
+        getline(cin, str);
+        string str_no_space = deleteSpace(str);
+        string str_1 = delete_1(str_no_space);
+        string str_2 = delete_2(str_1);
+        cout<<str_2<<endl;
+    }
+    return 0;
 }

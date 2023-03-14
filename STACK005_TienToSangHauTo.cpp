@@ -6,7 +6,7 @@ void solve()
     string s;
     getline(cin, s);
     stack<string> st;
-    for(int i=s.length() - 1; i>=0; i--)
+    for (int i = s.length() - 1; i >= 0; i--)
     {
         if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/')
         {
@@ -27,12 +27,14 @@ void solve()
     cout << st.top() << endl;
 }
 
-int main(){
+int main()
+{
     int t;
-    cin >>t;
+    cin >> t;
     cin.ignore();
-    while(t--){
-        
+    while (t--)
+    {
+
         solve();
     }
 }
