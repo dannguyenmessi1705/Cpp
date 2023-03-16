@@ -45,15 +45,14 @@ int main()
 			for (int j = 0; j < n; j++)
 				cin >> a.x[i][j];
 		a = poww(a, k);
-        unsigned long long ans=0;
+		unsigned long long ans = 0;
 		for (int i = 0; i < n; i++)
 		{
-			
-                ans += a.x[i][i];
-            	ans %= mod;
-				//cout << a.x[i][j] << " ";
-			
-        }
-        cout<<ans << endl;
+
+			ans += a.x[i][i];
+			ans %= mod;
+			// cout << a.x[i][j] << " ";
+		}
+		cout << ans << endl;
 	}
 }

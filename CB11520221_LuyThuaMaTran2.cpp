@@ -1,12 +1,14 @@
 #include <bits/stdc++.h>
 #define endl "\n"
 using namespace std;
-struct data{
+struct data
+{
 	long long x[10][10];
 };
 int n;
 long long mod = 1000000007;
-struct data operator*(struct data a, struct data b){
+struct data operator*(struct data a, struct data b)
+{
 	struct data xx;
 	for (int i = 0; i < n; i++)
 	{
@@ -19,7 +21,8 @@ struct data operator*(struct data a, struct data b){
 	}
 	return xx;
 };
-struct data poww(struct data a, long long k){
+struct data poww(struct data a, long long k)
+{
 	if (k == 1)
 		return a;
 	if (k % 2 == 1)
@@ -27,10 +30,12 @@ struct data poww(struct data a, long long k){
 	struct data xx = poww(a, k / 2);
 	return xx * xx;
 }
-int main(){
+int main()
+{
 	int t;
 	cin >> t;
-	while (t--){
+	while (t--)
+	{
 		long long k;
 		cin >> n >> k;
 		struct data a;
@@ -38,14 +43,14 @@ int main(){
 			for (int j = 0; j < n; j++)
 				cin >> a.x[i][j];
 		a = poww(a, k);
-        unsigned long long ans=0;
-		for (int i = 0; i < n; i++){
-			
-                ans += a.x[n-i-1][i];
-            	ans %= mod;
-				//cout << a.x[i][j] << " ";
-			
-        }
-        cout<<ans << endl;
+		unsigned long long ans = 0;
+		for (int i = 0; i < n; i++)
+		{
+
+			ans += a.x[n - i - 1][i];
+			ans %= mod;
+			// cout << a.x[i][j] << " ";
+		}
+		cout << ans << endl;
 	}
 }
