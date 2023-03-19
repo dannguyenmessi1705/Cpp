@@ -1,160 +1,42 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
-
-struct Node
-{
-    int data;
-    Node *left;
-    Node *right;
-};
-
-Node *createNode(int value)
-{
-    Node *newNode = new Node();
-    newNode->data = value;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
-}
-
-Node *insert(Node *root, int value)
-{
-    if (root == NULL)
-    {
-        return createNode(value);
-    }
-    if (value < root->data)
-    {
-        root->left = insert(root->left, value);
-    }
-    else if (value > root->data)
-    {
-        root->right = insert(root->right, value);
-    }
-    return root;
-}
-
-Node *findMinNode(Node *node)
-{
-    Node *current = node;
-    while (current && current->left != NULL)
-    {
-        current = current->left;
-    }
-    return current;
-}
-
-Node *xoaNode(Node *root, int x)
-{
-    if (root == NULL)
-    {
-        return root;
-    }
-    if (x < root->data)
-    {
-        root->left = xoaNode(root->left, x);
-    }
-    else if (x > root->data)
-    {
-        root->right = xoaNode(root->right, x);
-    }
-    else
-    {
-        if (root->left == NULL && root->right == NULL)
-        {
-            delete root;
-            root = NULL;
-        }
-        else if (root->left == NULL)
-        {
-            Node *temp = root;
-            root = root->right;
-            delete temp;
-        }
-        else if (root->right == NULL)
-        {
-            Node *temp = root;
-            root = root->left;
-            delete temp;
-        }
-        else
-        {
-            Node *temp = findMinNode(root->right);
-            root->data = temp->data;
-            root->right = xoaNode(root->right, temp->data);
-        }
-    }
-    return root;
-}
-
-Node *timNode(Node *root, int x)
-{
-    if (root == NULL || root->data == x)
-    {
-        return root;
-    }
-    if (x < root->data)
-    {
-        return timNode(root->left, x);
-    }
-    else
-    {
-        return timNode(root->right, x);
-    }
-}
-
-void print(Node *node)
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-    cout << node->data << " ";
-    print(node->left);
-    print(node->right);
-}
+typedef long double ld;
+const ld epsilon = 1e-6;
 
 int main()
 {
-    int value;
-    Node *root = NULL;
-    // Them node co thu tu
-    cout << "Tao cay bang cach them node co thu tu: 8, 3, 5, 2, 20, 11, 30, 9, 18, 4";
-    root = insert(root, 8);
-    root = insert(root, 3);
-    root = insert(root, 5);
-    root = insert(root, 2);
-    root = insert(root, 20);
-    root = insert(root, 11);
-    root = insert(root, 30);
-    root = insert(root, 9);
-    root = insert(root, 18);
-    root = insert(root, 4);
-    // tim node x = 11
-    cout << "\nTim node 11!!!";
-    if (timNode(root, 11) == NULL)
+    int test;
+    cin >> test;
+    while (test--)
     {
-        cout << "\nKhong tim thay Node co gia tri 20 tren cay." << endl;
+        ld a, b;
+        int ans;
+        cin >> a >> b;
+        for (int k = 1; k <= 40; k++) // Max 2^40 > 10^12
+        {
+            // Lay can bac k cua 2 gia tri dau cuoi
+            ld l = pow(a, 1.0 / k);
+            ld r = pow(b, 1.0 / k);
+            // Tim sai so voi can tren va can duoi cua 2 gia tri l, r
+            // Neu sai so nho hon epsilon, l lam tron xuong va nguoc lai r lam tron len
+            ld checkleft = l - floor(l);
+            ld checkright = r - ceil(r);
+            if (abs(checkleft) <= epsilon)
+                l = floor(l);
+            else
+                l = ceil(l);
+            if (abs(checkright) <= epsilon)
+                r = ceil(r);
+            else
+                r = floor(r);
+            // Sau khi lam tron, neu r-l>=0 thi k thoa man L<=X^k<=R
+            if (r - l >= 0)
+            {
+                ans = k;
+            }
+        }
+        cout << ans << endl;
     }
-    else
-    {
-        cout << "\nTim thay Node co gia tri 20 tren cay." << endl;
-    }
-    // Them node x = 1
-    cout << "Them node 1!!!";
-    root = insert(root, 1);
-    // Xoa node 20
-    cout << "\nXoa node 3!!!";
-    root = xoaNode(root, 3);
-    cout << endl;
-    // Hien thi gia tri cay
-    cout << "Gia tri cua cay: ";
-    print(root);
-    cout << endl;
-    // Tim nut trai nhat cua cay ben trai
-    Node *tmp = findMinNode(root->right);
-    int minleft = tmp->data;
-    cout << "Nut trai nhat cua cay ben phai la: " << minleft;
+
     return 0;
 }

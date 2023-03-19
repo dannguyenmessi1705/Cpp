@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
-string GrayToBin(string gray)
+string Gray(string Binary)
 {
-    int len = gray.length();
-    string bin = "";
-    bin += gray[0];
-    for (int i = 1; i < len; i++)
+    string gray = "";
+    gray += Binary[0];
+    for (int i = 1; i < Binary.length(); i++)
     {
-        bin += (gray[i] != bin[i - 1]) ? "1" : "0";
+        gray += (Binary[i - 1] != Binary[i]) ? "1" : "0"; // gray[k] = bin[k] XOR bin[k-1]
     }
-    return bin;
+    return gray;
 }
 int main()
 {
@@ -17,8 +16,9 @@ int main()
     cin >> test;
     while (test--)
     {
-        string gray;
-        cin >> gray;
-        cout << GrayToBin(gray) << endl;
+        string Binary;
+        cin >> Binary;
+        cout << Gray(Binary);
+        cout << endl;
     }
 }
