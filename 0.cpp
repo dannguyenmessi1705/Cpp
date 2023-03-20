@@ -1,42 +1,44 @@
+// C++ program to implement recursive Binary Search
 #include <bits/stdc++.h>
 using namespace std;
-typedef long double ld;
-const ld epsilon = 1e-6;
 
-int main()
+// A recursive binary search function. It returns
+// location of x in given array arr[l..r] is present,
+// otherwise -1
+int binarySearch(int arr[], int l, int r, int x)
 {
-    int test;
-    cin >> test;
-    while (test--)
+    if (r >= l)
     {
-        ld a, b;
-        int ans;
-        cin >> a >> b;
-        for (int k = 1; k <= 40; k++) // Max 2^40 > 10^12
-        {
-            // Lay can bac k cua 2 gia tri dau cuoi
-            ld l = pow(a, 1.0 / k);
-            ld r = pow(b, 1.0 / k);
-            // Tim sai so voi can tren va can duoi cua 2 gia tri l, r
-            // Neu sai so nho hon epsilon, l lam tron xuong va nguoc lai r lam tron len
-            ld checkleft = l - floor(l);
-            ld checkright = r - ceil(r);
-            if (abs(checkleft) <= epsilon)
-                l = floor(l);
-            else
-                l = ceil(l);
-            if (abs(checkright) <= epsilon)
-                r = ceil(r);
-            else
-                r = floor(r);
-            // Sau khi lam tron, neu r-l>=0 thi k thoa man L<=X^k<=R
-            if (r - l >= 0)
-            {
-                ans = k;
-            }
-        }
-        cout << ans << endl;
+        int mid = l + (r - l) / 2;
+
+        // If the element is present at the middle
+        // itself
+        if (arr[mid] == x)
+            return mid;
+
+        // If element is smaller than mid, then
+        // it can only be present in left subarray
+        if (arr[mid] > x)
+            return binarySearch(arr, l, mid - 1, x);
+
+        // Else the element can only be present
+        // in right subarray
+        return binarySearch(arr, mid + 1, r, x);
     }
 
+    // We reach here when element is not
+    // present in array
+    return -1;
+}
+
+int main(void)
+{
+    int arr[] = {2, 3, 10, 10, 40};
+    int x = 10;
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int result = binarySearch(arr, 0, n - 1, x);
+    (result == -1)
+        ? cout << "Element is not present in array"
+        : cout << "Element is present at index " << result;
     return 0;
 }
