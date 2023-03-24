@@ -120,7 +120,7 @@ void XoaCuoi(LIST &l)
     }
 }
 
-void XoaNodeSauNodeQ(LIST &l, NODE *q)
+void XoaNodeSauNodeQ(LIST &l, NODE *q, int value)
 {
 
     if (l.Head->data == q->data && l.Head->Next == NULL)
@@ -134,11 +134,12 @@ void XoaNodeSauNodeQ(LIST &l, NODE *q)
         {
             return;
         }
-        if (k->data == q->data)
+        if (k->data == q->data && k->Next->data == value)
         {
             NODE *tmp = k->Next;
             k->Next = tmp->Next;
             delete tmp;
+            return;
         }
     }
 }
@@ -156,40 +157,41 @@ int main()
 {
     LIST l;
     KhoiTaoDS(l);
-    ThemVaoDau(l, KhoiTaoNode(25));
-    ThemVaoDau(l, KhoiTaoNode(20));
-    ThemVaoDau(l, KhoiTaoNode(15));
-    ThemVaoDau(l, KhoiTaoNode(10));
+    ThemVaoDau(l, KhoiTaoNode(7));
+    ThemVaoDau(l, KhoiTaoNode(1));
+    ThemVaoDau(l, KhoiTaoNode(3));
+    ThemVaoDau(l, KhoiTaoNode(2));
+    ThemVaoDau(l, KhoiTaoNode(8));
     cout << "DS ban dau: ";
     XuatDS(l);
     system("pause");
     // Them vao dau
-    ThemVaoDau(l, KhoiTaoNode(5));
-    cout << "DS sau khi them 5 vao dau: ";
+    ThemVaoDau(l, KhoiTaoNode(10));
+    cout << "DS sau khi them 10 vao dau: ";
     XuatDS(l);
     system("pause");
     // Them vao cuoi
-    ThemVaoCuoi(l, KhoiTaoNode(5));
-    cout << "DS sau khi them 5 vao cuoi: ";
+    ThemVaoCuoi(l, KhoiTaoNode(10));
+    cout << "DS sau khi them 10 vao cuoi: ";
     XuatDS(l);
     system("pause");
-    // Them vao sau Node Q = 15
-    ThemNodePVaoSauNodeQ(l, KhoiTaoNode(5), 15);
-    cout << "DS sau khi them 5 vao sau Node 15: ";
+    // Them vao sau Node Q = 3
+    ThemNodePVaoSauNodeQ(l, KhoiTaoNode(10), 3);
+    cout << "DS sau khi them 10 vao sau Node 3: ";
     XuatDS(l);
     system("pause");
-    // Xoa dau
-    XoaDau(l);
-    cout << "DS sau khi xoa dau: ";
+    // Xoa Node 8 sau Node 10
+    XoaNodeSauNodeQ(l, KhoiTaoNode(10), 8);
+    cout << "DS sau khi xoa Node 8 sau Node 10: ";
     XuatDS(l);
     system("pause");
-    // Xoa cuoi
-    XoaCuoi(l);
-    cout << "DS sau khi xoa cuoi: ";
+    // Xoa Node 7 sau Node 1
+    XoaNodeSauNodeQ(l, KhoiTaoNode(1), 7);
+    cout << "DS sau khi xoa Node 7 sau Node 1: ";
     XuatDS(l);
     system("pause");
-    // Xoa Node 15 sau Node 10
-    XoaNodeSauNodeQ(l, KhoiTaoNode(10));
-    cout << "DS sau khi xoa Node sau Node 10: ";
+    // Xoa Node 3 sau Node 2
+    XoaNodeSauNodeQ(l, KhoiTaoNode(2), 3);
+    cout << "DS sau khi xoa Node 3 sau Node 2: ";
     XuatDS(l);
 }
