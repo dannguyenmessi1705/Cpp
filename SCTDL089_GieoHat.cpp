@@ -3,10 +3,24 @@
 using namespace std;
 int rx[] = {1, -1, 0, 0};
 int ry[] = {0, 0, 1, -1};
+int ans = 0;
 struct data
 {
     int x, y, s;
 };
+int a[505][505];
+bool check(int m, int n)
+{
+    for (int i = 1; i <= m; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (a[i][j] == 1)
+                return false;
+        }
+    }
+    return true;
+}
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -15,9 +29,8 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, m, ans = 0;
+        int n, m;
         cin >> n >> m;
-        int a[n + 1][m + 1];
         struct data u, v;
         queue<struct data> q;
         u.s = 0;
@@ -38,7 +51,7 @@ int main()
         {
             u = q.front();
             q.pop();
-            ans = max(ans, u.s);
+
             for (int i = 0; i < 4; i++)
             {
                 v.x = u.x + rx[i];
@@ -47,14 +60,16 @@ int main()
                 {
                     a[v.x][v.y] = 2;
                     v.s = u.s + 1;
+                    ans = max(ans, v.s);
                     q.push(v);
                 }
             }
         }
-        for (int i = 1; i <= n; i++)
-            for (int j = 1; j <= m; j++)
-                if (a[i][j] == 1)
-                    ans = -1;
-        cout << ans << endl;
+
+        if (check(n, m))
+            cout << ans;
+        else
+            cout << -1;
+        cout << '\n';
     }
 }
