@@ -16,7 +16,7 @@ void heapify(int a[], int n, int i)
     if (r < n && a[r] > a[largest])
         largest = r;
 
-    // Neu nhu thoa man 1 trong 2 dieu kien tren, doi lai vi tri nut goc lam maxheap
+    // Neu maxHeap tim duoc ko o nut goc, doi lai vi tri nut goc lam maxheap
     if (largest != i)
     {
         swap(a[i], a[largest]);
