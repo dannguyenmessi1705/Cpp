@@ -33,8 +33,7 @@ int ChiaPhan(int a[], int low, int high){ // Hàm trả về vị trí cần chi
 }
 void Sapxep(int a[], int low, int high){
     if(low < high){
-    int pos=ChiaPhan(a, low, high);
-    Sapxep(a, low, pos-1);
+    int pos=ChiaPhan(a, low, high);    Sapxep(a, low, pos-1);
     Sapxep(a, pos+1, high);
     }
 }
