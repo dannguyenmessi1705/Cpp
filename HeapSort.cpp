@@ -1,6 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+void Out(int a[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        cout << a[i] << " ";
+    cout << endl;
+}
 // Ham chuyen phan tu lon nhat ve cac nut goc
 void heapify(int a[], int n, int i)
 {
@@ -40,6 +46,7 @@ void heapSort(int a[], int n)
 
         // Tiep tuc thuc hien heapify de tim ra cac maxHeap
         heapify(a, i, 0);
+        Out(a, n);
     }
 }
 
@@ -54,8 +61,6 @@ int main()
         cout << "a[" << i << "] = ";
         cin >> a[i];
     }
-    heapSort(a, n);
     cout << "Mang sau khi sap xep tang dan: ";
-    for (int i = 0; i < n; ++i)
-        cout << a[i] << " ";
+    heapSort(a, n);
 }
