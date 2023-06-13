@@ -1,12 +1,9 @@
 #include <iostream>
 using namespace std;
 int UCLN(int a, int b){
-    while(a!=0){
-        int tmp=a;
-        a=b%a;
-        b=tmp;
-    }
-    return b;
+    if (a==0) return b;
+    if (b==0) return a;
+    return UCLN(b%a, a);
 }
 int BCNN(int a, int b){
     return a*b/UCLN(a,b);

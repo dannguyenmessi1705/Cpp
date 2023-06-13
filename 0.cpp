@@ -1,32 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool cmp(pair<int, int> a, pair<int, int> b)
-{
-    return a.second < b.second;
-}
-
+int MT[10001][10001];
 int main()
 {
-    int t = 1, n;
-    cin >> t;
-    while (t--)
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n;
+    cin >> n;
+    memset(MT, 0, sizeof(MT));
+    for (int i = 0; i < n; i++)
     {
-        cin >> n;
-        vector<pair<int, int>> cv(n);
-        for (int i = 0; i < n; ++i)
-            cin >> cv[i].first;
-        for (int i = 0; i < n; ++i)
-            cin >> cv[i].second;
-        sort(cv.begin(), cv.end(), cmp);
-        int cnt = 1, cur = cv[0].second;
-        for (int i = 1; i < n; ++i)
+        int x, y;
+        cin >> x >> y;
+        MT[x][y] = 1;
+        MT[y][x] = 1;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
         {
-            if (cv[i].first >= cur)
-            {
-                ++cnt;
-                cur = cv[i].second;
-            }
+            cout << MT[i][j] << " ";
         }
-        cout << cnt << endl;
+        cout << endl;
     }
 }

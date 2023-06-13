@@ -11,27 +11,22 @@ int main()
     {
         int V, E; // Dinh, Canh
         cin >> V >> E;
-        vector<vector<int>> Ke(V + 1);
+        set<int> Ke[V + 5];
 
         for (int i = 0; i < E; i++)
         {
             int u, v;
-            cin >> u >> v;      // nhap canh u,v
-            Ke[u].push_back(v); // them v vao vector u
-            Ke[v].push_back(u); // thêm u vào vector v
-        }
-        // Sap xep cac vector con
-        for (int i = 1; i <= V; i++)
-        {
-            sort(Ke[i].begin(), Ke[i].end());
+            cin >> u >> v;   // nhap canh u,v
+            Ke[u].insert(v); // them v vao vector u
+            Ke[v].insert(u); // thêm u vào vector v
         }
 
         for (int u = 1; u <= V; u++)
         {
             cout << u << ": ";
-            for (int v = 0; v < Ke[u].size(); v++)
+            for (int v : Ke[u])
             {
-                cout << Ke[u][v] << " ";
+                cout << v << " ";
             }
             cout << endl;
         }

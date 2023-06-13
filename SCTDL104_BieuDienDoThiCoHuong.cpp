@@ -1,28 +1,29 @@
 #include <bits/stdc++.h>
-#define endl "\n"
 using namespace std;
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int t;
-    cin >> t;
-    while (t--)
+    cout.tie(0);
+    int test;
+    cin >> test;
+    while (test--)
     {
-        int n, m, u, v;
+        vector<int> adj[10001];
+        int n, m;
         cin >> n >> m;
-        vector<vector<int>> a(n + 1);
-        while (m--)
+        for (int i = 0; i < m; i++)
         {
-            cin >> u >> v;
-            a[u].push_back(v);
+            int x, y;
+            cin >> x >> y;
+            adj[x].push_back(y);
         }
         for (int i = 1; i <= n; i++)
         {
             cout << i << ": ";
-            for (int j = 0; j < a[i].size(); j++)
+            for (int x : adj[i])
             {
-                cout << a[i][j] << " ";
+                cout << x << " ";
             }
             cout << endl;
         }
