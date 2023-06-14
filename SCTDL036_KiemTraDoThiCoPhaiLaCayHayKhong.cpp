@@ -5,7 +5,6 @@ struct Edge
 {
     int u; // Dinh dau
     int v; // Dinh cuoi
-    int w; // Trong so cua canh
 };
 int n, m;          // Khai bao so dinh, so canh
 int sz[10001];     // Khai bao kich thuoc cua 1 tap hop
@@ -53,52 +52,36 @@ bool Union(int x, int y)
 // Ham nhap
 void Nhap()
 {
-    cin >> n >> m;
-    for (int i = 0; i < m; i++)
+    cin >> n;
+    for (int i = 0; i < n - 1; i++)
     {
-        int u, v, w;
-        cin >> u >> v >> w;
-        canh.push_back({u, v, w});
+        int u, v;
+        cin >> u >> v;
+        canh.push_back({u, v});
     }
-}
-// Ham sap xep struct theo do dai canh(w) min to max
-bool Compare(Edge x, Edge y)
-{
-    return x.w < y.w;
 }
 void Kruskal()
 {
     // Tao tap canh cay khung ban dau rong
     vector<Edge> Tree;
-    // Khoi tao trong so duong di
-    int d = 0;
-    // Sap xep cac canh theo trong so chieu dai tu be toi lon
-    sort(canh.begin(), canh.end(), Compare);
     // tim cay khung nho nhat
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        if (Tree.size() == n - 1)
-            break; // Neu so canh trong cay khung bang so dinh - 1, thi bai toan ket thuc
-        else
         {                     // Nguoc lai
             Edge e = canh[i]; // Chon canh dau tien
             if (Union(e.u, e.v))
             {                      // Neu canh co 2 dinh co kha nang tap hop duoc voi nhau
-                d += e.w;          // Ta cong them trong so canh vao duong di
                 Tree.push_back(e); // Them canh vao cay khung
             }
         }
     }
     if (Tree.size() != n - 1)
-        cout << "Do thi khong lien thong";
+        cout << "NO\n";
     else
     {
-        cout << "Trong so cua duong di la: " << d << endl;
-        for (Edge x : Tree)
-        {
-            cout << x.u << " " << x.v << " " << x.w << endl;
-        }
+        cout << "YES\n";
     }
+    canh.clear();
 }
 
 int main()
@@ -106,9 +89,14 @@ int main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    Nhap();
-    make_set();
-    Kruskal();
+    int test;
+    cin >> test;
+    while (test--)
+    {
+        Nhap();
+        make_set();
+        Kruskal();
+    }
     return 0;
 }
 // Input
