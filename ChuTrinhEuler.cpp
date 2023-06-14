@@ -30,7 +30,7 @@ void Euler(int V)
     check.push(V);    // Bat dau cho dinh V vao stack de tim chu trinh
     while (!check.empty())
     {
-        int x = check.top(); // Lan luot cho cac dinh vao trong stack
+        int x = check.top(); // Lan luot lay cac dinh trong stack
         if (adj[x].size() != 0)
         {                            // Neu dinh X con ke voi dinh khac
             int y = *adj[x].begin(); // Chon dinh ke dau tien voi x

@@ -9,7 +9,7 @@ int main()
     cin >> test;
     while (test--)
     {
-        vector<int> adj[10001];
+        vector<int> adj[10001]; // Khoi tao danh sach ke
         int n, m;
         cin >> n >> m;
         for (int i = 0; i < m; i++)

@@ -2,7 +2,7 @@
 using namespace std;
 bool visited[10001];
 int parent[10001];
-vector<int> adj[10001];
+vector<int> adj[10001]; // Khoi tao danh sach ke
 void BFS(int V)
 {
     queue<int> q;      // Khoi tao queue chua cac dinh

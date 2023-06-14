@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 bool visted[10001];
-set<int> adj[10001];
+set<int> adj[10001]; // Khoi tao danh sach ke
 void DFS(int V)
 {
     cout << V << " ";
