@@ -84,8 +84,8 @@ node *newNode(int data)
 int main()
 {
     node *root = newNode(1);
-    root->left = newNode(3);
-    root->right = newNode(2);
+    root->left = newNode(2);
+    root->right = newNode(3);
     root->left->left = newNode(4);
     root->left->right = newNode(5);
 
