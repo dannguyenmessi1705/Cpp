@@ -43,6 +43,7 @@ void Euler(int V)
             check.pop(); // Neu ko con ke voi dinh nao, thi ta tim duoc 1 dinh tu chu trinh Euler
             EC.push_back(x);
         }
+
     }
     reverse(EC.begin(), EC.end());
     for (int i : EC)

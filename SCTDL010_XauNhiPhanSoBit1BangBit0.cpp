@@ -15,7 +15,7 @@ void AddBitToString(int n, string s, int bit1, int bit0)
     if (bit1 < n / 2)
         AddBitToString(n, s + "1", bit1 + 1, bit0);
 
-    // Neu so bit 0 < n/2 thi ta them bit 1 vao chuoi, dong thoi tang bien dem bit0 len 1 don vi
+    // Neu so bit 0 < n/2 thi ta them bit 0 vao chuoi, dong thoi tang bien dem bit0 len 1 don vi
     if (bit0 < n / 2)
         AddBitToString(n, s + "0", bit1, bit0 + 1);
 }

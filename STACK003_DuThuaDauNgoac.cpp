@@ -1,70 +1,45 @@
-// C++ code to implement the above approach
 #include <bits/stdc++.h>
 using namespace std;
-
-// Function to check if the given character is an operator
-// or not
-bool isOperator(char c)
+int checkRedundancy(string s)
 {
-    if (c == '+' || c == '-' || c == '*' || c == '/')
+    // code here
+    stack<char> st;
+    for (int i = 0; i < s.length(); i++)
     {
-        return true;
-    }
-    return false;
-}
-
-// Function to check if the given string contains redundant
-// brackets or not
-bool hasRedundantBrackets(string str)
-{
-    int n = str.length();
-    int count = 0;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (str[i] == '(')
+        char ch = s[i];
+        if (ch == '(' || ch == '+' || ch == '-' || ch == '*' || ch == '/')
         {
-            count++;
+            st.push(ch);
         }
-        else if (str[i] == ')')
+        else if (ch == ')')
         {
-            if (count <= 1)
+            bool what = true;
+            while (!st.empty() && st.top() != '(')
+            {
+                st.pop();
+                what = false;
+            }
+            st.pop();
+            if (what)
             {
                 return true;
             }
-            else
-            {
-                count--;
-                while (i < n - 1 && isOperator(str[i + 1]))
-                {
-                    i += 2;
-                }
-            }
-        }
-        else if (isOperator(str[i]))
-        {
-            continue;
         }
     }
-
     return false;
 }
-
-// Driver code
 int main()
 {
-    string str;
-    getline(cin, str);
-
-    if (hasRedundantBrackets(str))
+    int test;
+    cin >> test;
+    cin.ignore();
+    while (test--)
     {
-        cout << "YES" << endl;
+        string s;
+        getline(cin, s);
+        if (checkRedundancy(s))
+            cout << "Yes\n";
+        else
+            cout << "No\n";
     }
-    else
-    {
-        cout << "NO" << endl;
-    }
-
-    return 0;
 }
-// This code is contributed by Veerendra_Singh_Rajpoot
