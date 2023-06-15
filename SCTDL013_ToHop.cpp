@@ -20,6 +20,7 @@ void dequy(int h, int k, int n)
         else
         {
             dequy(h + 1, k, n);
+            
         }
     }
 }
