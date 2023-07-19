@@ -1,42 +1,31 @@
-// du thua dau ngoac
 #include <bits/stdc++.h>
 using namespace std;
-
+void exam(int i, int *p, int &r)
+{
+    *p = r + i;
+}
+void exam(int *r, int &i, int *p)
+{
+    *p = *r + i;
+}
 int main()
 {
-    int test;
-    cin >> test;
-    while (test--)
-    {
-        string s;
-        cin >> s;
-        vector<char> st;
-        int n = s.size();
-        for (int i = 0; i < n; i++)
-        {
-            if (s[i] != ')')
-            {
-                st.push_back(s[i]);
-            }
-            else
-            {
-                bool ok = 1;
-                while (st.back() != '(')
-                {
-                    if (st.back() == '+' || st.back() == '-' || st.back() == '*' || st.back() == '/')
-                    {
-                        ok = 0;
-                    }
-                    st.pop_back();
-                }
-                if (ok)
-                {
-                    cout << "YES" << endl;
-                    return 0;
-                }
-                st.pop_back();
-            }
+    int i(20), p{22}; // Gán i = 20, p = 22
+    int *r = {&p};    // (r->p) Gán con trỏ r trỏ tới địa chỉ biến p
+    // r = address(p), *r = 22
+    exam(p, r, i);
+    /*
+        exam(22, r, i) {
+            *r = i + p = 20 + 22 = 42
         }
-        cout << "NO" << endl;
-    }
+    */
+    exam(r, i, r);
+    /*
+        exam(r, 20, r){
+            *r = *r + 20 == 42 + 20 = 62
+        }
+    */
+    cout << p << " " << i << " " << *r;
+    // do r được trỏ tới địa chỉ của p -> r thay đổi p cũng đổi
+    // => p = 62, i = 20, *r = 62
 }
