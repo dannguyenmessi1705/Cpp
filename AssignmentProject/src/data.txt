@@ -28,3 +28,4 @@ ID    NAME                          ADDRESS               EMAIL                 
 27    Mitoma                        Japan                 mitom@brighton.jap            4672485255          5*         57.033.322 VND             Hotel
 28    Zlatan Ibrahimovic            Sweden                zalmom@karate.sn              534562221           5*         94.322.100 VND             Learning Karate
 29    Mohamed Salah                 Egypt                 mosalah@king.eg               759255534           5*         642.853.457 VND            Hospital
+30    ReactJS                       Hanoi                 react.dev@gmail.com           0314252553          4*         1.462.411 VND              Netflix
